@@ -1,24 +1,5 @@
-# README
+# AbID Application
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Generates Absolute Identifiers for physical organization of materials on shelves
+for Princeton University Library and handles synchronization of those to
+ArchivesSpace.
