@@ -1,0 +1,8 @@
+@import "~bootstrap/scss/bootstrap";
+
+html, body {
+  height: 100%;
+}
+#main {
+  min-height: calc(100% - 273px - 53px);
+}

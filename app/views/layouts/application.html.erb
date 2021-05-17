@@ -23,7 +23,13 @@
                   ></menu-bar>
       </library-header>
     </div>
-    <%= yield %>
+    <div id="main" class="container">
+      <div class="row">
+        <div class="column">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
     <div class="lux">
       <library-footer></library-footer>
     </div>

@@ -11,6 +11,8 @@ import system from "lux-design-system";
 import "lux-design-system/dist/system/system.css";
 import "lux-design-system/dist/system/tokens/tokens.scss";
 import "channels"
+import "bootstrap"
+import "../stylesheets/application"
 
 Rails.start()
 Turbolinks.start()
