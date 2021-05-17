@@ -8,7 +8,9 @@
     "@rails/webpacker": "5.3.0",
     "turbolinks": "^5.2.0",
     "webpack": "^4.46.0",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^3.3.12",
+    "lux-design-system": "^2.0.4",
+    "vue": "^2.6.12"
   },
   "version": "0.1.0",
   "devDependencies": {

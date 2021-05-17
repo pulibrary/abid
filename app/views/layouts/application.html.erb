@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Abid</title>
+    <title>Absolute Identifiers</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,6 +11,21 @@
   </head>
 
   <body>
+    <div class="lux">
+      <library-header app-name="Absolute Identifier Management" abbr-name="LTR" app-url="https://catalog.princeton.edu" theme="dark">
+        <menu-bar type="main-menu" :menu-items="[
+                        {name: 'Help', component: 'Help', href: '/help/'},
+                        {name: 'Feedback', component: 'Feedback', href: '/feedback/'},
+                        {name: 'Your Account', component: 'Account', href: '/account/', children: [
+                        {name: 'Logout', component: 'Logout', href: '/account/'}
+                        ]}
+                        ]"
+                  ></menu-bar>
+      </library-header>
+    </div>
     <%= yield %>
+    <div class="lux">
+      <library-footer></library-footer>
+    </div>
   </body>
 </html>
