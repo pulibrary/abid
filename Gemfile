@@ -30,6 +30,8 @@ gem "bootsnap", ">= 1.4.4", require: false
 
 gem "pg"
 
+gem "simple_form"
+
 group :development, :test do
   gem "bixby"
   gem "dotenv-rails"

@@ -236,6 +236,9 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
+    simple_form (5.1.0)
+      actionpack (>= 5.2)
+      activemodel (>= 5.2)
     solargraph (0.40.4)
       backport (~> 1.1)
       benchmark
@@ -310,6 +313,7 @@ DEPENDENCIES
   rubocop-rails
   sass-rails (>= 6)
   selenium-webdriver
+  simple_form
   solargraph
   spring
   sqlite3
