@@ -10,6 +10,7 @@
 #  end_box               :integer
 #  first_barcode         :string
 #  location_uri          :string
+#  resource_uri          :string
 #  start_box             :integer
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
