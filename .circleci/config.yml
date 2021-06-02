@@ -1,0 +1,152 @@
+---
+version: 2.1
+executors:
+  abid-executor:
+    docker:
+      - image: circleci/ruby:2.6.5-node-browsers
+        environment:
+          BUNDLER_VERSION: 2.2.6
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          PGHOST: 127.0.0.1
+          PGUSER: abid
+          RAILS_ENV: test
+      - image: postgres:10
+        environment:
+          POSTGRES_USER: abid
+          POSTGRES_DB: abid_test
+          POSTGRES_HOST_AUTH_METHOD: trust
+    working_directory: ~/abid
+
+commands:
+  setup-bundler:
+    description: "Install correct version of bundler and load from cache or bundle install"
+    steps:
+      - run:
+          name: Configure Bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            gem install bundler
+
+      # Which version of bundler?
+      - run:
+          name: Which bundler?
+          command: bundle -v
+
+      # Restore bundle cache
+      - restore_cache:
+          keys:
+            - abid-bundle-v3-{{ checksum "Gemfile.lock" }}
+            - abid-bundle-v3-
+
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install
+
+      # Store bundle cache
+      - save_cache:
+          key: abid-bundle-v3-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+jobs:
+  build:
+    executor: abid-executor
+    steps:
+      - attach_workspace:
+          at: '~/abid'
+      - checkout
+      - setup-bundler
+
+      # Only necessary if app uses webpacker or yarn in some other way
+      - restore_cache:
+          keys:
+            - abid-yarn-v1-{{ checksum "yarn.lock" }}
+            - abid-yarn-v1-
+
+      - run:
+          name: Yarn Install
+          command: yarn install --cache-folder ~/.cache/yarn
+
+      # Store yarn / webpacker cache
+      - save_cache:
+          key: abid-yarn-v1-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+      - persist_to_workspace:
+          root: '~/abid'
+          paths: '*'
+
+  test:
+    executor: abid-executor
+    steps:
+      - attach_workspace:
+          at: '~/abid'
+      - setup-bundler
+
+      # ensure we have psql which we need for db:schema:load
+      - run: sudo apt-get update
+      - run: sudo apt-get install -y postgresql-client || true
+
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run:
+          name: Database setup
+          command: |
+            bin/rails db:create
+            bin/rails db:structure:load
+
+      # Run rspec
+      - run:
+          name: Run rspec
+          command: bundle exec rspec spec/
+
+
+      # Save test results for timing analysis
+      - store_test_results:
+          path: test_results
+
+      - persist_to_workspace:
+          root: '~/abid'
+          paths: '*'
+
+  rubocop:
+    executor: abid-executor
+    steps:
+      - attach_workspace:
+          at: '~/abid'
+      - setup-bundler
+      - run: bundle exec rubocop --disable-pending-cops
+
+  coverage_report:
+    executor: abid-executor
+    steps:
+      - attach_workspace:
+          at: '~/abid'
+      - run: gem install simplecov
+      - run:
+          name: Inspect coverage report
+          command: |
+            RAILS_ENV=test ruby ./scripts/report_coverage.rb
+      - store_artifacts:
+          path: ~/abid/coverage
+          destination: coverage
+
+workflows:
+  build_accept:
+    jobs:
+      - build
+      - rubocop:
+         requires:
+          - build
+      - test:
+         requires:
+          - build
+      - coverage_report:
+         requires:
+          - test
