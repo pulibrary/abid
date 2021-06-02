@@ -15,6 +15,12 @@ AllCops:
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
+Metrics/BlockLength:
+  Exclude:
+    - 'lib/tasks/auto_annotate_models.rake'
+    - 'config/environments/development.rb'
+    - 'config/initializers/simple_form_bootstrap.rb'
+
 Layout/LineLength:
   Exclude:
     - 'config/initializers/simple_form_bootstrap.rb'
