@@ -32,6 +32,9 @@ gem "pg"
 
 gem "simple_form"
 
+gem "devise"
+gem "omniauth-cas"
+
 group :development, :test do
   gem "bixby"
   gem "dotenv-rails"

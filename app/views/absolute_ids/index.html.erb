@@ -1,1 +1,5 @@
-Yo
+<% if current_user.blank? %>
+  <p>Logged Out</p>
+<% else %>
+  <p>Logged In<p>
+<% end %>

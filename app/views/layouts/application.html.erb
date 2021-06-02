@@ -13,14 +13,25 @@
   <body>
     <div class="lux">
       <library-header app-name="Absolute Identifier Management" abbr-name="LTR" app-url="https://catalog.princeton.edu" theme="dark">
+      <% if current_user.blank? %>
         <menu-bar type="main-menu" :menu-items="[
                         {name: 'Help', component: 'Help', href: '/help/'},
                         {name: 'Feedback', component: 'Feedback', href: '/feedback/'},
                         {name: 'Your Account', component: 'Account', href: '/account/', children: [
-                        {name: 'Logout', component: 'Logout', href: '/account/'}
+                        {name: 'Login', component: 'Login', href: '/users/auth/cas'}
                         ]}
                         ]"
                   ></menu-bar>
+      <% else %>
+        <menu-bar type="main-menu" :menu-items="[
+                        {name: 'Help', component: 'Help', href: '/help/'},
+                        {name: 'Feedback', component: 'Feedback', href: '/feedback/'},
+                        {name: 'Your Account', component: 'Account', href: '/account/', children: [
+                        {name: 'Logout', component: 'Logout', href: '/sign_out'}
+                        ]}
+                        ]"
+                  ></menu-bar>
+      <% end %>
       </library-header>
     </div>
     <div id="main" class="container">
