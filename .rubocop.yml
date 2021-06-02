@@ -9,3 +9,7 @@ AllCops:
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+
+Layout/LineLength:
+  Exclude:
+    - 'config/initializers/simple_form_bootstrap.rb'
