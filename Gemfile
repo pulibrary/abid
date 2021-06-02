@@ -24,8 +24,6 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "pry-byebug"
   gem "rspec-rails"
-  gem "rubocop"
-  gem "rubocop-rails"
   gem "solargraph"
   gem "sqlite3"
 end

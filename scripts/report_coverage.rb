@@ -5,7 +5,7 @@ require "simplecov"
 class SimpleCovHelper
   def self.report_coverage(base_dir: "./coverage")
     SimpleCov.configure do
-      minimum_coverage(98)
+      minimum_coverage(100)
     end
     new(base_dir: base_dir).inspect_results
   end
@@ -27,7 +27,7 @@ class SimpleCovHelper
     min_coverage = SimpleCov.minimum_coverage
     min_coverage = min_coverage[:line].to_f if min_coverage.is_a? Hash
     return unless covered_percent < min_coverage
-    $stderr.printf("Coverage (%.2f%%) is below the expected minimum coverage (%.2f%%).\n", covered_percent, SimpleCov.minimum_coverage)
+    $stderr.printf("Coverage (%.2f%%) is below the expected minimum coverage (%.2f%%).\n", covered_percent, SimpleCov.minimum_coverage[:line])
     Kernel.exit SimpleCov::ExitCodes::MINIMUM_COVERAGE
   end
 end

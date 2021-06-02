@@ -340,8 +340,6 @@ DEPENDENCIES
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.3, >= 6.1.3.2)
   rspec-rails
-  rubocop
-  rubocop-rails
   sass-rails (>= 6)
   selenium-webdriver
   simple_form
