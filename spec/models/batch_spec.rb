@@ -43,4 +43,14 @@ RSpec.describe Batch, type: :model do
 
     expect(batch).not_to be_valid
   end
+
+  it "creates abids on save" do
+    batch = FactoryBot.create(:batch)
+
+    expect(batch.absolute_identifiers.length).to eq 1
+
+    abid = batch.absolute_identifiers.first
+    expect(abid.full_identifier).to eq "S-000001"
+    expect(abid.barcode).to eq "32101113342909"
+  end
 end

@@ -32,6 +32,10 @@ class Batch < ApplicationRecord
   has_many :absolute_identifiers, dependent: :destroy
   belongs_to :user
 
+  before_save :create_absolute_identifiers
+
+  private
+
   def call_number_exists_in_aspace
     # Use resource_uri as a cache of its path.
     # @note This falls apart if we need to handle the EAD maybe getting deleted,
@@ -47,10 +51,41 @@ class Batch < ApplicationRecord
 
   def top_containers_exist_in_aspace
     return unless resource_uri.present? && start_box.present? && end_box.present? && end_box >= start_box
-    top_container_uris = aspace_client.find_top_container_uris(repository_uri: repository_uri, ead_id: call_number, indicators: start_box..end_box)
-    if top_container_uris.length < (start_box..end_box).size
+    if top_containers.length < (start_box..end_box).size
       errors.add(:base, "Unable to find matching top containers for all boxes in #{start_box} - #{end_box}")
     end
+  end
+
+  def create_absolute_identifiers
+    top_containers.each_with_index do |top_container, idx|
+      absolute_identifier = AbsoluteIdentifier.new(
+        barcode: barcodes[idx],
+        original_box_number: top_container.indicator,
+        pool_identifier: pool_identifier,
+        prefix: abid_prefix,
+        top_container_uri: top_container.uri
+      )
+      absolute_identifiers << absolute_identifier
+    end
+  end
+
+  # @TODO: Vary this based on location.
+  def pool_identifier
+    "firestone"
+  end
+
+  # @TODO: Vary this based on pool identifier and container profile.
+  def abid_prefix
+    "S"
+  end
+
+  def top_containers
+    @top_containers ||= aspace_client.find_top_containers(repository_uri: repository_uri, ead_id: call_number, indicators: start_box..end_box).sort_by(&:indicator)
+  end
+
+  # @TODO Actually generate the correct barcodes.
+  def barcodes
+    Array.new(top_containers.length, first_barcode)
   end
 
   def repository_uri

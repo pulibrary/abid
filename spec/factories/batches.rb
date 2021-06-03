@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :batch do
     start_box { 31 }
     end_box { 31 }
-    first_barcode { "MyString" }
+    first_barcode { "32101113342909" }
     call_number { "ABID001" }
     location_uri { "MyString" }
     container_profile_uri { "MyString" }

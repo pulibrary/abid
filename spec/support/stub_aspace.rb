@@ -14,7 +14,7 @@ module AspaceStubbing
 
   def stub_top_container_search(ead_id:, repository_id:, indicators:)
     uri = "/repositories/#{repository_id}/search"
-    uri += "?fields[]=uri&page=1&q=collection_identifier_u_stext:#{ead_id}%20indicator_u_icusort:%5B#{indicators.first}%20TO%20#{indicators.last}%5D&type%5B%5D=top_container"
+    uri += "?fields[]=uri&fields[]=indicator_u_icusort&page=1&q=collection_identifier_u_stext:#{ead_id}%20indicator_u_icusort:%5B#{indicators.first}%20TO%20#{indicators.last}%5D&type%5B%5D=top_container"
     path = Rails.root.join("spec", "fixtures", "aspace", ead_id, "top_containers_#{indicators.first}_#{indicators.last}.json")
     cache_path(uri: uri, path: path)
     stub_aspace_request(uri: uri, path: path)
