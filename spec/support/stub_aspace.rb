@@ -46,7 +46,7 @@ module AspaceStubbing
       f.write(result.body)
     end
     WebMock.enable!
-    return JSON.parse(result.body)
+    JSON.parse(result.body)
   end
 
   def cache_client
