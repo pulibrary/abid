@@ -11,4 +11,9 @@ namespace :servers do
     system("rake servers:initialize")
     system("rake servers:initialize RAILS_ENV=test")
   end
+
+  desc "Stop development dependencies"
+  task stop: :environment do
+    system "lando stop"
+  end
 end
