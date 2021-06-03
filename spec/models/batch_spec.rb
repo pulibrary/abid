@@ -3,6 +3,9 @@
 require "rails_helper"
 
 RSpec.describe Batch, type: :model do
+  before do
+    stub_resource(ead_id: "ABID001")
+  end
   it "has a valid factory" do
     expect(FactoryBot.build(:batch)).to be_valid
   end
@@ -19,7 +22,7 @@ RSpec.describe Batch, type: :model do
   end
 
   it "is invalid when given a non-existent call_number" do
-    stub_aspace_login
+    stub_resource(ead_id: "nonexistent")
 
     bad_call_number = FactoryBot.build(:batch, call_number: "nonexistent")
     expect(bad_call_number).not_to be_valid

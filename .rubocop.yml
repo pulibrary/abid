@@ -24,3 +24,9 @@ Metrics/BlockLength:
 Layout/LineLength:
   Exclude:
     - 'config/initializers/simple_form_bootstrap.rb'
+
+Style/GuardClause:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
