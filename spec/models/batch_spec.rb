@@ -6,6 +6,7 @@ RSpec.describe Batch, type: :model do
   before do
     stub_resource(ead_id: "ABID001")
     stub_top_container_search(ead_id: "ABID001", repository_id: "4", indicators: 31..31)
+    stub_location(ref: "/locations/23648")
   end
   it "has a valid factory" do
     expect(FactoryBot.build(:batch)).to be_valid

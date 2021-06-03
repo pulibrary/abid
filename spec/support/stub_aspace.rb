@@ -12,6 +12,12 @@ module AspaceStubbing
     stub_aspace_request(uri: uri, path: path)
   end
 
+  def stub_location(ref:)
+    path = Rails.root.join("spec", "fixtures", "aspace", "locations", "#{ref.split('/').last}.json")
+    cache_path(uri: ref, path: path)
+    stub_aspace_request(uri: ref, path: path)
+  end
+
   def stub_top_container_search(ead_id:, repository_id:, indicators:)
     uri = "/repositories/#{repository_id}/search"
     uri += "?fields[]=uri&fields[]=indicator_u_icusort&page=1"

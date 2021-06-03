@@ -34,6 +34,10 @@ class Batch < ApplicationRecord
 
   before_save :create_absolute_identifiers
 
+  def location
+    @location ||= aspace_client.get_location(ref: location_uri)
+  end
+
   private
 
   def call_number_exists_in_aspace
@@ -57,6 +61,7 @@ class Batch < ApplicationRecord
   end
 
   def create_absolute_identifiers
+    return unless absolute_identifiers.empty?
     top_containers.each_with_index do |top_container, idx|
       absolute_identifier = AbsoluteIdentifier.new(
         barcode: barcodes[idx],
@@ -69,9 +74,8 @@ class Batch < ApplicationRecord
     end
   end
 
-  # @TODO: Vary this based on location.
   def pool_identifier
-    "firestone"
+    location.pool_identifier
   end
 
   # @TODO: Vary this based on pool identifier and container profile.

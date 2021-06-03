@@ -45,5 +45,9 @@ module Aspace
         TopContainer.new(result)
       end
     end
+
+    def get_location(ref:)
+      Location.new(get(ref).parsed)
+    end
   end
 end
