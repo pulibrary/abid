@@ -14,6 +14,15 @@
 #  start_box             :integer
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
+#  user_id               :bigint
+#
+# Indexes
+#
+#  index_batches_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #
 class Batch < ApplicationRecord
   validates :call_number, :container_profile_uri, :start_box, :end_box, presence: true
@@ -21,6 +30,7 @@ class Batch < ApplicationRecord
   validate :call_number_exists_in_aspace
   validate :top_containers_exist_in_aspace
   has_many :absolute_identifiers, dependent: :destroy
+  belongs_to :user
 
   def call_number_exists_in_aspace
     # Use resource_uri as a cache of its path.

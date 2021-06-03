@@ -8,6 +8,7 @@ FactoryBot.define do
     call_number { "ABID001" }
     location_uri { "MyString" }
     container_profile_uri { "MyString" }
+    user
     # resource_uri { "/repositories/4/resources/4188" }
   end
 end
