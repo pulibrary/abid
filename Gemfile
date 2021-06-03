@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "2.6.5"
 
+gem "archivesspace-client"
 gem "bootsnap", ">= 1.4.4", require: false
 gem "devise"
 gem "jbuilder", "~> 2.7"
@@ -17,8 +18,6 @@ gem "simple_form"
 gem "turbolinks", "~> 5"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 gem "webpacker", "~> 5.0"
-
-gem "archivesspace-client", github: "pulibrary/archivesspace-client", branch: "fix_login"
 
 group :development, :test do
   gem "bixby"
