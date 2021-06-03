@@ -8,7 +8,7 @@ ArchivesSpace.
 
 ### Development
 
-#### Setup
+#### Dependencies Setup
 * Install Lando from https://github.com/lando/lando/releases (at least 3.x)
 * See .tool-versions for language version requirements (ruby, nodejs)
 
@@ -17,6 +17,14 @@ bundle install
 yarn install
 ```
 (Remember you'll need to run the above commands on an ongoing basis as dependencies are updated.)
+
+#### Credentials setup
+* Install the necessary environment variables for accessing ArchivesSpace:
+
+```sh
+lpass login YOURNETID@princeton.edu
+rake setup_keys
+```
 
 #### Starting / stopping services
 We use lando to run services required for both test and development environments.
