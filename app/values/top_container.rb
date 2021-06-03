@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class TopContainer
   attr_reader :indicator
   attr_reader :uri
