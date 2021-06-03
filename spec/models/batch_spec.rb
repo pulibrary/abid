@@ -19,6 +19,8 @@ RSpec.describe Batch, type: :model do
   end
 
   it "is invalid when given a non-existent call_number" do
+    stub_aspace_login
+
     bad_call_number = FactoryBot.build(:batch, call_number: "nonexistent")
     expect(bad_call_number).not_to be_valid
   end

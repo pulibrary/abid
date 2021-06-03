@@ -25,6 +25,7 @@ group :development, :test do
   gem "dotenv-rails"
   gem "factory_bot_rails"
   gem "pry-byebug"
+  gem "pry-rails"
   gem "rspec-rails"
   gem "solargraph"
   gem "sqlite3"
@@ -44,4 +45,5 @@ group :test do
   gem "selenium-webdriver"
   gem "simplecov", require: false
   gem "webdrivers"
+  gem "webmock"
 end

@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 module Abid
   def config
-    @config ||= config_yaml.with_indifferent_access
+    @config ||= all_environment_config[Rails.env]
+  end
+
+  def all_environment_config
+    @all_environment_config ||= YAML.safe_load(yaml, aliases: true).with_indifferent_access
   end
 
   private
-
-  def config_yaml
-    YAML.safe_load(yaml, aliases: true)[Rails.env]
-  end
 
   def yaml
     ERB.new(File.read(Rails.root.join("config", "config.yml"))).result
   end
 
-  module_function :config, :config_yaml, :yaml
+  module_function :config, :yaml, :all_environment_config
 end

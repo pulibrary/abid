@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Aspace
   class Client < ArchivesSpace::Client
     def self.config
