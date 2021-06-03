@@ -19,6 +19,7 @@ class Batch < ApplicationRecord
   validates :call_number, :container_profile_uri, :start_box, :end_box, presence: true
   validates :end_box, numericality: { allow_nil: true, greater_than_or_equal_to: ->(batch) { batch.start_box.to_i } }
   validate :call_number_exists_in_aspace
+  validate :top_containers_exist_in_aspace
 
   def call_number_exists_in_aspace
     # Use resource_uri as a cache of its path.
@@ -31,6 +32,19 @@ class Batch < ApplicationRecord
     else
       self.resource_uri = resource_uri
     end
+  end
+
+  def top_containers_exist_in_aspace
+    return unless resource_uri.present? && start_box.present? && end_box.present? && end_box >= start_box
+    top_container_uris = aspace_client.find_top_container_uris(repository_uri: repository_uri, ead_id: call_number, indicators: start_box..end_box)
+    if top_container_uris.length < (start_box..end_box).size
+      errors.add(:base, "Unable to find matching top containers for all boxes in #{start_box} - #{end_box}")
+    end
+  end
+
+  def repository_uri
+    return if resource_uri.blank?
+    resource_uri.to_s.split("/")[0..2].join("/")
   end
 
   def aspace_client
