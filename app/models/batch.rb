@@ -20,6 +20,7 @@ class Batch < ApplicationRecord
   validates :end_box, numericality: { allow_nil: true, greater_than_or_equal_to: ->(batch) { batch.start_box.to_i } }
   validate :call_number_exists_in_aspace
   validate :top_containers_exist_in_aspace
+  has_many :absolute_identifiers, dependent: :destroy
 
   def call_number_exists_in_aspace
     # Use resource_uri as a cache of its path.

@@ -31,3 +31,6 @@ Style/GuardClause:
 
 Style/IfUnlessModifier:
   Enabled: false
+
+RSpec/ExampleLength:
+  Max: 20
