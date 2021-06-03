@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_02_194447) do
+ActiveRecord::Schema.define(version: 2021_06_03_180026) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "absolute_identifiers", force: :cascade do |t|
+    t.integer "original_box_number"
+    t.string "top_container_uri"
+    t.integer "batch_id"
+    t.string "prefix"
+    t.string "suffix"
+    t.string "sync_status"
+    t.string "pool_identifier"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "batches", force: :cascade do |t|
     t.integer "start_box"
