@@ -5,7 +5,6 @@ FactoryBot.define do
     # This is box 31 in ABID001
     top_container_uri { "/repositories/4/top_containers/118271" }
     prefix { "S" }
-    suffix { 1 }
     sync_status { "unsynchronized" }
     pool_identifier { "firestone" }
     batch
