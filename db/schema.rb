@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2021_06_03_180026) do
     t.string "top_container_uri"
     t.integer "batch_id"
     t.string "prefix"
-    t.string "suffix"
+    t.integer "suffix"
     t.string "sync_status"
     t.string "pool_identifier"
     t.datetime "created_at", precision: 6, null: false

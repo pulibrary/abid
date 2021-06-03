@@ -5,7 +5,7 @@ class CreateAbsoluteIdentifiers < ActiveRecord::Migration[6.1]
       t.string :top_container_uri
       t.integer :batch_id
       t.string :prefix
-      t.string :suffix
+      t.integer :suffix
       t.string :sync_status
       t.string :pool_identifier
 
