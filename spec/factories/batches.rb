@@ -7,7 +7,8 @@ FactoryBot.define do
     first_barcode { "32101113342909" }
     call_number { "ABID001" }
     location_uri { "/locations/23648" } # mss
-    container_profile_uri { "MyString" }
+    # "Standard manuscript", S for mudd and B for firestone.
+    container_profile_uri { "/container_profiles/18" }
     user
     # resource_uri { "/repositories/4/resources/4188" }
     factory :mudd_batch do

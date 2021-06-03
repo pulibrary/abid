@@ -38,6 +38,10 @@ class Batch < ApplicationRecord
     @location ||= aspace_client.get_location(ref: location_uri)
   end
 
+  def container_profile
+    @container_profile = aspace_client.get_container_profile(ref: container_profile_uri)
+  end
+
   private
 
   def call_number_exists_in_aspace
@@ -78,9 +82,8 @@ class Batch < ApplicationRecord
     location.pool_identifier
   end
 
-  # @TODO: Vary this based on pool identifier and container profile.
   def abid_prefix
-    "S"
+    @abid_prefix ||= container_profile.abid_prefix(pool_identifier: pool_identifier)
   end
 
   def top_containers

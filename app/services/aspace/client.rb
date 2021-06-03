@@ -49,5 +49,9 @@ module Aspace
     def get_location(ref:)
       Location.new(get(ref).parsed)
     end
+
+    def get_container_profile(ref:)
+      ContainerProfile.new(get(ref).parsed)
+    end
   end
 end
