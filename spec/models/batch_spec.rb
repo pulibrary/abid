@@ -27,4 +27,11 @@ RSpec.describe Batch, type: :model do
     bad_call_number = FactoryBot.build(:batch, call_number: "nonexistent")
     expect(bad_call_number).not_to be_valid
   end
+
+  it "populates resource_uri as a cache when validating the first time" do
+    batch = FactoryBot.build(:batch)
+    batch.valid?
+
+    expect(batch.resource_uri).to eq "/repositories/4/resources/4188"
+  end
 end
