@@ -5,6 +5,7 @@ require "rails_helper"
 RSpec.describe Batch, type: :model do
   before do
     stub_resource(ead_id: "ABID001")
+    stub_top_container_search(ead_id: "ABID001", repository_id: "4", indicators: 31..31)
   end
   it "has a valid factory" do
     expect(FactoryBot.build(:batch)).to be_valid
@@ -33,5 +34,13 @@ RSpec.describe Batch, type: :model do
     batch.valid?
 
     expect(batch.resource_uri).to eq "/repositories/4/resources/4188"
+  end
+
+  it "is invalid when requesting box numbers that don't exist" do
+    stub_top_container_search(ead_id: "ABID001", repository_id: "4", indicators: 40..41)
+    # The last box number in staging is 40.
+    batch = FactoryBot.build(:batch, start_box: 40, end_box: 41)
+
+    expect(batch).not_to be_valid
   end
 end

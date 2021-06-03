@@ -29,5 +29,20 @@ module Aspace
         return uri if uri.present?
       end
     end
+
+    def find_top_container_uris(repository_uri:, ead_id:, indicators:)
+      query_params = []
+      query_params << ["q", "collection_identifier_u_stext:#{ead_id} indicator_u_icusort:[#{indicators.first} TO #{indicators.last}]"]
+
+      query_params << ["type[]", "top_container"]
+      query_params << ["fields[]", "uri"]
+      query_params << ["page", "1"]
+
+      query = URI.encode_www_form(query_params)
+      response = get("#{repository_uri}/search?#{query}")
+      response.parsed.fetch("results", []).map do |result|
+        result["uri"]
+      end
+    end
   end
 end
