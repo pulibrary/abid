@@ -18,11 +18,14 @@ gem "turbolinks", "~> 5"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 gem "webpacker", "~> 5.0"
 
+gem "archivesspace-client", github: "pulibrary/archivesspace-client", branch: "fix_login"
+
 group :development, :test do
   gem "bixby"
   gem "dotenv-rails"
   gem "factory_bot_rails"
   gem "pry-byebug"
+  gem "pry-rails"
   gem "rspec-rails"
   gem "solargraph"
   gem "sqlite3"
@@ -42,4 +45,5 @@ group :test do
   gem "selenium-webdriver"
   gem "simplecov", require: false
   gem "webdrivers"
+  gem "webmock"
 end
