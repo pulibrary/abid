@@ -68,6 +68,14 @@ class Batch < ApplicationRecord
       end
   end
 
+  def synchronized?
+    absolute_identifiers.synchronized.size == absolute_identifiers.size
+  end
+
+  def synchronize
+    absolute_identifiers.each(&:synchronize)
+  end
+
   private
 
   def call_number_exists_in_aspace

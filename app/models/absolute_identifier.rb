@@ -29,6 +29,7 @@ class AbsoluteIdentifier < ApplicationRecord
   belongs_to :batch
   attribute :sync_status, :string, default: "unsynchronized"
   before_save :set_suffix
+  scope :synchronized, -> { where(sync_status: "synchronized") }
 
   def full_identifier
     format("#{prefix}-%.6d", suffix)
