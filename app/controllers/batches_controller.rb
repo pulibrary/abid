@@ -6,6 +6,14 @@ class BatchesController < ApplicationController
     @locations = client.locations
   end
 
+  def show
+    @batch = Batch.find(params[:id])
+
+    respond_to do |format|
+      format.csv { send_data @batch.to_csv, filename: "batch-#{@batch.id}.csv" }
+    end
+  end
+
   def create
     @batch = Batch.new(batch_params)
     @batch.user = current_user

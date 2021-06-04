@@ -2,6 +2,8 @@
 require "rails_helper"
 
 RSpec.describe "Batch management" do
+  let(:user) { FactoryBot.create(:user) }
+
   before do
     stub_resource(ead_id: "ABID001")
     stub_top_container_search(ead_id: "ABID001", repository_id: "4", indicators: 31..31)
@@ -9,7 +11,7 @@ RSpec.describe "Batch management" do
     stub_container_profile(ref: "/container_profiles/18")
     stub_top_container(ref: "/repositories/4/top_containers/118271")
     stub_save_top_container(ref: "/repositories/4/top_containers/118271")
-    sign_in FactoryBot.create(:user)
+    sign_in user
   end
   it "can create and synchronize a batch" do
     visit "/"
@@ -46,5 +48,12 @@ RSpec.describe "Batch management" do
     click_button "Create Batch"
 
     expect(page).to have_content "Unable to find matching top containers for all boxes"
+  end
+  it "generates a CSV report of a batch's absolute ids" do
+    FactoryBot.create(:batch, user: user)
+    visit "/"
+    click_link "Export as CSV"
+    expect(page).to have_content "id,abid,user,barcode,location"
+    expect(page).to have_content "Standard manuscript"
   end
 end

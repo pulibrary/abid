@@ -12,8 +12,9 @@ AllCops:
     - 'node_modules/**/*'
     - 'vendor/**/*'
 
-Style/StringLiterals:
-  EnforcedStyle: double_quotes
+Layout/LineLength:
+  Exclude:
+    - 'config/initializers/simple_form_bootstrap.rb'
 
 Metrics/BlockLength:
   Exclude:
@@ -22,23 +23,26 @@ Metrics/BlockLength:
     - 'config/initializers/simple_form_bootstrap.rb'
     - 'spec/**/*'
 
-Layout/LineLength:
+Metrics/ClassLength:
   Exclude:
-    - 'config/initializers/simple_form_bootstrap.rb'
+    - 'app/models/batch.rb'
 
 Metrics/MethodLength:
   Exclude:
     - 'app/values/container_profile.rb'
+
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/system/**/*'
+
+RSpec/ExampleLength:
+  Max: 20
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
 
 Style/GuardClause:
   Enabled: false
 
 Style/IfUnlessModifier:
   Enabled: false
-
-RSpec/ExampleLength:
-  Max: 20
-
-RSpec/DescribeClass:
-  Exclude:
-    - 'spec/system/**/*'
