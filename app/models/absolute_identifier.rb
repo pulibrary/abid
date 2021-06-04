@@ -39,6 +39,10 @@ class AbsoluteIdentifier < ApplicationRecord
     self.suffix = highest_identifier + 1
   end
 
+  def synchronize
+    Synchronizer.new(absolute_identifier: self).sync!
+  end
+
   private
 
   def highest_identifier
