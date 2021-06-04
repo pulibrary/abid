@@ -2,11 +2,12 @@
 class Location
   FIRESTONE_CODES = ["mss", "hsvm", "rcpxm"].freeze
   MUDD_CODES = ["mudd", "prnc", "rcpph", "oo", "sc", "sls"].freeze
-  attr_reader :code, :title, :uri
+  attr_reader :code, :title, :uri, :source
   def initialize(location_hash)
     @code = location_hash["classification"]
     @title = location_hash["title"]
     @uri = location_hash["uri"]
+    @source = location_hash
   end
 
   def pool_identifier

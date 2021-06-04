@@ -9,6 +9,7 @@
 #  container_profile_uri :string
 #  end_box               :integer
 #  first_barcode         :string
+#  location_data         :jsonb
 #  location_uri          :string
 #  resource_uri          :string
 #  start_box             :integer
@@ -35,7 +36,20 @@ class Batch < ApplicationRecord
   before_save :create_absolute_identifiers
 
   def location
-    @location ||= aspace_client.get_location(ref: location_uri)
+    @location ||=
+      begin
+        if location_data
+          Location.new(location_data)
+        else
+          aspace_client.get_location(ref: location_uri)
+        end
+      end
+  end
+
+  def location_uri=(*args)
+    super.tap do
+      self.location_data = location.source
+    end
   end
 
   def container_profile
