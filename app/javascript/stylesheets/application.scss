@@ -6,3 +6,7 @@ html, body {
 #main {
   min-height: calc(100% - 273px - 53px);
 }
+
+#batch-create {
+  border: 1px solid var(--bs-gray);
+}
