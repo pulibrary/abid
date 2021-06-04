@@ -14,12 +14,11 @@ import "channels"
 import "bootstrap"
 import "../stylesheets/application"
 import $ from 'jquery';
-import dt from 'datatables.net-bs4';
+import 'datatables.net-bs4';
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
-console.log(dt.version)
 
 Vue.use(system)
 // create the LUX app and mount it to wrappers with class="lux"
