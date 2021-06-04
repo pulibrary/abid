@@ -1,0 +1,26 @@
+<div id="batch-create">
+  <%= simple_form_for @batch do |f| %>
+    <div class="row">
+      <div class="col">
+        <%= f.input :first_barcode %>
+      </div>
+      <div class="col">
+        <%= f.input :call_number %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <%= f.input :start_box %>
+      </div>
+      <div class="col">
+        <%= f.input :end_box %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <%= f.button :submit, class: 'btn-primary' %>
+      </div>
+    </div>
+  <% end %>
+</div>
+

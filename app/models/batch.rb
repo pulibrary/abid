@@ -25,7 +25,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Batch < ApplicationRecord
-  validates :call_number, :container_profile_uri, :start_box, :end_box, presence: true
+  validates :first_barcode, :call_number, :container_profile_uri, :start_box, :end_box, presence: true
   validates :end_box, numericality: { allow_nil: true, greater_than_or_equal_to: ->(batch) { batch.start_box.to_i } }
   validate :call_number_exists_in_aspace
   validate :top_containers_exist_in_aspace
