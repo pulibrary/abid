@@ -35,7 +35,7 @@
 
 <h2>Unsynchronized</h2>
 <div id="unsynchronized-batches" class="bg-light col m-3 p-3">
-  <% current_user&.batches.each do |batch| %>
+  <% (current_user&.batches || []).each do |batch| %>
     <div class="row absolute-id-summary bg-white m-3 p-3">
     <% batch.absolute_identifiers.each do |abid| %>
         <div class="col">
