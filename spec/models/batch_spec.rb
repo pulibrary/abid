@@ -6,6 +6,8 @@ RSpec.describe Batch, type: :model do
   before do
     stub_resource(ead_id: "ABID001")
     stub_top_container_search(ead_id: "ABID001", repository_id: "4", indicators: 31..31)
+    stub_location(ref: "/locations/23648")
+    stub_container_profile(ref: "/container_profiles/18")
   end
   it "has a valid factory" do
     expect(FactoryBot.build(:batch)).to be_valid
@@ -42,5 +44,19 @@ RSpec.describe Batch, type: :model do
     batch = FactoryBot.build(:batch, start_box: 40, end_box: 41)
 
     expect(batch).not_to be_valid
+  end
+
+  it "creates abids on save" do
+    stub_top_container_search(ead_id: "ABID001", repository_id: "4", indicators: 31..32)
+    batch = FactoryBot.create(:batch, end_box: 32)
+
+    expect(batch.absolute_identifiers.length).to eq 2
+
+    first_abid = batch.absolute_identifiers.first
+    expect(first_abid.full_identifier).to eq "B-000001"
+    expect(first_abid.barcode).to eq "32101113342909"
+    second_abid = batch.absolute_identifiers.last
+    expect(second_abid.full_identifier).to eq "B-000002"
+    expect(second_abid.barcode).to eq "32101113342917"
   end
 end

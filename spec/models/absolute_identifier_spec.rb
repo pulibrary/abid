@@ -27,12 +27,15 @@ RSpec.describe AbsoluteIdentifier, type: :model do
   describe "automatically setting suffix" do
     before do
       stub_resource(ead_id: "ABID001")
+      stub_location(ref: "/locations/23648")
+      stub_location(ref: "/locations/23649")
+      stub_container_profile(ref: "/container_profiles/18")
       stub_top_container_search(ead_id: "ABID001", repository_id: "4", indicators: 31..31)
     end
     it "sets the suffix as the next value in the pool for the given prefix before_save" do
-      mudd1 = FactoryBot.create(:absolute_identifier, prefix: "S", pool_identifier: "mudd")
-      firestone1 = FactoryBot.create(:absolute_identifier, prefix: "S", pool_identifier: "firestone")
-      firestone2 = FactoryBot.create(:absolute_identifier, prefix: "S", pool_identifier: "firestone")
+      mudd1 = FactoryBot.create(:mudd_batch).absolute_identifiers.first
+      firestone1 = FactoryBot.create(:batch).absolute_identifiers.first
+      firestone2 = FactoryBot.create(:batch).absolute_identifiers.first
 
       expect(mudd1.suffix).to eq 1
       expect(firestone1.suffix).to eq 1

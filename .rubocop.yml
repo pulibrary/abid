@@ -26,6 +26,10 @@ Layout/LineLength:
   Exclude:
     - 'config/initializers/simple_form_bootstrap.rb'
 
+Metrics/MethodLength:
+  Exclude:
+    - 'app/values/container_profile.rb'
+
 Style/GuardClause:
   Enabled: false
 
