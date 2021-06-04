@@ -20,9 +20,17 @@
 class User < ApplicationRecord
   # Include default devise modules
   devise :rememberable, :omniauthable
-  has_many :batches, dependent: :destroy
+  has_many :batches, -> { order(created_at: :desc) }, dependent: :destroy
 
   def self.from_cas(access_token)
     User.find_by(provider: access_token.provider, uid: access_token.uid)
+  end
+
+  def synchronized_batches
+    batches.select(&:synchronized?)
+  end
+
+  def unsynchronized_batches
+    batches.reject(&:synchronized?)
   end
 end

@@ -1,0 +1,28 @@
+  <% batches.each do |batch| %>
+    <h3>Batch <%= batch.id %></h3>
+    <%= link_to "Synchronize", synchronize_batch_path(batch), method: :post, class: 'btn btn-primary' %>
+    <table class="table datatable">
+      <thead>
+        <tr>
+          <th>Identifier</th>
+          <th>Barcode</th>
+          <th>Location</th>
+          <th>Container Profile</th>
+          <th>Container</th>
+          <th>Synchronization</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% batch.absolute_identifiers.each do |abid| %>
+          <tr>
+            <td><%= abid.full_identifier %></td>
+            <td><%= abid.barcode %></td>
+            <td><%= batch.location.title %></td>
+            <td><%= batch.container_profile.name %></td>
+            <td><%= abid.original_box_number %></td>
+            <td><%= abid.sync_status %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
