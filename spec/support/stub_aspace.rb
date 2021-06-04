@@ -5,6 +5,13 @@ module AspaceStubbing
     stub_request(:post, "https://aspace.test.org/staff/api/users/test/login?password=password").to_return(status: 200, body: { session: "1" }.to_json, headers: { "Content-Type": "application/json" })
   end
 
+  def stub_locations
+    uri = "/locations?page=1"
+    path = Rails.root.join("spec", "fixtures", "aspace", "locations_1.json")
+    cache_path(uri: uri, path: path)
+    stub_aspace_request(uri: uri, path: path)
+  end
+
   def stub_repositories
     uri = "/repositories?page=1"
     path = Rails.root.join("spec", "fixtures", "aspace", "repositories_1.json")

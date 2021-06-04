@@ -53,5 +53,11 @@ module Aspace
     def get_container_profile(ref:)
       ContainerProfile.new(get(ref).parsed)
     end
+
+    def locations
+      get("/locations?page=1").parsed["results"].map do |location|
+        Location.new(location)
+      end
+    end
   end
 end
