@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_03_201118) do
+ActiveRecord::Schema.define(version: 2021_06_03_201755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 2021_06_03_201118) do
   create_table "absolute_identifiers", force: :cascade do |t|
     t.integer "original_box_number"
     t.string "top_container_uri"
-    t.integer "batch_id"
     t.string "prefix"
     t.integer "suffix"
     t.string "sync_status"
@@ -26,6 +25,8 @@ ActiveRecord::Schema.define(version: 2021_06_03_201118) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "barcode"
+    t.bigint "batch_id"
+    t.index ["batch_id"], name: "index_absolute_identifiers_on_batch_id"
   end
 
   create_table "batches", force: :cascade do |t|
@@ -53,5 +54,6 @@ ActiveRecord::Schema.define(version: 2021_06_03_201118) do
     t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 
+  add_foreign_key "absolute_identifiers", "batches"
   add_foreign_key "batches", "users"
 end
