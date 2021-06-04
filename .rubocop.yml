@@ -38,3 +38,7 @@ Style/IfUnlessModifier:
 
 RSpec/ExampleLength:
   Max: 20
+
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/system/**/*'

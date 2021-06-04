@@ -13,6 +13,8 @@ import "lux-design-system/dist/system/tokens/tokens.scss";
 import "channels"
 import "bootstrap"
 import "../stylesheets/application"
+import $ from 'jquery';
+import 'datatables.net-bs4';
 
 Rails.start()
 Turbolinks.start()
@@ -27,4 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
       el: elements[i]
     })
   }
+  $('.datatable').DataTable({
+    "searching": false,
+    "paging": false,
+    "info": false
+  })
 })

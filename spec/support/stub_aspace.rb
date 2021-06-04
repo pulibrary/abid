@@ -3,6 +3,22 @@
 module AspaceStubbing
   def stub_aspace_login
     stub_request(:post, "https://aspace.test.org/staff/api/users/test/login?password=password").to_return(status: 200, body: { session: "1" }.to_json, headers: { "Content-Type": "application/json" })
+    stub_locations
+    stub_container_profiles
+  end
+
+  def stub_locations
+    uri = "/locations?page=1&page_size=100"
+    path = Rails.root.join("spec", "fixtures", "aspace", "locations_1.json")
+    cache_path(uri: uri, path: path)
+    stub_aspace_request(uri: uri, path: path)
+  end
+
+  def stub_container_profiles
+    uri = "/container_profiles?page=1&page_size=100"
+    path = Rails.root.join("spec", "fixtures", "aspace", "container_profiles_1.json")
+    cache_path(uri: uri, path: path)
+    stub_aspace_request(uri: uri, path: path)
   end
 
   def stub_repositories

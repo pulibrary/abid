@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 class ContainerProfile
-  attr_reader :name, :uri
+  attr_reader :name, :uri, :source
   def initialize(container_profile_hash)
     @name = container_profile_hash["name"]
     @uri = container_profile_hash["uri"]
+    @source = container_profile_hash
   end
 
   def abid_prefix(pool_identifier:)

@@ -38,6 +38,28 @@ RSpec.describe Batch, type: :model do
     expect(batch.resource_uri).to eq "/repositories/4/resources/4188"
   end
 
+  it "caches location_data" do
+    batch = FactoryBot.create(:batch)
+    batch = described_class.find(batch.id)
+    client = instance_double(Aspace::Client)
+    allow(batch).to receive(:aspace_client).and_return(client)
+
+    # Ensure it uses cached data if possible.
+    expect(batch.location_data).to be_present
+    expect(batch.location.code).to eq "mss"
+  end
+
+  it "caches container_profile_data" do
+    batch = FactoryBot.create(:batch)
+    batch = described_class.find(batch.id)
+    client = instance_double(Aspace::Client)
+    allow(batch).to receive(:aspace_client).and_return(client)
+
+    # Ensure it uses cached data if possible.
+    expect(batch.container_profile_data).to be_present
+    expect(batch.container_profile.name).to eq "Standard manuscript"
+  end
+
   it "is invalid when requesting box numbers that don't exist" do
     stub_top_container_search(ead_id: "ABID001", repository_id: "4", indicators: 40..41)
     # The last box number in staging is 40.

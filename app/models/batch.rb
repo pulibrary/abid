@@ -4,17 +4,19 @@
 #
 # Table name: batches
 #
-#  id                    :bigint           not null, primary key
-#  call_number           :string
-#  container_profile_uri :string
-#  end_box               :integer
-#  first_barcode         :string
-#  location_uri          :string
-#  resource_uri          :string
-#  start_box             :integer
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  user_id               :bigint
+#  id                     :bigint           not null, primary key
+#  call_number            :string
+#  container_profile_data :jsonb
+#  container_profile_uri  :string
+#  end_box                :integer
+#  first_barcode          :string
+#  location_data          :jsonb
+#  location_uri           :string
+#  resource_uri           :string
+#  start_box              :integer
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  user_id                :bigint
 #
 # Indexes
 #
@@ -25,21 +27,45 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Batch < ApplicationRecord
-  validates :call_number, :container_profile_uri, :start_box, :end_box, presence: true
+  validates :first_barcode, :call_number, :container_profile_uri, :location_uri, :start_box, :end_box, presence: true
   validates :end_box, numericality: { allow_nil: true, greater_than_or_equal_to: ->(batch) { batch.start_box.to_i } }
   validate :call_number_exists_in_aspace
   validate :top_containers_exist_in_aspace
   has_many :absolute_identifiers, dependent: :destroy
   belongs_to :user
 
+  before_save :cache_location_data
+  before_save :cache_container_profile_data
   before_save :create_absolute_identifiers
 
   def location
-    @location ||= aspace_client.get_location(ref: location_uri)
+    @location ||=
+      begin
+        if location_data
+          Location.new(location_data)
+        else
+          aspace_client.get_location(ref: location_uri)
+        end
+      end
+  end
+
+  def cache_location_data
+    self.location_data = location.source
+  end
+
+  def cache_container_profile_data
+    self.container_profile_data = container_profile.source
   end
 
   def container_profile
-    @container_profile = aspace_client.get_container_profile(ref: container_profile_uri)
+    @container_profile =
+      begin
+        if container_profile_data
+          ContainerProfile.new(container_profile_data)
+        else
+          aspace_client.get_container_profile(ref: container_profile_uri)
+        end
+      end
   end
 
   private

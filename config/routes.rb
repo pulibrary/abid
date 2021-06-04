@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 Rails.application.routes.draw do
-  root "absolute_ids#index"
-
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+
+  root "batches#index"
+
+  resources :batches, only: [:index, :create]
 
   devise_scope :user do
     get "sign_in", to: "devise/sessions#new", as: :new_user_session
