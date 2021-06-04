@@ -1,6 +1,7 @@
 <div class="row">
   <div id="batch-create" class="bg-light col m-3 p-3">
     <%= simple_form_for @batch do |f| %>
+      <%= f.error_notification message: f.object.errors[:base].to_sentence %>
       <div class="row mb-3">
         <div class="col">
           <%= f.input :first_barcode %>
