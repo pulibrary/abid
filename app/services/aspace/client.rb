@@ -55,8 +55,14 @@ module Aspace
     end
 
     def locations
-      get("/locations?page=1").parsed["results"].map do |location|
+      get("/locations?page=1&page_size=100").parsed["results"].map do |location|
         Location.new(location)
+      end
+    end
+
+    def container_profiles
+      get("/container_profiles?page=1&page_size=100").parsed["results"].map do |container_profile|
+        ContainerProfile.new(container_profile)
       end
     end
   end
