@@ -90,9 +90,13 @@ class Batch < ApplicationRecord
     @top_containers ||= aspace_client.find_top_containers(repository_uri: repository_uri, ead_id: call_number, indicators: start_box..end_box).sort_by(&:indicator)
   end
 
-  # @TODO Actually generate the correct barcodes.
   def barcodes
-    Array.new(top_containers.length, first_barcode)
+    @barcodes ||=
+      begin
+        barcode = BarcodeService.new(first_barcode)
+        new_barcodes = barcode.next(count: top_containers.length - 1)
+        [barcode.barcode] + new_barcodes
+      end
   end
 
   def repository_uri
