@@ -56,4 +56,13 @@ RSpec.describe "Batch management" do
     expect(page).to have_content "id,abid,user,barcode,location"
     expect(page).to have_content "Standard manuscript"
   end
+
+  it "does not submit the form if you hit enter on the barcode", js: true do
+    visit "/"
+    fill_in "First barcode", with: "32101113342909"
+    page.find("#batch_first_barcode").send_keys :return
+
+    expect(page).not_to have_content "Start box can't be blank"
+    expect(page.evaluate_script("document.activeElement.id")).to eq "batch_call_number"
+  end
 end
