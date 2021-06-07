@@ -1,6 +1,7 @@
   <% batches.each do |batch| %>
     <h3>Batch <%= batch.id %></h3>
     <%= link_to "Synchronize", synchronize_batch_path(batch), method: :post, class: 'btn btn-primary' %>
+    <%= link_to "Export as CSV", batch_path(batch, format: "csv"), method: :get, class: 'btn btn-secondary' %>
     <table class="table datatable">
       <thead>
         <tr>

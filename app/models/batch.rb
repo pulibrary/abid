@@ -76,6 +76,16 @@ class Batch < ApplicationRecord
     absolute_identifiers.each(&:synchronize)
   end
 
+  def to_csv
+    CSV.generate(headers: true) do |csv|
+      csv << csv_attributes(absolute_identifiers.first).keys
+
+      absolute_identifiers.each do |record|
+        csv << csv_attributes(record)
+      end
+    end
+  end
+
   private
 
   def call_number_exists_in_aspace
@@ -140,5 +150,19 @@ class Batch < ApplicationRecord
 
   def aspace_client
     @aspace_client ||= Aspace::Client.new
+  end
+
+  def csv_attributes(record)
+    {
+      id: record.id,
+      abid: record.full_identifier,
+      user: user.uid,
+      barcode: record.barcode,
+      location: location.title,
+      container_profile: container_profile_data["name"],
+      call_number: call_number,
+      box_number: record.original_box_number,
+      status: record.sync_status
+    }
   end
 end

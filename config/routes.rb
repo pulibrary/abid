@@ -4,11 +4,12 @@ Rails.application.routes.draw do
 
   root "batches#index"
 
-  resources :batches, only: [:index, :create] do
+  resources :batches, only: [:index, :create, :show] do
     member do
       post :synchronize
     end
   end
+  resources :batches, only: [:index, :create, :show]
 
   devise_scope :user do
     get "sign_in", to: "devise/sessions#new", as: :new_user_session

@@ -96,4 +96,18 @@ RSpec.describe Batch, type: :model do
 
     expect(batch).to be_synchronized
   end
+
+  it "can export attributes as CSV" do
+    batch = FactoryBot.create(:batch)
+    csv = CSV.parse(batch.to_csv, headers: :first_row).map(&:to_h).first
+    expect(csv["id"]).not_to be_nil
+    expect(csv["abid"]).to eq "B-000001"
+    expect(csv["user"]).not_to be_nil
+    expect(csv["barcode"]).to eq "32101113342909"
+    expect(csv["location"]).to eq "Firestone Library, Vault, Manuscripts [mss]"
+    expect(csv["container_profile"]).to eq "Standard manuscript"
+    expect(csv["call_number"]).to eq "ABID001"
+    expect(csv["box_number"]).to eq "31"
+    expect(csv["status"]).to eq "unsynchronized"
+  end
 end
