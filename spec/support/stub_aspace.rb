@@ -40,6 +40,17 @@ module AspaceStubbing
     stub_aspace_request(uri: ref, path: path)
   end
 
+  def stub_top_container(ref:)
+    path = Rails.root.join("spec", "fixtures", "aspace", "top_containers", "#{ref.split('/').last}.json")
+    cache_path(uri: ref, path: path)
+    stub_aspace_request(uri: ref, path: path)
+  end
+
+  def stub_save_top_container(ref:)
+    stub_request(:post, "https://aspace.test.org/staff/api#{ref}")
+      .to_return(status: 200, body: "", headers: { "Content-Type" => "application/json" })
+  end
+
   def stub_top_container_search(ead_id:, repository_id:, indicators:)
     uri = "/repositories/#{repository_id}/search"
     uri += "?fields[]=uri&fields[]=indicator_u_icusort&page=1"

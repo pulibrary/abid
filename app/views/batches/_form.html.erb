@@ -1,0 +1,30 @@
+    <%= simple_form_for @batch do |f| %>
+      <%= f.error_notification message: f.object.errors[:base].to_sentence %>
+      <div class="row mb-3">
+        <div class="col">
+          <%= f.input :first_barcode %>
+        </div>
+        <div class="col">
+          <%= f.input :call_number %>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+          <%= f.input :start_box %>
+        </div>
+        <div class="col">
+          <%= f.input :end_box %>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+          <%= f.input :container_profile_uri, label: "Container profile", collection: @container_profiles, label_method: :name, value_method: :uri %>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+          <%= f.input :location_uri, label: "Location", collection: @locations, label_method: :title, value_method: :uri %>
+        </div>
+      </div>
+      <%= f.button :submit, class: 'btn-primary' %>
+    <% end %>

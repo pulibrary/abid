@@ -81,4 +81,19 @@ RSpec.describe Batch, type: :model do
     expect(second_abid.full_identifier).to eq "B-000002"
     expect(second_abid.barcode).to eq "32101113342917"
   end
+
+  it "can synchronize all member AbIDs" do
+    stub_top_container_search(ead_id: "ABID001", repository_id: "4", indicators: 31..32)
+    batch = FactoryBot.create(:batch, end_box: 32)
+    stub_top_container(ref: batch.absolute_identifiers.first.top_container_uri)
+    stub_top_container(ref: batch.absolute_identifiers.last.top_container_uri)
+    stub_save_top_container(ref: batch.absolute_identifiers.first.top_container_uri)
+    stub_save_top_container(ref: batch.absolute_identifiers.last.top_container_uri)
+
+    expect(batch).not_to be_synchronized
+
+    batch.synchronize
+
+    expect(batch).to be_synchronized
+  end
 end

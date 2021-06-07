@@ -1,0 +1,13 @@
+<div class="flash-message mt-3">
+  <div class="container">
+      <% [[:notice, 'alert-success'],[:error, 'alert-danger'],[:alert, 'alert-info']].each do |type, flash_dom_class| %>
+        <% if flash[type] %>
+          <div class="alert <%= flash_dom_class %> ui-corner-all <%= type.to_s %> alert-dismissible fade show" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <%= sanitize(flash[type]) %>
+          </div>
+          <% flash.delete(type) %>
+        <% end %>
+      <% end %>
+  </div>
+</div>

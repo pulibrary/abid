@@ -42,4 +42,35 @@ RSpec.describe AbsoluteIdentifier, type: :model do
       expect(firestone2.suffix).to eq 2
     end
   end
+
+  describe "#synchronize" do
+    before do
+      stub_resource(ead_id: "ABID001")
+      stub_location(ref: "/locations/23648")
+      stub_container_profile(ref: "/container_profiles/18")
+      stub_top_container(ref: "/repositories/4/top_containers/118271")
+      stub_top_container_search(ead_id: "ABID001", repository_id: "4", indicators: 31..31)
+    end
+    it "synchronizes the identifier, location, and container profile to aspace" do
+      firestone1 = FactoryBot.create(:batch).absolute_identifiers.first
+      save_stub = stub_save_top_container(ref: firestone1.top_container_uri)
+
+      firestone1.synchronize
+
+      expect(firestone1.sync_status).to eq "synchronized"
+      expect(save_stub.with(body: hash_including({ "container_profile" => { "ref" => "/container_profiles/18" } }))).to have_been_made
+      expect(save_stub.with(body: hash_including(
+        { "container_locations" =>
+          [
+            {
+              "jsonmodel_type" => "container_location",
+              "status" => "current",
+              "ref" => "/locations/23648",
+              "start_date" => Date.current.iso8601
+            }
+          ] }
+      ))).to have_been_made
+      expect(save_stub.with(body: hash_including({ "indicator" => "B-000001" }))).to have_been_made
+    end
+  end
 end

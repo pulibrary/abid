@@ -18,6 +18,13 @@ class BatchesController < ApplicationController
     end
   end
 
+  def synchronize
+    @batch = Batch.find(params[:id])
+    @batch.synchronize
+    flash.notice = "Synchronized Batch #{@batch.id}"
+    redirect_to root_path
+  end
+
   def client
     @client ||= Aspace::Client.new
   end

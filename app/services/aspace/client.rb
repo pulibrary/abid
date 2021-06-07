@@ -54,6 +54,10 @@ module Aspace
       ContainerProfile.new(get(ref).parsed)
     end
 
+    def get_top_container(ref:)
+      TopContainer.new(get(ref).parsed)
+    end
+
     def locations
       get("/locations?page=1&page_size=100").parsed["results"].map do |location|
         Location.new(location)
@@ -64,6 +68,11 @@ module Aspace
       get("/container_profiles?page=1&page_size=100").parsed["results"].map do |container_profile|
         ContainerProfile.new(container_profile)
       end.sort_by(&:name)
+    end
+
+    def save_top_container(top_container:)
+      output = post(top_container.uri, top_container.source.to_json)
+      raise unless output.status.code == "200"
     end
   end
 end

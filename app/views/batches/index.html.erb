@@ -1,65 +1,14 @@
 <div class="row">
   <div id="batch-create" class="bg-light col m-3 p-3">
-    <%= simple_form_for @batch do |f| %>
-      <%= f.error_notification message: f.object.errors[:base].to_sentence %>
-      <div class="row mb-3">
-        <div class="col">
-          <%= f.input :first_barcode %>
-        </div>
-        <div class="col">
-          <%= f.input :call_number %>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col">
-          <%= f.input :start_box %>
-        </div>
-        <div class="col">
-          <%= f.input :end_box %>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col">
-          <%= f.input :container_profile_uri, label: "Container profile", collection: @container_profiles, label_method: :name, value_method: :uri %>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col">
-          <%= f.input :location_uri, label: "Location", collection: @locations, label_method: :title, value_method: :uri %>
-        </div>
-      </div>
-      <%= f.button :submit, class: 'btn-primary' %>
-    <% end %>
+    <%= render "form" %>
   </div>
 </div>
 
 <h2>Unsynchronized</h2>
 <div id="unsynchronized-batches" class="bg-light col m-3 p-3">
-  <% (current_user&.batches&.order(created_at: :desc) || []).each do |batch| %>
-    <h3>Batch <%= batch.id %></h3>
-    <table class="table datatable">
-      <thead>
-        <tr>
-          <th>Identifier</th>
-          <th>Barcode</th>
-          <th>Location</th>
-          <th>Container Profile</th>
-          <th>Container</th>
-          <th>Synchronization</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% batch.absolute_identifiers.each do |abid| %>
-          <tr>
-            <td><%= abid.full_identifier %></td>
-            <td><%= abid.barcode %></td>
-            <td><%= batch.location.title %></td>
-            <td><%= batch.container_profile.name %></td>
-            <td><%= abid.original_box_number %></td>
-            <td><%= abid.sync_status %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% end %>
+  <%= render partial: "batch_table", locals: { batches: current_user&.unsynchronized_batches || [] } %>
+</div>
+<h2>Synchronized</h2>
+<div id="synchronized-batches" class="bg-light col m-3 p-3">
+  <%= render partial: "batch_table", locals: { batches: current_user&.synchronized_batches || [] } %>
 </div>
