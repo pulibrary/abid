@@ -15,6 +15,7 @@ import "bootstrap"
 import "../stylesheets/application"
 import $ from 'jquery';
 import 'datatables.net-bs4';
+import BatchForm from "batch_form"
 
 Rails.start()
 Turbolinks.start()
@@ -34,4 +35,5 @@ document.addEventListener("DOMContentLoaded", () => {
     "paging": false,
     "info": false
   })
+  new BatchForm()
 })
