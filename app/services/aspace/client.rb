@@ -56,6 +56,23 @@ module Aspace
       end
     end
 
+    def find_barcodes(barcodes:)
+      query_params = []
+      query_params << ["q", "barcode_u_icusort:(#{barcodes.join(' OR ')})"]
+
+      query_params << ["type[]", "top_container"]
+      query_params << ["fields[]", "uri"]
+      query_params << ["fields[]", "indicator_u_icusort"]
+      query_params << ["fields[]", "barcode_u_icusort"]
+      query_params << ["page", "1"]
+
+      query = URI.encode_www_form(query_params)
+      response = get("/search?#{query}")
+      response.parsed.fetch("results", []).map do |result|
+        TopContainer.new(result)
+      end
+    end
+
     def get_location(ref:)
       Location.new(get(ref).parsed)
     end

@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :batch do
     start_box { 31 }
     end_box { 31 }
-    first_barcode { "32101113342909" }
+    first_barcode { "32101113344905" }
     call_number { "ABID001" }
     location_uri { "/locations/23648" } # mss
     # "Standard manuscript", S for mudd and B for firestone.

@@ -68,7 +68,15 @@ RSpec.describe Batch, type: :model do
     expect(batch).not_to be_valid
   end
 
+  it "is invalid when it would request a barcode which already exists in aspace" do
+    stub_barcode_search(barcodes: ["32101113342719"])
+    batch = FactoryBot.build(:batch, first_barcode: "32101113342719")
+
+    expect(batch).not_to be_valid
+  end
+
   it "creates abids on save" do
+    stub_barcode_search(barcodes: ["32101113344905", "32101113344913"])
     stub_top_container_search(ead_id: "ABID001", repository_id: "4", indicators: 31..32)
     batch = FactoryBot.create(:batch, end_box: 32)
 
@@ -76,13 +84,14 @@ RSpec.describe Batch, type: :model do
 
     first_abid = batch.absolute_identifiers.first
     expect(first_abid.full_identifier).to eq "B-000001"
-    expect(first_abid.barcode).to eq "32101113342909"
+    expect(first_abid.barcode).to eq "32101113344905"
     second_abid = batch.absolute_identifiers.last
     expect(second_abid.full_identifier).to eq "B-000002"
-    expect(second_abid.barcode).to eq "32101113342917"
+    expect(second_abid.barcode).to eq "32101113344913"
   end
 
   it "can synchronize all member AbIDs" do
+    stub_barcode_search(barcodes: ["32101113344905", "32101113344913"])
     stub_top_container_search(ead_id: "ABID001", repository_id: "4", indicators: 31..32)
     batch = FactoryBot.create(:batch, end_box: 32)
     stub_top_container(ref: batch.absolute_identifiers.first.top_container_uri)
@@ -103,7 +112,7 @@ RSpec.describe Batch, type: :model do
     expect(csv["id"]).not_to be_nil
     expect(csv["abid"]).to eq "B-000001"
     expect(csv["user"]).not_to be_nil
-    expect(csv["barcode"]).to eq "32101113342909"
+    expect(csv["barcode"]).to eq "32101113344905"
     expect(csv["location"]).to eq "Firestone Library, Vault, Manuscripts [mss]"
     expect(csv["container_profile"]).to eq "Standard manuscript"
     expect(csv["call_number"]).to eq "ABID001"

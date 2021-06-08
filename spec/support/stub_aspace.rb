@@ -174,9 +174,19 @@ module AspaceStubbing
     stub_aspace_request(uri: uri, path: path)
   end
 
+  def stub_barcode_search(barcodes:)
+    uri = "/search?fields%5B%5D=barcode_u_icusort&fields%5B%5D=indicator_u_icusort&fields%5B%5D=uri&page=1"
+    uri += "&q=barcode_u_icusort:(#{barcodes.join(' OR ')})&type%5B%5D=top_container"
+    path = Rails.root.join("spec", "fixtures", "aspace", "top_containers_barcodes_#{barcodes.join('_')}.json")
+    cache_path(uri: uri, path: path)
+    stub_aspace_request(uri: uri, path: path)
+  end
+
   def stub_resource(ead_id: nil)
     stub_aspace_login
     stub_repositories
+    # This barcode is searched a lot, just stub it.
+    stub_barcode_search(barcodes: ["32101113344905"])
     repository_uris = Aspace::Client.new.repositories.map { |x| x["uri"] }
     repository_uris.each do |repository_uri|
       uri = "#{repository_uri}/find_by_id/resources?identifier[]=[\"#{ead_id}\"]"

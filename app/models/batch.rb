@@ -31,6 +31,7 @@ class Batch < ApplicationRecord
   validates :end_box, numericality: { allow_nil: true, greater_than_or_equal_to: ->(batch) { batch.start_box.to_i } }
   validate :call_number_exists_in_aspace
   validate :top_containers_exist_in_aspace
+  validate :barcodes_not_in_aspace
   has_many :absolute_identifiers, dependent: :destroy
   belongs_to :user
 
@@ -101,11 +102,23 @@ class Batch < ApplicationRecord
     end
   end
 
+  def barcodes_not_in_aspace
+    return unless ready_for_aspace_checks?
+    matches = aspace_client.find_barcodes(barcodes: barcodes)
+    if matches.present?
+      errors.add(:base, "One of the generated barcodes are already in ArchivesSpace.")
+    end
+  end
+
   def top_containers_exist_in_aspace
-    return unless resource_uri.present? && start_box.present? && end_box.present? && end_box >= start_box
+    return unless ready_for_aspace_checks?
     if top_containers.length < (start_box..end_box).size
       errors.add(:base, "Unable to find matching top containers for all boxes in #{start_box} - #{end_box}")
     end
+  end
+
+  def ready_for_aspace_checks?
+    resource_uri.present? && start_box.present? && end_box.present? && end_box >= start_box
   end
 
   def create_absolute_identifiers
