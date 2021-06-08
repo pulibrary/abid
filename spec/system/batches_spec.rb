@@ -29,12 +29,12 @@ RSpec.describe "Batch management" do
     expect(batch.absolute_identifiers.size).to eq 1
 
     within("#unsynchronized-batches") do
-      expect(page).to have_content "B-000001"
+      expect(page).to have_content "B-001556"
     end
 
     click_link "Synchronize"
     within("#synchronized-batches") do
-      expect(page).to have_content "B-000001"
+      expect(page).to have_content "B-001556"
     end
     expect(page).to have_content "Synchronized Batch"
   end

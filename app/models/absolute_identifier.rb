@@ -47,6 +47,28 @@ class AbsoluteIdentifier < ApplicationRecord
   private
 
   def highest_identifier
-    self.class.where(prefix: prefix, pool_identifier: pool_identifier).order(suffix: :desc).pick(:suffix) || 0
+    self.class.where(prefix: prefix, pool_identifier: pool_identifier).order(suffix: :desc).pick(:suffix) || last_legacy_identifier
+  end
+
+  # The old database ended identifiers for each pool at certain numbers - ensure
+  # we start from those numbers.
+  def last_legacy_identifier
+    legacy_identifiers.dig(pool_identifier, prefix) || 0
+  end
+
+  def legacy_identifiers
+    {
+      "firestone" => {
+        "S" => 241,
+        "Z" => 33,
+        "Q" => 972,
+        "P" => 152,
+        "N" => 2503,
+        "L" => 29,
+        "F" => 182,
+        "E" => 110,
+        "B" => 1555
+      }
+    }
   end
 end
