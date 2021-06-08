@@ -9,7 +9,6 @@ Rails.application.routes.draw do
       post :synchronize
     end
   end
-  resources :batches, only: [:index, :create, :show]
 
   devise_scope :user do
     get "sign_in", to: "devise/sessions#new", as: :new_user_session
