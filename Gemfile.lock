@@ -377,6 +377,7 @@ DEPENDENCIES
   bixby
   bootsnap (>= 1.4.4)
   capistrano (~> 3.10)
+  capistrano-bundler (~> 2.0)
   capistrano-passenger
   capistrano-rails (~> 1.4)
   capybara (>= 3.26)

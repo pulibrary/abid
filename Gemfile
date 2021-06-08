@@ -36,6 +36,7 @@ group :development do
   gem "annotate"
   gem "bcrypt_pbkdf"
   gem "capistrano", "~> 3.10", require: false
+  gem 'capistrano-bundler', '~> 2.0'
   gem "capistrano-passenger", require: false
   gem "capistrano-rails", "~> 1.4", require: false
   gem "ed25519"
