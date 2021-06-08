@@ -1,6 +1,50 @@
 # frozen_string_literal: true
 
 module AspaceStubbing
+  def stub_unauthorized_user(uid:, uri:)
+    stub_aspace_login
+    stub_request(:get, "https://aspace.test.org/staff/api/users?page=1").to_return(
+      status: 200,
+      headers: {
+        "Content-Type" => "application/json"
+      },
+      body: {
+        first_page: 1,
+        last_page: 1,
+        this_page: 1,
+        total: 1,
+        results: [
+          {
+            lock_version: 1,
+            username: uid,
+            name: uid,
+            is_system_user: false,
+            create_time: Time.current.iso8601,
+            system_mtime: Time.current.iso8601,
+            user_mtime: Time.current.iso8601,
+            jsonmodel_type: "user",
+            groups: [],
+            is_admin: false,
+            uri: uri
+          }
+        ]
+      }.to_json
+    )
+    stub_request(:get, "https://aspace.test.org/staff/api/users?page=2").to_return(
+      status: 200,
+      headers: {
+        "Content-Type" => "application/json"
+      },
+      body: {
+        first_page: 1,
+        last_page: 1,
+        this_page: 2,
+        total: 1,
+        results: []
+      }.to_json
+    )
+  end
+
   def stub_aspace_login
     stub_request(:post, "https://aspace.test.org/staff/api/users/test/login?password=password").to_return(status: 200, body: { session: "1" }.to_json, headers: { "Content-Type": "application/json" })
     stub_locations

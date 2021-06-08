@@ -30,6 +30,12 @@ module Aspace
       end
     end
 
+    def find_aspace_user(username)
+      users.find do |user|
+        user["username"] == username
+      end
+    end
+
     def find_top_containers(repository_uri:, ead_id:, indicators:)
       query_params = []
       query_params << ["q", "collection_identifier_u_stext:#{ead_id} indicator_u_icusort:[#{indicators.first} TO #{indicators.last}]"]

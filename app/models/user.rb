@@ -5,6 +5,7 @@
 # Table name: users
 #
 #  id                  :bigint           not null, primary key
+#  aspace_uri          :string
 #  provider            :string           default("cas"), not null
 #  remember_created_at :datetime
 #  uid                 :string           not null
@@ -23,7 +24,22 @@ class User < ApplicationRecord
   has_many :batches, -> { order(created_at: :desc) }, dependent: :destroy
 
   def self.from_cas(access_token)
-    User.find_by(provider: access_token.provider, uid: access_token.uid)
+    user = User.find_by(provider: access_token.provider, uid: access_token.uid)
+    user_with_aspace_uri(user) || create_user_from_aspace(access_token)
+  end
+
+  def self.create_user_from_aspace(access_token)
+    aspace_user = Aspace::Client.new.find_aspace_user(access_token.uid)
+    return if aspace_user.blank?
+    User.create(provider: access_token.provider, uid: access_token.uid, aspace_uri: aspace_user["uri"])
+  end
+
+  def self.user_with_aspace_uri(user)
+    if user && user.aspace_uri.blank?
+      aspace_user = Aspace::Client.new.find_aspace_user(user.uid)
+      user.update(aspace_uri: aspace_user&.fetch("uri", nil))
+    end
+    user
   end
 
   def synchronized_batches
