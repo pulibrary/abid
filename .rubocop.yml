@@ -31,6 +31,10 @@ Metrics/MethodLength:
   Exclude:
     - 'app/values/container_profile.rb'
 
+Metrics/ModuleLength:
+  Exclude:
+    - 'spec/support/stub_aspace.rb'
+
 RSpec/DescribeClass:
   Exclude:
     - 'spec/system/**/*'
