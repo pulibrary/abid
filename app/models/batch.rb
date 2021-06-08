@@ -31,6 +31,7 @@ class Batch < ApplicationRecord
   validates :end_box, numericality: { allow_nil: true, greater_than_or_equal_to: ->(batch) { batch.start_box.to_i } }
   validate :call_number_exists_in_aspace
   validate :top_containers_exist_in_aspace
+  validate :first_barcode_valid
   validate :barcodes_not_in_aspace
   has_many :absolute_identifiers, dependent: :destroy
   belongs_to :user
@@ -88,6 +89,11 @@ class Batch < ApplicationRecord
   end
 
   private
+
+  def first_barcode_valid
+    return true if BarcodeService.valid?(first_barcode)
+    errors.add(:first_barcode, "is not valid")
+  end
 
   def call_number_exists_in_aspace
     # Use resource_uri as a cache of its path.
