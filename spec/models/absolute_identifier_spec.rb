@@ -32,14 +32,14 @@ RSpec.describe AbsoluteIdentifier, type: :model do
       stub_container_profile(ref: "/container_profiles/18")
       stub_top_container_search(ead_id: "ABID001", repository_id: "4", indicators: 31..31)
     end
-    it "sets the suffix as the next value in the pool for the given prefix before_save" do
+    it "sets the suffix as the next value in the pool for the given prefix before_save, using the old database's starting points" do
       mudd1 = FactoryBot.create(:mudd_batch).absolute_identifiers.first
       firestone1 = FactoryBot.create(:batch).absolute_identifiers.first
       firestone2 = FactoryBot.create(:batch).absolute_identifiers.first
 
       expect(mudd1.suffix).to eq 1
-      expect(firestone1.suffix).to eq 1
-      expect(firestone2.suffix).to eq 2
+      expect(firestone1.suffix).to eq 1556
+      expect(firestone2.suffix).to eq 1557
     end
   end
 
@@ -70,7 +70,7 @@ RSpec.describe AbsoluteIdentifier, type: :model do
             }
           ] }
       ))).to have_been_made
-      expect(save_stub.with(body: hash_including({ "indicator" => "B-000001" }))).to have_been_made
+      expect(save_stub.with(body: hash_including({ "indicator" => "B-001556" }))).to have_been_made
     end
   end
 end

@@ -83,10 +83,10 @@ RSpec.describe Batch, type: :model do
     expect(batch.absolute_identifiers.length).to eq 2
 
     first_abid = batch.absolute_identifiers.first
-    expect(first_abid.full_identifier).to eq "B-000001"
+    expect(first_abid.full_identifier).to eq "B-001556"
     expect(first_abid.barcode).to eq "32101113344905"
     second_abid = batch.absolute_identifiers.last
-    expect(second_abid.full_identifier).to eq "B-000002"
+    expect(second_abid.full_identifier).to eq "B-001557"
     expect(second_abid.barcode).to eq "32101113344913"
   end
 
@@ -110,7 +110,7 @@ RSpec.describe Batch, type: :model do
     batch = FactoryBot.create(:batch)
     csv = CSV.parse(batch.to_csv, headers: :first_row).map(&:to_h).first
     expect(csv["id"]).not_to be_nil
-    expect(csv["abid"]).to eq "B-000001"
+    expect(csv["abid"]).to eq "B-001556"
     expect(csv["user"]).not_to be_nil
     expect(csv["barcode"]).to eq "32101113344905"
     expect(csv["location"]).to eq "Firestone Library, Vault, Manuscripts [mss]"
