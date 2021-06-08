@@ -42,6 +42,15 @@ class User < ApplicationRecord
     user
   end
 
+  def authorized?
+    if aspace_uri.present?
+      aspace_info = Aspace::Client.new.user_info(ref: aspace_uri)
+      aspace_info["is_admin"] || aspace_info["permissions"].values.inject(:+).present?
+    else
+      false
+    end
+  end
+
   def synchronized_batches
     batches.select(&:synchronized?)
   end

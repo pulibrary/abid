@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AspaceStubbing
-  def stub_unauthorized_user(uid:, uri:)
+  def stub_user(uid:, uri:)
     stub_aspace_login
     stub_request(:get, "https://aspace.test.org/staff/api/users?page=1").to_return(
       status: 200,
@@ -43,6 +43,76 @@ module AspaceStubbing
         results: []
       }.to_json
     )
+  end
+
+  def stub_unauthorized_user(uid:, uri:)
+    stub_user(uid: uid, uri: uri)
+    stub_request(:get, "https://aspace.test.org/staff/api/users/1").to_return(
+      status: 200,
+      headers: {
+        "Content-Type" => "application/json"
+      },
+      body: unauthorized_user(uid).to_json
+    )
+  end
+
+  def stub_admin_user(uid:, uri:)
+    stub_user(uid: uid, uri: uri)
+    stub_request(:get, "https://aspace.test.org/staff/api/users/1").to_return(
+      status: 200,
+      headers: {
+        "Content-Type" => "application/json"
+      },
+      body: admin_user(uid).to_json
+    )
+  end
+
+  def stub_staff_user(uid:, uri:)
+    stub_user(uid: uid, uri: uri)
+    stub_request(:get, "https://aspace.test.org/staff/api/users/1").to_return(
+      status: 200,
+      headers: {
+        "Content-Type" => "application/json"
+      },
+      body: staff_user(uid).to_json
+    )
+  end
+
+  def admin_user(uid)
+    unauthorized_user(uid).merge(
+      "is_admin": true
+    )
+  end
+
+  def staff_user(uid)
+    unauthorized_user(uid).merge(
+      "permissions":
+      {
+        "/repositories/5": ["update_resource_record", "update_digital_object_record", "update_event_record", "delete_event_record", "view_suppressed"],
+        "_archivesspace": ["update_subject_record", "delete_subject_record", "update_agent_record", "delete_agent_record", "update_vocabulary_record"]
+      }
+    )
+  end
+
+  def unauthorized_user(uid)
+    {
+      "lock_version": 15,
+      "username": uid,
+      "name": uid,
+      "is_system_user": false,
+      "create_time": "2019-06-06T13:33:54Z",
+      "system_mtime": "2019-08-29T14:38:01Z",
+      "user_mtime": "2019-08-29T14:38:01Z",
+      "jsonmodel_type": "user",
+      "groups": [],
+      "is_admin": false,
+      "uri": "/users/1",
+      "permissions": {
+        "_archivesspace": []
+      }
+    }
+    #
+    # }
   end
 
   def stub_aspace_login
