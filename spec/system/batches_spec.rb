@@ -55,7 +55,7 @@ RSpec.describe "Batch management" do
     FactoryBot.create(:batch, user: user)
     visit "/"
     click_link "Export as CSV"
-    expect(page).to have_content "id,abid,user,barcode,location"
+    expect(page).to have_content "id,abid,box_number,user,barcode,location"
     expect(page).to have_content "Standard manuscript"
   end
 

@@ -175,12 +175,12 @@ class Batch < ApplicationRecord
     {
       id: record.id,
       abid: record.full_identifier,
+      box_number: record.original_box_number,
       user: user.uid,
       barcode: record.barcode,
       location: location.title,
       container_profile: container_profile_data["name"],
       call_number: call_number,
-      box_number: record.original_box_number,
       status: record.sync_status
     }
   end
