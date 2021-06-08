@@ -1,1 +1,12 @@
-<%= link_to "LOGIN with NetID", "/users/auth/cas", class: "btn btn-primary" %>
+<div id="welcome" class="row m-3 p-3 align-items-center align-content-center">
+  <h2>Absolute Identifier Management</h1>
+  <% if current_user %>
+    This system is only accessible by users of Princeton University Library's ArchivesSpace.
+  <% else %>
+    <div class="col-4"></div>
+    <div id="welcome-login" class="col-3">
+      <%= link_to "LOGIN with NetID", "/users/auth/cas", class: "btn btn-primary" %>
+    </div>
+    <div class="col-4"></div>
+  <% end %>
+</div>

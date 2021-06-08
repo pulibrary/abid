@@ -12,7 +12,7 @@
 
   <body>
     <div class="lux">
-      <library-header app-name="Absolute Identifier Management" abbr-name="LTR" app-url="https://catalog.princeton.edu" theme="dark">
+      <library-header app-name="Absolute Identifier Management" abbr-name="LTR" app-url="<%= root_path %>" theme="dark">
       <% if current_user.blank? %>
         <menu-bar type="main-menu" :menu-items="[
                         {name: 'Help', component: 'Help', href: '/help/'},

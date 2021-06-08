@@ -10,3 +10,13 @@ html, body {
 #batch-create {
   border: 1px solid var(--bs-gray);
 }
+
+#welcome {
+  height: calc(100vh - 273px - 53px);
+  h2 {
+    text-align: center;
+  }
+  #welcome-login {
+    text-align: center;
+  }
+}

@@ -2,9 +2,11 @@
 require "rails_helper"
 
 RSpec.describe "Batch management" do
-  let(:user) { FactoryBot.create(:user) }
+  let(:user) { User.from_cas(access_token) }
+  let(:access_token) { OmniAuth::AuthHash.new(provider: "cas", uid: "user") }
 
   before do
+    stub_admin_user(uid: "user", uri: "/users/1")
     stub_resource(ead_id: "ABID001")
     stub_top_container_search(ead_id: "ABID001", repository_id: "4", indicators: 31..31)
     stub_location(ref: "/locations/23648")
