@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class BatchesController < ApplicationController
+  before_action :require_authorization
+
   def index
     @batch = Batch.new
     @container_profiles = client.container_profiles

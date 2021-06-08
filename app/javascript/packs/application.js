@@ -16,20 +16,24 @@ import "../stylesheets/application"
 import $ from 'jquery';
 import 'datatables.net-bs4';
 import BatchForm from "batch_form"
+import TurbolinksAdapter from 'vue-turbolinks';
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
+Vue.use(TurbolinksAdapter);
 Vue.use(system)
 // create the LUX app and mount it to wrappers with class="lux"
-document.addEventListener("DOMContentLoaded", () => {
+var loadPage = () => {
   var elements = document.getElementsByClassName("lux")
   for (var i = 0; i < elements.length; i++) {
     new Vue({
       el: elements[i]
     })
   }
+}
+document.addEventListener("DOMContentLoaded", () => {
   $('.datatable').DataTable({
     "searching": false,
     "paging": false,
@@ -37,3 +41,4 @@ document.addEventListener("DOMContentLoaded", () => {
   })
   new BatchForm()
 })
+document.addEventListener("turbolinks:load", loadPage)
