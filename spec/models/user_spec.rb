@@ -27,6 +27,11 @@ RSpec.describe User, type: :model do
   end
 
   describe "#authorized?" do
+    context "when there's no aspace user" do
+      it "returns false" do
+        expect(FactoryBot.create(:user)).not_to be_authorized
+      end
+    end
     context "when there's no permissions set in aspace" do
       it "returns false" do
         stub_unauthorized_user(uid: "user", uri: "/users/1")
