@@ -12,6 +12,10 @@ class TopContainer
     source["indicator"] = val
   end
 
+  def barcode=(val)
+    source["barcode"] = val
+  end
+
   def location=(ref)
     source["container_locations"] = [
       {

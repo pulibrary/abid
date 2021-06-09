@@ -10,6 +10,7 @@
 #  container_profile_uri  :string
 #  end_box                :integer
 #  first_barcode          :string
+#  generate_abid          :boolean          default(TRUE)
 #  location_data          :jsonb
 #  location_uri           :string
 #  resource_uri           :string

@@ -26,5 +26,6 @@
           <%= f.input :location_uri, label: "Location", collection: @locations, label_method: :title, value_method: :uri %>
         </div>
       </div>
+      <%= f.input :generate_abid, label: "Generate Absolute Identifier" %>
       <%= f.button :submit, class: 'btn-primary' %>
     <% end %>
