@@ -9,6 +9,12 @@ html, body {
 
 #batch-create {
   border: 1px solid var(--bs-gray);
+  input.boolean {
+    background-color: var(--bs-blue) !important;
+  }
+  label.boolean {
+    color: black !important;
+  }
 }
 
 #welcome {

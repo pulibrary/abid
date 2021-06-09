@@ -32,16 +32,25 @@ class AbsoluteIdentifier < ApplicationRecord
   scope :synchronized, -> { where(sync_status: "synchronized") }
 
   def full_identifier
+    return if suffix.blank?
     format("#{prefix}-%.6d", suffix)
   end
 
   def set_suffix
-    return if suffix.present?
+    return if suffix.present? || !generate_abid
     self.suffix = highest_identifier + 1
   end
 
   def synchronize
     Synchronizer.new(absolute_identifier: self).sync!
+  end
+
+  def generate_abid
+    if batch
+      batch.generate_abid
+    else
+      true
+    end
   end
 
   private

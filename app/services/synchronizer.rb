@@ -8,7 +8,9 @@ class Synchronizer
   def sync!
     absolute_identifier.sync_status = "synchronizing"
     absolute_identifier.save
-    top_container.indicator = absolute_identifier.full_identifier
+    if absolute_identifier.generate_abid
+      top_container.indicator = absolute_identifier.full_identifier
+    end
     top_container.location = absolute_identifier.batch.location_uri
     top_container.container_profile = absolute_identifier.batch.container_profile_uri
     aspace_client.save_top_container(top_container: top_container)

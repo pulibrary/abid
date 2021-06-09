@@ -5,6 +5,9 @@ RSpec.describe AbsoluteIdentifier, type: :model do
   it "has a valid factory" do
     expect(FactoryBot.build(:absolute_identifier)).to be_valid
   end
+  it "generates abids by default" do
+    expect(described_class.new.generate_abid).to eq true
+  end
   it "is unsynchronized by default" do
     expect(described_class.new.sync_status).to eq "unsynchronized"
   end
@@ -32,14 +35,24 @@ RSpec.describe AbsoluteIdentifier, type: :model do
       stub_container_profile(ref: "/container_profiles/18")
       stub_top_container_search(ead_id: "ABID001", repository_id: "4", indicators: 31..31)
     end
-    it "sets the suffix as the next value in the pool for the given prefix before_save, using the old database's starting points" do
-      mudd1 = FactoryBot.create(:mudd_batch).absolute_identifiers.first
-      firestone1 = FactoryBot.create(:batch).absolute_identifiers.first
-      firestone2 = FactoryBot.create(:batch).absolute_identifiers.first
+    context "when generate_abid is true" do
+      it "sets the suffix as the next value in the pool for the given prefix before_save, using the old database's starting points" do
+        mudd1 = FactoryBot.create(:mudd_batch).absolute_identifiers.first
+        firestone1 = FactoryBot.create(:batch).absolute_identifiers.first
+        firestone2 = FactoryBot.create(:batch).absolute_identifiers.first
 
-      expect(mudd1.suffix).to eq 1
-      expect(firestone1.suffix).to eq 1556
-      expect(firestone2.suffix).to eq 1557
+        expect(mudd1.suffix).to eq 1
+        expect(firestone1.suffix).to eq 1556
+        expect(firestone2.suffix).to eq 1557
+      end
+    end
+    context "when generate_abid is false" do
+      it "does not set a suffix" do
+        firestone1 = FactoryBot.create(:batch, generate_abid: false).absolute_identifiers.first
+
+        expect(firestone1.suffix).to be_blank
+        expect(firestone1.full_identifier).to be_blank
+      end
     end
   end
 
@@ -71,6 +84,27 @@ RSpec.describe AbsoluteIdentifier, type: :model do
           ] }
       ))).to have_been_made
       expect(save_stub.with(body: hash_including({ "indicator" => "B-001556" }))).to have_been_made
+    end
+    it "doesn't synchronize identifier if generate_abid is false" do
+      firestone1 = FactoryBot.create(:batch, generate_abid: false).absolute_identifiers.first
+      save_stub = stub_save_top_container(ref: firestone1.top_container_uri)
+
+      firestone1.synchronize
+
+      expect(firestone1.sync_status).to eq "synchronized"
+      expect(save_stub.with(body: hash_including({ "container_profile" => { "ref" => "/container_profiles/18" } }))).to have_been_made
+      expect(save_stub.with(body: hash_including(
+        { "container_locations" =>
+          [
+            {
+              "jsonmodel_type" => "container_location",
+              "status" => "current",
+              "ref" => "/locations/23648",
+              "start_date" => Date.current.iso8601
+            }
+          ] }
+      ))).to have_been_made
+      expect(save_stub.with(body: hash_including({ "indicator" => "31" }))).to have_been_made
     end
   end
 end

@@ -23,6 +23,7 @@ RSpec.describe BatchesController do
 
       expect(response.body).to have_select "Container profile", with_options: ["Elephant size box"]
       expect(response.body).to have_select "Location", with_options: ["Annex, Annex B [anxb]"]
+      expect(response.body).to have_checked_field "Generate Absolute Identifier"
     end
   end
   context "when not logged in" do
