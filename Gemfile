@@ -8,6 +8,7 @@ ruby "2.6.6"
 gem "archivesspace-client"
 gem "bootsnap", ">= 1.4.4", require: false
 gem "devise"
+gem "honeybadger", "~> 4.0"
 gem "jbuilder", "~> 2.7"
 gem "omniauth-cas"
 gem "pg"
