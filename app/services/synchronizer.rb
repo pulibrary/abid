@@ -13,6 +13,7 @@ class Synchronizer
     end
     top_container.location = absolute_identifier.batch.location_uri
     top_container.container_profile = absolute_identifier.batch.container_profile_uri
+    top_container.barcode = absolute_identifier.barcode
     aspace_client.save_top_container(top_container: top_container)
     absolute_identifier.sync_status = "synchronized"
     absolute_identifier.save

@@ -84,6 +84,7 @@ RSpec.describe AbsoluteIdentifier, type: :model do
           ] }
       ))).to have_been_made
       expect(save_stub.with(body: hash_including({ "indicator" => "B-001556" }))).to have_been_made
+      expect(save_stub.with(body: hash_including({ "barcode" => firestone1.barcode }))).to have_been_made
     end
     it "doesn't synchronize identifier if generate_abid is false" do
       firestone1 = FactoryBot.create(:batch, generate_abid: false).absolute_identifiers.first
@@ -105,6 +106,7 @@ RSpec.describe AbsoluteIdentifier, type: :model do
           ] }
       ))).to have_been_made
       expect(save_stub.with(body: hash_including({ "indicator" => "31" }))).to have_been_made
+      expect(save_stub.with(body: hash_including({ "barcode" => firestone1.barcode }))).to have_been_made
     end
   end
 end
