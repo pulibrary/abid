@@ -40,6 +40,6 @@ class BatchesController < ApplicationController
   end
 
   def batch_params
-    params.require(:batch).permit(:call_number, :start_box, :end_box, :container_profile_uri, :location_uri, :first_barcode)
+    params.require(:batch).permit(:call_number, :start_box, :end_box, :container_profile_uri, :location_uri, :first_barcode, :generate_abid)
   end
 end
