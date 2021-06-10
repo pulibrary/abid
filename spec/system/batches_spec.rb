@@ -38,6 +38,21 @@ RSpec.describe "Batch management" do
     end
     expect(page).to have_content "Synchronized Batch"
   end
+  it "can delete unsynchronized batches", js: true do
+    batch = FactoryBot.create(:batch, user: user)
+    identifier = batch.absolute_identifiers.first
+    visit batches_path
+
+    within("#unsynchronized-batches") do
+      expect(page).to have_link "Delete"
+      accept_confirm do
+        click_link "Delete"
+      end
+    end
+
+    expect(page).to have_content "Deleted Batch"
+    expect(page).not_to have_content identifier.full_identifier
+  end
   it "displays errors if something is wrong" do
     stub_top_container_search(ead_id: "ABID001", repository_id: "4", indicators: 40..41)
     visit "/"

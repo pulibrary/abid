@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   root "welcome#index"
 
-  resources :batches, only: [:index, :create, :show] do
+  resources :batches, only: [:index, :create, :show, :destroy] do
     member do
       post :synchronize
     end
