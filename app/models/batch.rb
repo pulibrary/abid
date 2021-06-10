@@ -33,6 +33,7 @@ class Batch < ApplicationRecord
   validate :call_number_exists_in_aspace
   validate :top_containers_exist_in_aspace
   validate :first_barcode_valid
+  validate :barcodes_not_taken
   validate :barcodes_not_in_aspace
   has_many :absolute_identifiers, dependent: :destroy
   belongs_to :user
@@ -106,6 +107,13 @@ class Batch < ApplicationRecord
       errors.add(:call_number, "does not exist in ArchivesSpace")
     else
       self.resource_uri = resource_uri
+    end
+  end
+
+  def barcodes_not_taken
+    return unless ready_for_aspace_checks?
+    unless AbsoluteIdentifier.where(barcode: barcodes).empty?
+      errors.add(:base, "One of the generated barcodes is already attached to an item in the system.")
     end
   end
 
