@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     member do
       post :synchronize
     end
+    collection do
+      post :synchronize_all
+    end
   end
 
   devise_scope :user do

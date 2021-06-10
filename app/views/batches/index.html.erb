@@ -6,6 +6,7 @@
 
 <h2>Unsynchronized</h2>
 <div id="unsynchronized-batches" class="bg-light col m-3 p-3">
+  <%= link_to "Synchronize All", synchronize_all_batches_path, method: :post, class: "btn btn-primary" %>
   <%= render partial: "batch_table", locals: { batches: current_user&.unsynchronized_batches || [] } %>
 </div>
 <h2>Synchronized</h2>

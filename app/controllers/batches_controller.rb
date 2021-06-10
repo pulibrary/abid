@@ -39,11 +39,17 @@ class BatchesController < ApplicationController
     redirect_to batches_path
   end
 
+  def synchronize_all
+    current_user.unsynchronized_batches.each(&:synchronize)
+    flash.notice = "Synchronized all unsynchronized batches"
+    redirect_to batches_path
+  end
+
   def synchronize
     @batch = Batch.find(params[:id])
     @batch.synchronize
     flash.notice = "Synchronized Batch #{@batch.id}"
-    redirect_to root_path
+    redirect_to batches_path
   end
 
   def new_batch
