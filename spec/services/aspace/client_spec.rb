@@ -6,12 +6,12 @@ RSpec.describe Aspace::Client do
     stub_aspace_login
   end
   describe "#locations" do
-    it "returns all locations" do
+    it "returns configured locations" do
       client = described_class.new
 
       locations = client.locations
-      expect(locations.size).to eq 26
-      expect(locations[0].title).to eq "Annex, Annex B [anxb]"
+      expect(locations.size).to eq 9
+      expect(locations[0].title).to eq "Firestone Library, High Security Vault, Manuscripts [hsvm]"
     end
   end
 

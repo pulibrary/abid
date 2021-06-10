@@ -2,6 +2,11 @@
 class Location
   FIRESTONE_CODES = ["mss", "hsvm", "rcpxm"].freeze
   MUDD_CODES = ["mudd", "prnc", "rcpph", "oo", "sc", "sls"].freeze
+
+  def self.configured_codes
+    FIRESTONE_CODES + MUDD_CODES
+  end
+
   attr_reader :code, :title, :uri, :source
   def initialize(location_hash)
     @code = location_hash["classification"]

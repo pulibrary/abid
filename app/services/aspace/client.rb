@@ -86,9 +86,12 @@ module Aspace
     end
 
     def locations
-      get("/locations?page=1&page_size=100").parsed["results"].map do |location|
+      locations = get("/locations?page=1&page_size=100").parsed["results"].map do |location|
         Location.new(location)
       end.sort_by(&:title)
+      locations.select do |location|
+        Location.configured_codes.include?(location.code)
+      end
     end
 
     def container_profiles
