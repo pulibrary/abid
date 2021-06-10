@@ -25,6 +25,9 @@ RSpec.describe "Batch management" do
     select "Standard manuscript", from: "Container profile"
     click_button "Create Batch"
 
+    # Ensure form is pre-filled for the next barcode.
+    expect(page).to have_field "First barcode", with: "32101113344913"
+
     batch = Batch.first
     expect(batch.absolute_identifiers.size).to eq 1
 
