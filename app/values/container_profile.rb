@@ -47,13 +47,13 @@ class ContainerProfile
         "Mudd OS length" => "LO",
         "Mudd OS length, depth" => "LD",
         "Mudd OS height-extra" => "XH",
-        "Mudd OS Extra height, depth" => "XHD",
         "Standard records center" => "S",
         "Standard manuscript" => "S",
         "Standard half-manuscript" => "S",
         "Standard other" => "S",
         "Mudd OS open" => "O",
-        "Mudd OS folder" => "C"
+        "Mudd OS folder" => "C",
+        "Mudd OS height, depth-extra" => "XHD"
       }
     }
     sizes["global"] = sizes["firestone"]
