@@ -11,7 +11,17 @@ class ContainerProfile
     sizes.dig(pool_identifier, name) || "UNKNOWN"
   end
 
+  # @return [Boolean] whether or not the container profile name is set up in
+  #   code to work.
+  def configured?
+    configured_names.include?(name)
+  end
+
   private
+
+  def configured_names
+    @configured_names ||= sizes.values.flat_map(&:keys)
+  end
 
   def sizes
     sizes = {
@@ -23,7 +33,6 @@ class ContainerProfile
         "Elephant size box" => "P",
         "Elephant volume" => "E",
         "Folio" => "F",
-        "NBox" => "B",
         "Standard records center" => "B",
         "Standard manuscript" => "B",
         "Standard half-manuscript" => "B",
@@ -36,14 +45,15 @@ class ContainerProfile
         "Mudd OS depth" => "DO",
         "Mudd OS height" => "H",
         "Mudd OS length" => "LO",
-        "Mudd OS Extra height" => "XH",
+        "Mudd OS length, depth" => "LD",
+        "Mudd OS height-extra" => "XH",
         "Mudd OS Extra height, depth" => "XHD",
         "Standard records center" => "S",
         "Standard manuscript" => "S",
         "Standard half-manuscript" => "S",
         "Standard other" => "S",
         "Mudd OS open" => "O",
-        "Mudd Oversize folder" => "C"
+        "Mudd OS folder" => "C"
       }
     }
     sizes["global"] = sizes["firestone"]
