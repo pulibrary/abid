@@ -185,8 +185,10 @@ module AspaceStubbing
   def stub_resource(ead_id: nil)
     stub_aspace_login
     stub_repositories
-    # This barcode is searched a lot, just stub it.
+    # These barcodes are searched a lot, just stub them.
     stub_barcode_search(barcodes: ["32101113344905"])
+    stub_barcode_search(barcodes: ["32101113344913"])
+    stub_barcode_search(barcodes: ["32101113344921"])
     repository_uris = Aspace::Client.new.repositories.map { |x| x["uri"] }
     repository_uris.each do |repository_uri|
       uri = "#{repository_uri}/find_by_id/resources?identifier[]=[\"#{ead_id}\"]"

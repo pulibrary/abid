@@ -82,6 +82,17 @@ RSpec.describe Batch, type: :model do
     expect(batch).not_to be_valid
   end
 
+  it "is invalid when another Batch exists with that barcode" do
+    stub_barcode_search(barcodes: ["32101113344913"])
+    stub_barcode_search(barcodes: ["32101113344905", "32101113344913"])
+    stub_top_container_search(ead_id: "ABID001", repository_id: "4", indicators: 31..32)
+    FactoryBot.create(:batch, first_barcode: "32101113344905", end_box: 32)
+
+    batch = FactoryBot.build(:batch, first_barcode: "32101113344913")
+
+    expect(batch).not_to be_valid
+  end
+
   it "creates abids on save" do
     stub_barcode_search(barcodes: ["32101113344905", "32101113344913"])
     stub_top_container_search(ead_id: "ABID001", repository_id: "4", indicators: 31..32)

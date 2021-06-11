@@ -38,8 +38,8 @@ RSpec.describe AbsoluteIdentifier, type: :model do
     context "when generate_abid is true" do
       it "sets the suffix as the next value in the pool for the given prefix before_save, using the old database's starting points" do
         mudd1 = FactoryBot.create(:mudd_batch).absolute_identifiers.first
-        firestone1 = FactoryBot.create(:batch).absolute_identifiers.first
-        firestone2 = FactoryBot.create(:batch).absolute_identifiers.first
+        firestone1 = FactoryBot.create(:batch, first_barcode: "32101113344913").absolute_identifiers.first
+        firestone2 = FactoryBot.create(:batch, first_barcode: "32101113344921").absolute_identifiers.first
 
         expect(mudd1.suffix).to eq 1
         expect(firestone1.suffix).to eq 1556
