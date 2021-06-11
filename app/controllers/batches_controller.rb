@@ -3,7 +3,7 @@ class BatchesController < ApplicationController
   before_action :require_authorization
 
   def index
-    @batch = Batch.new
+    @batch = new_batch
     @container_profiles = client.container_profiles
     @locations = client.locations
   end
@@ -20,7 +20,7 @@ class BatchesController < ApplicationController
     @batch = Batch.new(batch_params)
     @batch.user = current_user
     if @batch.save
-      redirect_to root_path
+      redirect_to batches_path(created_batch: @batch.id)
     else
       @container_profiles = client.container_profiles
       @locations = client.locations
@@ -33,6 +33,16 @@ class BatchesController < ApplicationController
     @batch.synchronize
     flash.notice = "Synchronized Batch #{@batch.id}"
     redirect_to root_path
+  end
+
+  def new_batch
+    if params[:created_batch]
+      batch = Batch.find(params[:created_batch])
+      new_barcode = BarcodeService.new(batch.barcodes.last).next(count: 1).last
+      Batch.new(first_barcode: new_barcode)
+    else
+      Batch.new
+    end
   end
 
   def client

@@ -89,6 +89,15 @@ class Batch < ApplicationRecord
     end
   end
 
+  def barcodes
+    @barcodes ||=
+      begin
+        barcode = BarcodeService.new(first_barcode)
+        new_barcodes = barcode.next(count: top_containers.length - 1)
+        [barcode.barcode] + new_barcodes
+      end
+  end
+
   private
 
   def first_barcode_valid
@@ -152,15 +161,6 @@ class Batch < ApplicationRecord
 
   def top_containers
     @top_containers ||= aspace_client.find_top_containers(repository_uri: repository_uri, ead_id: call_number, indicators: start_box..end_box).sort_by(&:indicator)
-  end
-
-  def barcodes
-    @barcodes ||=
-      begin
-        barcode = BarcodeService.new(first_barcode)
-        new_barcodes = barcode.next(count: top_containers.length - 1)
-        [barcode.barcode] + new_barcodes
-      end
   end
 
   def repository_uri
