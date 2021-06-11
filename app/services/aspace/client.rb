@@ -95,9 +95,10 @@ module Aspace
     end
 
     def container_profiles
-      get("/container_profiles?page=1&page_size=100").parsed["results"].map do |container_profile|
+      container_profiles = get("/container_profiles?page=1&page_size=100").parsed["results"].map do |container_profile|
         ContainerProfile.new(container_profile)
       end.sort_by(&:name)
+      container_profiles.select(&:configured?)
     end
 
     def save_top_container(top_container:)
