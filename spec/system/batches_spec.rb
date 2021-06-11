@@ -31,6 +31,8 @@ RSpec.describe "Batch management" do
     batch = Batch.first
     expect(batch.absolute_identifiers.size).to eq 1
 
+    expect(page).to have_link "Synchronize All", href: "/batches/synchronize_all"
+
     within("#unsynchronized-batches") do
       expect(page).to have_content "B-001556"
     end

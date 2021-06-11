@@ -43,9 +43,11 @@ RSpec.describe BatchesController do
 
   context "when logged in as an admin" do
     let(:access_token) { OmniAuth::AuthHash.new(provider: "cas", uid: "user") }
+    let(:user) do
+      User.from_cas(access_token)
+    end
     before do
       stub_admin_user(uid: "user", uri: "/users/1")
-      user = User.from_cas(access_token)
       sign_in user
     end
 
@@ -62,6 +64,27 @@ RSpec.describe BatchesController do
       expect(response.body).not_to have_select "Location", with_options: ["Annex, Annex B [anxb]"]
       expect(response.body).to have_select "Location", with_options: ["Firestone Library, Vault, Manuscripts [mss]"]
       expect(response.body).to have_checked_field "Generate Absolute Identifier"
+    end
+
+    describe "#synchronize_all" do
+      before do
+        stub_resource(ead_id: "ABID001")
+        stub_top_container_search(ead_id: "ABID001", repository_id: "4", indicators: 31..31)
+        stub_location(ref: "/locations/23648")
+        stub_container_profile(ref: "/container_profiles/18")
+        stub_top_container(ref: "/repositories/4/top_containers/118271")
+        stub_save_top_container(ref: "/repositories/4/top_containers/118271")
+      end
+      it "synchronizes all unsynchronized batches" do
+        FactoryBot.create(:batch, user: user)
+        expect(user.unsynchronized_batches.size).to eq 1
+
+        post "/batches/synchronize_all"
+        expect(response).to redirect_to batches_path
+
+        expect(user.unsynchronized_batches.size).to eq 0
+        expect(user.synchronized_batches.size).to eq 1
+      end
     end
   end
   context "when not logged in" do
