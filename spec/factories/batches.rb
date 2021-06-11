@@ -14,5 +14,10 @@ FactoryBot.define do
     factory :mudd_batch do
       location_uri { "/locations/23649" } # mudd
     end
+    factory :synchronized_batch do
+      after(:create) do |batch, _|
+        batch.absolute_identifiers.update(sync_status: "synchronized")
+      end
+    end
   end
 end

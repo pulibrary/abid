@@ -28,6 +28,17 @@ class BatchesController < ApplicationController
     end
   end
 
+  def destroy
+    @batch = Batch.find(params[:id])
+    if @batch.synchronized?
+      flash.alert = "Unable to delete synchronized Batches."
+    else
+      @batch.destroy
+      flash.notice = "Deleted Batch #{@batch.id}"
+    end
+    redirect_to batches_path
+  end
+
   def synchronize
     @batch = Batch.find(params[:id])
     @batch.synchronize
