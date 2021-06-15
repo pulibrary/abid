@@ -20,7 +20,7 @@ RSpec.describe Aspace::Client do
       client = described_class.new
 
       container_profiles = client.container_profiles
-      expect(container_profiles.size).to eq 21
+      expect(container_profiles.size).to eq 25
       expect(container_profiles[0].name).to eq "BoxQ"
     end
   end
