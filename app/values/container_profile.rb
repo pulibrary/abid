@@ -26,7 +26,7 @@ class ContainerProfile
   def sizes
     sizes = {
       "firestone" => {
-        "Objects" => "C",
+        "Object" => "C",
         "BoxQ" => "L",
         "Double Elephant size box" => "Z",
         "Double Elephant volume" => "D",
