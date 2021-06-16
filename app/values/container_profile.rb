@@ -26,7 +26,7 @@ class ContainerProfile
   def sizes
     sizes = {
       "firestone" => {
-        "Objects" => "C",
+        "Object" => "C",
         "BoxQ" => "L",
         "Double Elephant size box" => "Z",
         "Double Elephant volume" => "D",
@@ -39,7 +39,11 @@ class ContainerProfile
         "Standard other" => "B",
         "Ordinary" => "N",
         "Quarto" => "Q",
-        "Small" => "S"
+        "Small" => "S",
+        "Firestone Flat File Large Slim" => "FF",
+        "Firestone Flat File Medium" => "FF",
+        "Firestone Flat File XL" => "FF",
+        "Firestone Flat File XL Slim" => "FF"
       },
       "mudd" => {
         "Mudd OS depth" => "DO",
