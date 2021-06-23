@@ -40,7 +40,7 @@ class Batch < ApplicationRecord
 
   before_save :cache_location_data
   before_save :cache_container_profile_data
-  before_save :create_absolute_identifiers
+  after_save :create_absolute_identifiers
 
   def location
     @location ||=
@@ -148,14 +148,14 @@ class Batch < ApplicationRecord
   def create_absolute_identifiers
     return unless absolute_identifiers.empty?
     top_containers.each_with_index do |top_container, idx|
-      absolute_identifier = AbsoluteIdentifier.new(
+      AbsoluteIdentifier.create!(
         barcode: barcodes[idx],
         original_box_number: top_container.indicator,
         pool_identifier: pool_identifier,
         prefix: abid_prefix,
-        top_container_uri: top_container.uri
+        top_container_uri: top_container.uri,
+        batch: self
       )
-      absolute_identifiers << absolute_identifier
     end
   end
 

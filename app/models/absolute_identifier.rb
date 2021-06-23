@@ -18,6 +18,7 @@
 #
 # Indexes
 #
+#  absolute_identifiers_uniqueness         (prefix,suffix,pool_identifier) UNIQUE
 #  index_absolute_identifiers_on_batch_id  (batch_id)
 #
 # Foreign Keys
