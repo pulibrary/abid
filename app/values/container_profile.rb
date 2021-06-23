@@ -24,22 +24,25 @@ class ContainerProfile
   end
 
   def sizes
+    # TODO: Uncomment firestone ones when MARC record support is implemented in
+    # production. These are disabled now so the old database can use these
+    # prefixes.
     sizes = {
       "firestone" => {
-        "Object" => "C",
+        # "Object" => "C",
         "BoxQ" => "L",
         "Double Elephant size box" => "Z",
-        "Double Elephant volume" => "D",
+        # "Double Elephant volume" => "D",
         "Elephant size box" => "P",
-        "Elephant volume" => "E",
-        "Folio" => "F",
+        # "Elephant volume" => "E",
+        # "Folio" => "F",
         "Standard records center" => "B",
         "Standard manuscript" => "B",
         "Standard half-manuscript" => "B",
         "Standard other" => "B",
-        "Ordinary" => "N",
-        "Quarto" => "Q",
-        "Small" => "S",
+        # "Ordinary" => "N",
+        # "Quarto" => "Q",
+        # "Small" => "S",
         "Firestone Flat File Large Slim" => "FF",
         "Firestone Flat File Medium" => "FF",
         "Firestone Flat File XL" => "FF",
