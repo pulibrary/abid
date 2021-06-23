@@ -20,7 +20,10 @@ RSpec.describe Aspace::Client do
       client = described_class.new
 
       container_profiles = client.container_profiles
-      expect(container_profiles.size).to eq 26
+      # TODO: Change this back to 26 after all prefixes are added to production.
+      # This will be after MARC support is added in.
+      # expect(container_profiles.size).to eq 26
+      expect(container_profiles.size).to eq 19
       expect(container_profiles[0].name).to eq "BoxQ"
     end
   end
