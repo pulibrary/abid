@@ -68,15 +68,15 @@ class AbsoluteIdentifier < ApplicationRecord
   def legacy_identifiers
     {
       "firestone" => {
-        "S" => 241,
-        "Z" => 33,
-        "Q" => 972,
-        "P" => 152,
-        "N" => 2503,
+        "S" => 247,
+        "Z" => 34,
+        "Q" => 1019,
+        "P" => 161,
+        "N" => 2621,
         "L" => 29,
-        "F" => 182,
-        "E" => 110,
-        "B" => 1555
+        "F" => 185,
+        "E" => 114,
+        "B" => 1568
       }
     }
   end

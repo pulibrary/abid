@@ -34,12 +34,12 @@ RSpec.describe "Batch management" do
     expect(page).to have_link "Synchronize All", href: "/batches/synchronize_all"
 
     within("#unsynchronized-batches") do
-      expect(page).to have_content "B-001556"
+      expect(page).to have_content "B-001569"
     end
 
     click_link "Synchronize"
     within("#synchronized-batches") do
-      expect(page).to have_content "B-001556"
+      expect(page).to have_content "B-001569"
     end
     expect(page).to have_content "Synchronized Batch"
   end
