@@ -148,14 +148,16 @@ class Batch < ApplicationRecord
   def create_absolute_identifiers
     return unless absolute_identifiers.empty?
     top_containers.each_with_index do |top_container, idx|
-      AbsoluteIdentifier.create!(
-        barcode: barcodes[idx],
-        original_box_number: top_container.indicator,
-        pool_identifier: pool_identifier,
-        prefix: abid_prefix,
-        top_container_uri: top_container.uri,
-        batch: self
-      )
+      transaction do
+        AbsoluteIdentifier.create!(
+          barcode: barcodes[idx],
+          original_box_number: top_container.indicator,
+          pool_identifier: pool_identifier,
+          prefix: abid_prefix,
+          top_container_uri: top_container.uri,
+          batch: self
+        )
+      end
     end
   end
 
