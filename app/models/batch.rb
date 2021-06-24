@@ -40,7 +40,7 @@ class Batch < ApplicationRecord
 
   before_save :cache_location_data
   before_save :cache_container_profile_data
-  before_save :create_absolute_identifiers
+  after_save :create_absolute_identifiers
 
   def location
     @location ||=
@@ -145,17 +145,25 @@ class Batch < ApplicationRecord
     resource_uri.present? && start_box.present? && end_box.present? && end_box >= start_box
   end
 
+  # Create an AbID for every top container. Manually increment the suffix after
+  # the first one because, as the transaction hasn't closed, each subsequent
+  # AbID can not query the database for what the most recent one is.
   def create_absolute_identifiers
     return unless absolute_identifiers.empty?
+    suffix = nil
     top_containers.each_with_index do |top_container, idx|
-      absolute_identifier = AbsoluteIdentifier.new(
+      abid = AbsoluteIdentifier.create!(
         barcode: barcodes[idx],
         original_box_number: top_container.indicator,
         pool_identifier: pool_identifier,
         prefix: abid_prefix,
-        top_container_uri: top_container.uri
+        top_container_uri: top_container.uri,
+        suffix: suffix,
+        batch: self
       )
-      absolute_identifiers << absolute_identifier
+      # If the first abid didn't generate a suffix, it means it isn't supposed
+      # to - probaably because the batch is set to not generate AbIDs.
+      suffix = abid.suffix + 1 if abid.suffix
     end
   end
 
