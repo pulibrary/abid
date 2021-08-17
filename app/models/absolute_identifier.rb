@@ -22,10 +22,6 @@
 #  absolute_identifiers_uniqueness         (prefix,suffix,pool_identifier) UNIQUE
 #  index_absolute_identifiers_on_batch_id  (batch_id)
 #
-# Foreign Keys
-#
-#  fk_rails_...  (batch_id => batches.id)
-#
 class AbsoluteIdentifier < ApplicationRecord
   validates :sync_status, :pool_identifier, :original_box_number, :prefix, :top_container_uri, :barcode, presence: true
   belongs_to :batch, polymorphic: true

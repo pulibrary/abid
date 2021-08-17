@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_17_210620) do
+ActiveRecord::Schema.define(version: 2021_08_17_212641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(version: 2021_08_17_210620) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "barcode"
-    t.bigint "batch_id"
     t.string "batch_type", default: "Batch"
+    t.bigint "batch_id"
     t.index ["batch_id"], name: "index_absolute_identifiers_on_batch_id"
     t.index ["prefix", "suffix", "pool_identifier"], name: "absolute_identifiers_uniqueness", unique: true
   end
@@ -48,6 +48,11 @@ ActiveRecord::Schema.define(version: 2021_08_17_210620) do
     t.index ["user_id"], name: "index_batches_on_user_id"
   end
 
+  create_table "marc_batches", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "remember_created_at"
     t.string "provider", default: "cas", null: false
@@ -60,6 +65,5 @@ ActiveRecord::Schema.define(version: 2021_08_17_210620) do
     t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 
-  add_foreign_key "absolute_identifiers", "batches"
   add_foreign_key "batches", "users"
 end
