@@ -6,6 +6,7 @@
 #
 #  id                  :bigint           not null, primary key
 #  barcode             :string
+#  batch_type          :string           default("Batch")
 #  original_box_number :integer
 #  pool_identifier     :string
 #  prefix              :string
@@ -27,7 +28,7 @@
 #
 class AbsoluteIdentifier < ApplicationRecord
   validates :sync_status, :pool_identifier, :original_box_number, :prefix, :top_container_uri, :barcode, presence: true
-  belongs_to :batch
+  belongs_to :batch, polymorphic: true
   attribute :sync_status, :string, default: "unsynchronized"
   before_save :set_suffix
   scope :synchronized, -> { where(sync_status: "synchronized") }
