@@ -64,6 +64,11 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     airbrussh (1.4.0)
       sshkit (>= 1.6.1, != 1.7.0)
+    alma (0.3.2)
+      activesupport
+      ezwadl
+      httparty
+      xml-simple
     annotate (3.1.1)
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 14.0)
@@ -129,6 +134,9 @@ GEM
     e2mmap (0.1.0)
     ed25519 (1.2.4)
     erubi (1.10.0)
+    ezwadl (0.1.0)
+      httparty (~> 0.14)
+      nokogiri (~> 1.6)
     factory_bot (6.2.0)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
@@ -365,6 +373,7 @@ GEM
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    xml-simple (1.1.8)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     yard (0.9.26)
@@ -377,6 +386,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  alma
   annotate
   archivesspace-client
   bcrypt_pbkdf

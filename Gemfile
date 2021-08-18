@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "2.6.6"
 
+gem "alma"
 gem "archivesspace-client"
 gem "bootsnap", ">= 1.4.4", require: false
 gem "cocoon"
