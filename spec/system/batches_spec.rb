@@ -87,4 +87,16 @@ RSpec.describe "Batch management" do
     expect(page).not_to have_content "Start box can't be blank"
     expect(page.evaluate_script("document.activeElement.id")).to eq "batch_call_number"
   end
+
+  describe "MARC Batches", js: true do
+    it "can create multiple absolute identifiers" do
+      visit "/marc_batches/new"
+      fill_in "Barcode", with: "32101091126100"
+      fill_in "Prefix", with: "N"
+
+      click_button "Create Marc batch"
+
+      expect(page).to have_content "Created MARC Batch"
+    end
+  end
 end

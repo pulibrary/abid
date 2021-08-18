@@ -23,7 +23,7 @@
 #  index_absolute_identifiers_on_batch_id  (batch_id)
 #
 class AbsoluteIdentifier < ApplicationRecord
-  validates :sync_status, :pool_identifier, :original_box_number, :prefix, :top_container_uri, :barcode, presence: true
+  validates :sync_status, :pool_identifier, :prefix, :barcode, presence: true
   belongs_to :batch, polymorphic: true
   attribute :sync_status, :string, default: "unsynchronized"
   before_save :set_suffix

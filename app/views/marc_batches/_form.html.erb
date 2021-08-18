@@ -1,0 +1,7 @@
+ <%= simple_form_for @batch do |f| %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence %>
+    <%= f.simple_fields_for :absolute_identifiers do |abid| %>
+      <%= render "absolute_identifier_fields", f: abid %>
+    <% end %>
+    <%= f.button :submit, class: 'btn-primary' %>
+  <% end %>
