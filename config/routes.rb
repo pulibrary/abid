@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :marc_batches, only: [:new, :create, :destroy]
+  resources :marc_batches, only: [:new, :create, :show, :destroy]
 
   devise_scope :user do
     get "sign_in", to: "devise/sessions#new", as: :new_user_session

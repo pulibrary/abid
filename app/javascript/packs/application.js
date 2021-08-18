@@ -17,7 +17,7 @@ import $ from 'jquery';
 import 'datatables.net-bs4';
 import BatchForm from "batch_form"
 import TurbolinksAdapter from 'vue-turbolinks';
-import "@nathanvda/cocoon"
+require("@nathanvda/cocoon");
 
 Rails.start()
 Turbolinks.start()

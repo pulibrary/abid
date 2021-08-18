@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(version: 2021_08_18_215947) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "barcode"
-    t.string "batch_type", default: "Batch"
     t.bigint "batch_id"
+    t.string "batch_type", default: "Batch"
     t.index ["batch_id"], name: "index_absolute_identifiers_on_batch_id"
     t.index ["prefix", "suffix", "pool_identifier"], name: "absolute_identifiers_uniqueness", unique: true
   end

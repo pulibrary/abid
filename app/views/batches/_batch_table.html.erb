@@ -2,9 +2,9 @@
     <h3>Batch <%= batch.id %></h3>
     <% unless batch.synchronized? %>
       <%= link_to "Synchronize", synchronize_batch_path(batch), method: :post, class: 'btn btn-primary' %>
-      <%= link_to "Delete", batch_path(batch), method: :delete, class: 'btn btn-danger', data: { confirm: "Are you sure?" } %>
+      <%= link_to "Delete", polymorphic_path(batch), method: :delete, class: 'btn btn-danger', data: { confirm: "Are you sure?" } %>
     <% end %>
-    <%= link_to "Export as CSV", batch_path(batch, format: "csv"), method: :get, class: 'btn btn-secondary' %>
+    <%= link_to "Export as CSV", polymorphic_path(batch, format: "csv"), method: :get, class: 'btn btn-secondary' %>
     <table class="table datatable">
       <thead>
         <tr>
@@ -21,8 +21,8 @@
           <tr>
             <td><%= abid.full_identifier %></td>
             <td><%= abid.barcode %></td>
-            <td><%= batch.location.title %></td>
-            <td><%= batch.container_profile.name %></td>
+            <td><%= batch.try(:location)&.title %></td>
+            <td><%= batch.try(:container_profile)&.name %></td>
             <td><%= abid.original_box_number %></td>
             <td><%= abid.sync_status %></td>
           </tr>

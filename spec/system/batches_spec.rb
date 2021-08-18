@@ -88,8 +88,14 @@ RSpec.describe "Batch management" do
     expect(page.evaluate_script("document.activeElement.id")).to eq "batch_call_number"
   end
 
-  describe "MARC Batches", js: true do
-    it "can create multiple absolute identifiers" do
+  describe "MARC Batches" do
+    it "generates a CSV report of a batch's absolute ids" do
+      FactoryBot.create(:marc_batch, user: user, absolute_identifiers: [AbsoluteIdentifier.create(barcode: "32101094767611", prefix: "N", pool_identifier: "firestone")])
+      visit "/"
+      click_link "Export as CSV"
+      expect(page).to have_content "id,abid,box_number,user,barcode,location"
+    end
+    it "can create multiple absolute identifiers", js: true do
       visit "/marc_batches/new"
       fill_in "Barcode", with: "32101091126100"
       select "Ordinary (N)", from: "Prefix"
@@ -98,6 +104,12 @@ RSpec.describe "Batch management" do
 
       within("#new_marc_batch > div:nth-child(2)") do
         fill_in "Barcode", with: "32101094767611"
+      end
+
+      click_button "Create Marc batch"
+
+      expect(page).to have_content "Prefix can't be blank"
+      within("#new_marc_batch > div:nth-child(3)") do
         select "Quarto (Q)", from: "Prefix"
       end
 
@@ -107,6 +119,22 @@ RSpec.describe "Batch management" do
 
       batch = MarcBatch.last
       expect(batch.absolute_identifiers.map(&:prefix)).to eq ["N", "Q"]
+
+      visit root_path
+
+      expect(page).to have_content batch.absolute_identifiers.first.full_identifier
+      identifier = batch.absolute_identifiers.first
+
+      visit root_path
+      within("#unsynchronized-batches") do
+        expect(page).to have_link "Delete"
+        accept_confirm do
+          click_link "Delete"
+        end
+      end
+
+      expect(page).to have_content "Deleted Batch"
+      expect(page).not_to have_content identifier.full_identifier
     end
   end
 end

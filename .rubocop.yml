@@ -41,7 +41,7 @@ RSpec/DescribeClass:
     - 'spec/system/**/*'
 
 RSpec/ExampleLength:
-  Max: 20
+  Max: 30
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes

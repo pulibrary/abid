@@ -25,4 +25,32 @@ class MarcBatch < ApplicationRecord
   def generate_abid
     true
   end
+
+  def synchronized?
+    absolute_identifiers.synchronized.size == absolute_identifiers.size
+  end
+
+  def to_csv
+    CSV.generate(headers: true) do |csv|
+      csv << csv_attributes(absolute_identifiers.first).keys
+
+      absolute_identifiers.each do |record|
+        csv << csv_attributes(record)
+      end
+    end
+  end
+
+  def csv_attributes(record)
+    {
+      id: record.id,
+      abid: record.full_identifier,
+      box_number: record.original_box_number,
+      user: user.uid,
+      barcode: record.barcode,
+      location: nil,
+      container_profile: nil,
+      call_number: nil,
+      status: record.sync_status
+    }
+  end
 end
