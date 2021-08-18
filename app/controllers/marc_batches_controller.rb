@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 class MarcBatchesController < ApplicationController
+  before_action :build_sizes, only: [:new, :create]
+
   def new
     @batch = MarcBatch.new
-    @batch.absolute_identifiers.build(pool_identifier: "firestone")
+    @batch.absolute_identifiers.build
   end
 
   def create
@@ -14,6 +16,10 @@ class MarcBatchesController < ApplicationController
     else
       render :new
     end
+  end
+
+  def build_sizes
+    @sizes = ContainerProfile.select_labels("firestone")
   end
 
   def batch_params

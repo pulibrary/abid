@@ -4,8 +4,8 @@
       <%= f.input :barcode %>
     </div>
     <div class="col">
-      <%= f.input :prefix %>
+      <%= f.input :prefix, collection: @sizes, label_method: :first, value_method: :last %>
     </div>
-    <%= f.input :pool_identifier, as: :hidden, value: "firestone" %>
+    <%= f.input :pool_identifier, as: :hidden, input_html: { value: "firestone" } %>
   </div>
 </div>

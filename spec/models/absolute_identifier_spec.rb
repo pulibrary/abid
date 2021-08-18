@@ -14,7 +14,7 @@ RSpec.describe AbsoluteIdentifier, type: :model do
   it "is invalid without a batch" do
     expect(FactoryBot.build(:absolute_identifier, batch: nil)).not_to be_valid
   end
-  [:original_box_number, :prefix, :pool_identifier, :sync_status, :top_container_uri, :batch, :barcode].each do |property|
+  [:prefix, :pool_identifier, :sync_status, :batch, :barcode].each do |property|
     it "is invalid without #{property}" do
       expect(FactoryBot.build(:absolute_identifier, property => nil)).not_to be_valid
     end

@@ -3,5 +3,8 @@
     <%= f.simple_fields_for :absolute_identifiers do |abid| %>
       <%= render "absolute_identifier_fields", f: abid %>
     <% end %>
+    <div class="links">
+      <%= link_to_add_association 'add absolute identifier', f, :absolute_identifiers %>
+    </div>
     <%= f.button :submit, class: 'btn-primary' %>
   <% end %>

@@ -92,11 +92,21 @@ RSpec.describe "Batch management" do
     it "can create multiple absolute identifiers" do
       visit "/marc_batches/new"
       fill_in "Barcode", with: "32101091126100"
-      fill_in "Prefix", with: "N"
+      select "Ordinary (N)", from: "Prefix"
+
+      click_link "add absolute identifier"
+
+      within("#new_marc_batch > div:nth-child(2)") do
+        fill_in "Barcode", with: "32101094767611"
+        select "Quarto (Q)", from: "Prefix"
+      end
 
       click_button "Create Marc batch"
 
       expect(page).to have_content "Created MARC Batch"
+
+      batch = MarcBatch.last
+      expect(batch.absolute_identifiers.map(&:prefix)).to eq ["N", "Q"]
     end
   end
 end
