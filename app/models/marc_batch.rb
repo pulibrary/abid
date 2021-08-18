@@ -10,6 +10,7 @@
 #
 class MarcBatch < ApplicationRecord
   has_many :absolute_identifiers, dependent: :destroy, as: :batch
+  accepts_nested_attributes_for :absolute_identifiers
 
   def generate_abid
     true

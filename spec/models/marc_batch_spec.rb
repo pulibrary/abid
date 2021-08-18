@@ -10,4 +10,25 @@ RSpec.describe MarcBatch, type: :model do
     expect(marc_batch.absolute_identifiers.size).to eq 1
     expect(marc_batch.absolute_identifiers.first.reload.batch).to eq marc_batch
   end
+
+  it "can add absolute_identifiers with nested attributes" do
+    marc_batch = FactoryBot.create(:marc_batch)
+    marc_batch.absolute_identifiers_attributes = [
+      {
+        barcode: "32101091126100",
+        prefix: "N"
+      },
+      {
+        barcode: "32101091126290",
+        prefix: "N"
+      },
+      {
+        barcode: "32101094767611",
+        prefix: "Q"
+      }
+    ]
+    marc_batch.save
+
+    expect(marc_batch.absolute_identifiers.size).to eq 3
+  end
 end
