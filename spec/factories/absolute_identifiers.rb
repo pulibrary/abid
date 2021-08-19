@@ -14,7 +14,7 @@ FactoryBot.define do
       prefix { "N" }
       sync_status { "unsynchronized" }
       pool_identifier { "firestone" }
-      barcode { "0000000000000" }
+      barcode { "32101091123743" }
       batch
     end
   end

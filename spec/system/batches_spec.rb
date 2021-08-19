@@ -90,20 +90,23 @@ RSpec.describe "Batch management" do
 
   describe "MARC Batches" do
     it "generates a CSV report of a batch's absolute ids" do
-      FactoryBot.create(:marc_batch, user: user, absolute_identifiers: [AbsoluteIdentifier.create(barcode: "32101094767611", prefix: "N", pool_identifier: "firestone")])
+      stub_alma_barcode(barcode: "32101091123743")
+      FactoryBot.create(:marc_batch, user: user, absolute_identifiers: [AbsoluteIdentifier.create(barcode: "32101091123743", prefix: "N", pool_identifier: "firestone")])
       visit "/"
       click_link "Export as CSV"
       expect(page).to have_content "id,abid,box_number,user,barcode,location"
     end
     it "can create multiple absolute identifiers", js: true do
+      stub_alma_barcode(barcode: "32101091123743")
+      stub_alma_barcode(barcode: "32101097107245")
       visit "/marc_batches/new"
-      fill_in "Barcode", with: "32101091126100"
+      fill_in "Barcode", with: "32101091123743"
       select "Ordinary (N)", from: "Prefix"
 
       click_link "add absolute identifier"
 
       within("#new_marc_batch > div:nth-child(2)") do
-        fill_in "Barcode", with: "32101094767611"
+        fill_in "Barcode", with: "32101097107245"
       end
 
       click_button "Create Marc batch"

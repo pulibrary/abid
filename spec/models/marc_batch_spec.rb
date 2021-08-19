@@ -6,7 +6,8 @@ RSpec.describe MarcBatch, type: :model do
     expect(FactoryBot.build(:marc_batch)).to be_valid
   end
   it "can have absolute_identifiers" do
-    marc_batch = FactoryBot.create(:marc_batch, absolute_identifiers: [FactoryBot.build(:absolute_identifier)])
+    stub_alma_barcode(barcode: "32101091123743")
+    marc_batch = FactoryBot.create(:synchronized_marc_batch)
     expect(marc_batch.absolute_identifiers.size).to eq 1
     expect(marc_batch.absolute_identifiers.first.reload.batch).to eq marc_batch
   end

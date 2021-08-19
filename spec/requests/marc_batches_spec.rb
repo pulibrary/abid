@@ -6,6 +6,7 @@ RSpec.describe MarcBatchesController do
     let(:access_token) { OmniAuth::AuthHash.new(provider: "cas", uid: "user") }
     before do
       stub_admin_user(uid: "user", uri: "/users/1")
+      stub_alma_barcode(barcode: "32101091123743")
       user = User.from_cas(access_token)
       sign_in user
     end

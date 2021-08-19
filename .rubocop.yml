@@ -30,7 +30,7 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   Exclude:
     - 'app/values/container_profile.rb'
-    - 'spec/support/stub_aspace.rb'
+    - 'spec/support/*'
 
 Metrics/ModuleLength:
   Exclude:

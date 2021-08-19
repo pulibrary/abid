@@ -28,6 +28,7 @@ class AbsoluteIdentifier < ApplicationRecord
   attribute :sync_status, :string, default: "unsynchronized"
   before_save :set_suffix
   scope :synchronized, -> { where(sync_status: "synchronized") }
+  validate :barcode_in_alma
 
   def full_identifier
     return if suffix.blank?
@@ -40,7 +41,7 @@ class AbsoluteIdentifier < ApplicationRecord
   end
 
   def synchronize
-    Synchronizer.new(absolute_identifier: self).sync!
+    Synchronizer.for(absolute_identifier: self).sync!
   end
 
   def generate_abid
@@ -49,6 +50,16 @@ class AbsoluteIdentifier < ApplicationRecord
     else
       true
     end
+  end
+
+  def alma_item
+    @alma_item ||=
+      begin
+        item = Alma::BibItem.find_by_barcode(barcode)
+        if item.item.dig("errorList", "error", 0, "errorCode").blank?
+          item
+        end
+      end
   end
 
   private
@@ -77,5 +88,11 @@ class AbsoluteIdentifier < ApplicationRecord
         "B" => 1568
       }
     }
+  end
+
+  def barcode_in_alma
+    return unless batch.is_a?(MarcBatch)
+    return if alma_item.present?
+    errors.add(:barcode, "is not present in Alma")
   end
 end
