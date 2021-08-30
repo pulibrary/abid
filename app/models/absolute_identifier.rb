@@ -64,12 +64,12 @@ class AbsoluteIdentifier < ApplicationRecord
       end
   end
 
-  private
-
   def cache_holding_id
     return if holding_id.present? || !batch.is_a?(MarcBatch)
     self.holding_id = alma_item["holding_data"]["holding_id"]
   end
+
+  private
 
   def highest_identifier
     self.class.where(prefix: prefix, pool_identifier: pool_identifier).order(suffix: :desc).pick(:suffix) || last_legacy_identifier

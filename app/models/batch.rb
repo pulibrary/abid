@@ -35,7 +35,7 @@ class Batch < ApplicationRecord
   validate :first_barcode_valid
   validate :barcodes_not_taken
   validate :barcodes_not_in_aspace
-  has_many :absolute_identifiers, dependent: :destroy, as: :batch
+  has_many :absolute_identifiers, -> { order("created_at") }, dependent: :destroy, as: :batch
   belongs_to :user
 
   before_save :cache_location_data

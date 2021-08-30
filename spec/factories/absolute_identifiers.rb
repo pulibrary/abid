@@ -15,6 +15,7 @@ FactoryBot.define do
       sync_status { "unsynchronized" }
       pool_identifier { "firestone" }
       barcode { "32101091123743" }
+      holding_id { "22738127790006421" }
       batch
     end
   end

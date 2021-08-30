@@ -136,7 +136,7 @@ RSpec.describe "Batch management" do
       expect(page).to have_content "Created MARC Batch"
 
       batch = MarcBatch.last
-      expect(batch.absolute_identifiers.map(&:prefix)).to eq ["N", "Q"]
+      expect(batch.absolute_identifiers.map(&:prefix)).to contain_exactly("N", "Q")
 
       visit root_path
 

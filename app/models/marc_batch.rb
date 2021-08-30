@@ -21,6 +21,7 @@ class MarcBatch < ApplicationRecord
   has_many :absolute_identifiers, dependent: :destroy, as: :batch
   belongs_to :user
   accepts_nested_attributes_for :absolute_identifiers, reject_if: proc { |attributes| attributes["barcode"].blank? }
+  validate :abids_unique_holding_ids
 
   def generate_abid
     true
@@ -56,5 +57,19 @@ class MarcBatch < ApplicationRecord
       call_number: nil,
       status: record.sync_status
     }
+  end
+
+  private
+
+  def abids_unique_holding_ids
+    absolute_identifiers.each(&:cache_holding_id)
+    absolute_identifiers.group_by(&:holding_id).each do |_holding_id, group|
+      next unless group.map(&:prefix).uniq.length != 1
+      barcodes = group.map(&:barcode)
+      group.each do |absolute_identifier|
+        absolute_identifier.errors.add(:prefix, "has the same holding ID but different prefix as #{barcodes.excluding(absolute_identifier.barcode).to_sentence}.")
+      end
+      errors.add(:base, "Issue with barcodes #{barcodes.to_sentence}")
+    end
   end
 end
