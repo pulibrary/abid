@@ -31,6 +31,7 @@ class AbsoluteIdentifier < ApplicationRecord
   before_save :cache_holding_id
   scope :synchronized, -> { where(sync_status: "synchronized") }
   validate :barcode_in_alma
+  validate :holding_id_unique
 
   def full_identifier
     return if suffix.blank?
@@ -65,7 +66,7 @@ class AbsoluteIdentifier < ApplicationRecord
   end
 
   def cache_holding_id
-    return if holding_id.present? || !batch.is_a?(MarcBatch)
+    return if holding_id.present? || !batch.is_a?(MarcBatch) || alma_item.blank?
     self.holding_id = alma_item["holding_data"]["holding_id"]
   end
 
@@ -101,5 +102,13 @@ class AbsoluteIdentifier < ApplicationRecord
     return unless batch.is_a?(MarcBatch)
     return if alma_item.present?
     errors.add(:barcode, "is not present in Alma")
+  end
+
+  def holding_id_unique
+    return unless batch.is_a?(MarcBatch)
+    cache_holding_id
+    existing_abids = self.class.where(holding_id: holding_id).where.not(prefix: prefix)
+    return if existing_abids.blank?
+    errors.add(:prefix, "an AbID with this holding ID but a different prefix (#{existing_abids.first.prefix}) exists.")
   end
 end

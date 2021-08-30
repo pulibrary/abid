@@ -61,4 +61,20 @@ RSpec.describe MarcBatch, type: :model do
     ]
     expect { marc_batch.save! }.to raise_error(ActiveRecord::RecordInvalid)
   end
+  it "errors if an abid already exists with the given holding ID but a different size" do
+    stub_alma_barcode(barcode: "32101091149987")
+    stub_alma_barcode(barcode: "32101091149995")
+    FactoryBot.create(:marc_absolute_identifier, batch: FactoryBot.create(:marc_batch), holding_id: "22589791520006421", barcode: "32101091149987", prefix: "N")
+    marc_batch = FactoryBot.build(:marc_batch)
+
+    marc_batch.absolute_identifiers_attributes = [
+      {
+        barcode: "32101091149995",
+        prefix: "F",
+        pool_identifier: "firestone"
+      }
+    ]
+
+    expect { marc_batch.save! }.to raise_error(ActiveRecord::RecordInvalid)
+  end
 end
