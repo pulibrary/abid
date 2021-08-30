@@ -103,7 +103,7 @@ RSpec.describe "Batch management" do
       FactoryBot.create(:marc_batch, user: user, absolute_identifiers: [AbsoluteIdentifier.create(barcode: "32101091123743", prefix: "N", pool_identifier: "firestone")])
       visit "/"
       click_link "Export as CSV"
-      expect(page).to have_content "id,abid,box_number,user,barcode,location"
+      expect(page).to have_content "barcode,holding_id,abid"
     end
     it "can create multiple absolute identifiers", js: true do
       stub_alma_barcode(barcode: "32101091123743")

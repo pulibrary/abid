@@ -47,15 +47,9 @@ class MarcBatch < ApplicationRecord
 
   def csv_attributes(record)
     {
-      id: record.id,
-      abid: record.full_identifier,
-      box_number: record.original_box_number,
-      user: user.uid,
       barcode: record.barcode,
-      location: nil,
-      container_profile: nil,
-      call_number: nil,
-      status: record.sync_status
+      holding_id: record.holding_id,
+      abid: record.full_identifier
     }
   end
 
