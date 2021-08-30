@@ -4,20 +4,21 @@ export default class BatchForm {
   }
 
   preventBarcodeSubmit() {
-    this.barcodeField.addEventListener('keydown', () => {
-      const event = window.event || e
-      if (event.key == "Enter") {
-        event.preventDefault()
-        this.callNumberField.focus()
-      }
-    })
+    for(let field of this.barcodeFields) {
+      field.addEventListener('keydown', () => {
+        const event = window.event || e
+        if (event.key == "Enter") {
+          event.preventDefault()
+          let tar = event.target
+          const inputs = [].slice.call(document.querySelectorAll(".form-control:not([type='hidden'])"))
+          const idx = inputs.indexOf(tar)
+          inputs[idx+1].focus()
+        }
+      })
+    }
   }
 
-  get barcodeField() {
-    return document.getElementById("batch_first_barcode")
-  }
-
-  get callNumberField() {
-    return document.getElementById("batch_call_number")
+  get barcodeFields() {
+    return document.getElementsByClassName("barcode")
   }
 }

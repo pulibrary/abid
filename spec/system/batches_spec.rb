@@ -89,6 +89,15 @@ RSpec.describe "Batch management" do
   end
 
   describe "MARC Batches" do
+    it "does not submit the form if you hit enter on the barcode", js: true do
+      visit "/marc_batches/new"
+      fill_in "Barcode", with: "32101097107245"
+      page.find("#marc_batch_absolute_identifiers_attributes_0_barcode").send_keys :return
+
+      expect(page).not_to have_content "Prefix can't be blank"
+      expect(page.evaluate_script("document.activeElement.id")).to eq "marc_batch_absolute_identifiers_attributes_0_prefix"
+    end
+
     it "generates a CSV report of a batch's absolute ids" do
       stub_alma_barcode(barcode: "32101091123743")
       FactoryBot.create(:marc_batch, user: user, absolute_identifiers: [AbsoluteIdentifier.create(barcode: "32101091123743", prefix: "N", pool_identifier: "firestone")])
