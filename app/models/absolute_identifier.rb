@@ -16,6 +16,7 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  batch_id            :bigint
+#  holding_id          :string
 #
 # Indexes
 #
@@ -27,6 +28,7 @@ class AbsoluteIdentifier < ApplicationRecord
   belongs_to :batch, polymorphic: true
   attribute :sync_status, :string, default: "unsynchronized"
   before_save :set_suffix
+  before_save :cache_holding_id
   scope :synchronized, -> { where(sync_status: "synchronized") }
   validate :barcode_in_alma
 
@@ -63,6 +65,11 @@ class AbsoluteIdentifier < ApplicationRecord
   end
 
   private
+
+  def cache_holding_id
+    return if holding_id.present? || !batch.is_a?(MarcBatch)
+    self.holding_id = alma_item["holding_data"]["holding_id"]
+  end
 
   def highest_identifier
     self.class.where(prefix: prefix, pool_identifier: pool_identifier).order(suffix: :desc).pick(:suffix) || last_legacy_identifier

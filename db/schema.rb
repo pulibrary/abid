@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_18_215947) do
+ActiveRecord::Schema.define(version: 2021_08_30_172444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2021_08_18_215947) do
     t.string "barcode"
     t.bigint "batch_id"
     t.string "batch_type", default: "Batch"
+    t.string "holding_id"
     t.index ["batch_id"], name: "index_absolute_identifiers_on_batch_id"
     t.index ["prefix", "suffix", "pool_identifier"], name: "absolute_identifiers_uniqueness", unique: true
   end
