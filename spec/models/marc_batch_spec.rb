@@ -12,6 +12,20 @@ RSpec.describe MarcBatch, type: :model do
     expect(marc_batch.absolute_identifiers.first.reload.batch).to eq marc_batch
   end
 
+  describe "#synchronize" do
+    it "calls synchronize on its abids" do
+      stub_alma_barcode(barcode: "32101091123743")
+      stub_alma_holding(mms_id: "9932213323506421", holding_id: "22738127790006421")
+      holding_update = stub_holding_update(mms_id: "9932213323506421", holding_id: "22738127790006421")
+      marc_batch = FactoryBot.create(:synchronized_marc_batch)
+      allow(marc_batch.absolute_identifiers.first).to receive(:synchronize)
+
+      marc_batch.synchronize
+
+      expect(holding_update).to have_been_made
+    end
+  end
+
   it "can add absolute_identifiers with nested attributes" do
     marc_batch = FactoryBot.create(:marc_batch)
     marc_batch.absolute_identifiers_attributes = [

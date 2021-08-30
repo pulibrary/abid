@@ -30,6 +30,10 @@ class MarcBatch < ApplicationRecord
     absolute_identifiers.synchronized.size == absolute_identifiers.size
   end
 
+  def synchronize
+    absolute_identifiers.each(&:synchronize)
+  end
+
   def to_csv
     CSV.generate(headers: true) do |csv|
       csv << csv_attributes(absolute_identifiers.first).keys
