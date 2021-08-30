@@ -20,7 +20,7 @@
 class MarcBatch < ApplicationRecord
   has_many :absolute_identifiers, dependent: :destroy, as: :batch
   belongs_to :user
-  accepts_nested_attributes_for :absolute_identifiers
+  accepts_nested_attributes_for :absolute_identifiers, reject_if: proc { |attributes| attributes["barcode"].blank? }
 
   def generate_abid
     true

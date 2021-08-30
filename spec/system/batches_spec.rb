@@ -109,6 +109,12 @@ RSpec.describe "Batch management" do
         fill_in "Barcode", with: "32101097107245"
       end
 
+      click_link "add absolute identifier"
+
+      within("#new_marc_batch > div:nth-child(3)") do
+        click_link "Delete"
+      end
+
       click_button "Create Marc batch"
 
       expect(page).to have_content "Prefix can't be blank"

@@ -1,4 +1,4 @@
-<div class="absolute-identifier-fields">
+<div class="absolute-identifier-fields nested-fields">
   <div class="row mb-3">
     <div class="col">
       <%= f.input :barcode %>
@@ -7,5 +7,6 @@
       <%= f.input :prefix, collection: @sizes, label_method: :first, value_method: :last %>
     </div>
     <%= f.input :pool_identifier, as: :hidden, input_html: { value: "firestone" } %>
+    <%= link_to_remove_association "Delete", f %>
   </div>
 </div>
