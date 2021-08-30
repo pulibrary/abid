@@ -37,6 +37,13 @@ class MarcBatchesController < ApplicationController
     redirect_to batches_path
   end
 
+  def synchronize
+    @batch = MarcBatch.find(params[:id])
+    @batch.synchronize
+    flash.notice = "Synchronized MARC Batch #{@batch.id}"
+    redirect_to batches_path
+  end
+
   def build_sizes
     @sizes = ContainerProfile.select_labels("firestone")
   end

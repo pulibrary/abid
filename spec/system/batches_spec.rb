@@ -107,6 +107,20 @@ RSpec.describe "Batch management" do
       click_link "Export as CSV"
       expect(page).to have_content "barcode,holding_id,abid"
     end
+    it "synchronizes" do
+      stub_alma_barcode(barcode: "32101091123743")
+      stub_alma_holding(mms_id: "9932213323506421", holding_id: "22738127790006421")
+      stub_holding_update(mms_id: "9932213323506421", holding_id: "22738127790006421")
+      FactoryBot.create(:unsynchronized_marc_batch, user: user)
+
+      visit "/"
+
+      within("#unsynchronized-batches .batch") do
+        click_link "Synchronize"
+      end
+
+      expect(page).to have_content "Synchronized MARC Batch"
+    end
     it "can create multiple absolute identifiers", js: true do
       stub_alma_barcode(barcode: "32101091123743")
       stub_alma_barcode(barcode: "32101097107245")
