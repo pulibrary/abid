@@ -97,7 +97,7 @@ RSpec.describe "Batch management" do
       page.find(".marc_batch_absolute_identifiers_barcode input").send_keys :return
 
       expect(page).not_to have_content "Prefix can't be blank"
-      expect(page.evaluate_script("document.activeElement.id")).to end_with "_prefix"
+      expect(page.evaluate_script("document.activeElement.id")).to end_with "_barcode"
     end
 
     it "generates a CSV report of a batch's absolute ids" do
@@ -126,33 +126,28 @@ RSpec.describe "Batch management" do
       stub_alma_barcode(barcode: "32101097107245")
       visit "/marc_batches/new"
       fill_in "Barcode", with: "32101091123743"
-      select "Ordinary (N)", from: "Prefix"
-
-      click_link "add absolute identifier"
-
-      within("#new_marc_batch > div:nth-child(2)") do
-        fill_in "Barcode", with: "32101097107245"
-      end
-
-      click_link "add absolute identifier"
+      page.find(".marc_batch_absolute_identifiers_barcode input").send_keys :return
 
       within("#new_marc_batch > div:nth-child(3)") do
+        fill_in "Barcode", with: "32101097107245"
+        page.find(".marc_batch_absolute_identifiers_barcode input").send_keys :return
+      end
+
+      within("#new_marc_batch > div:nth-child(4)") do
         click_link "Delete"
       end
 
       click_button "Create Marc batch"
 
       expect(page).to have_content "Prefix can't be blank"
-      within("#new_marc_batch > div:nth-child(3)") do
-        select "Quarto (Q)", from: "Prefix"
-      end
+      select "Ordinary (N)", from: "Prefix"
 
       click_button "Create Marc batch"
 
       expect(page).to have_content "Created MARC Batch"
 
       batch = MarcBatch.last
-      expect(batch.absolute_identifiers.map(&:prefix)).to contain_exactly("N", "Q")
+      expect(batch.absolute_identifiers.map(&:prefix)).to contain_exactly("N", "N")
 
       visit root_path
 

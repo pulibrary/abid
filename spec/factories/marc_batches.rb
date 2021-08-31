@@ -2,6 +2,7 @@
 FactoryBot.define do
   factory :marc_batch do
     user
+    prefix { "N" }
     factory :synchronized_marc_batch do
       after(:create) do |batch, _|
         create(:marc_absolute_identifier, sync_status: "synchronized", batch: batch)

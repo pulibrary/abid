@@ -109,6 +109,6 @@ class AbsoluteIdentifier < ApplicationRecord
     cache_holding_id
     existing_abids = self.class.where(holding_id: holding_id).where.not(prefix: prefix)
     return if existing_abids.blank?
-    errors.add(:prefix, "an AbID with this holding ID but a different prefix (#{existing_abids.first.prefix}) exists.")
+    errors.add(:barcode, "an AbID with this holding ID but a different prefix (#{existing_abids.first.prefix}) exists.")
   end
 end

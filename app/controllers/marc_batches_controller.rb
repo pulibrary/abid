@@ -49,6 +49,6 @@ class MarcBatchesController < ApplicationController
   end
 
   def batch_params
-    params.require(:marc_batch).permit(absolute_identifiers_attributes: [:barcode, :prefix, :pool_identifier])
+    params.require(:marc_batch).permit(:prefix, absolute_identifiers_attributes: [:barcode, :prefix, :pool_identifier])
   end
 end
