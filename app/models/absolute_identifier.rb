@@ -31,6 +31,7 @@ class AbsoluteIdentifier < ApplicationRecord
   before_save :cache_holding_id
   scope :synchronized, -> { where(sync_status: "synchronized") }
   validate :barcode_in_alma
+  validate :barcode_in_special_collections
   validate :holding_id_unique
 
   def full_identifier
@@ -102,6 +103,12 @@ class AbsoluteIdentifier < ApplicationRecord
     return unless batch.is_a?(MarcBatch)
     return if alma_item.present?
     errors.add(:barcode, "is not present in Alma")
+  end
+
+  def barcode_in_special_collections
+    return unless batch.is_a?(MarcBatch)
+    return if alma_item&.library == "rare"
+    errors.add(:barcode, "is for an item not in the 'rare' library.")
   end
 
   def holding_id_unique

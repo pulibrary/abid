@@ -25,6 +25,10 @@ RSpec.describe AbsoluteIdentifier, type: :model do
       stub_alma_barcode(barcode: "32101113344913", status: 404)
       expect(FactoryBot.build(:absolute_identifier, batch: FactoryBot.create(:marc_batch), barcode: "32101113344913")).not_to be_valid
     end
+    it "is invalid if given a barcode which is not in 'rare' library" do
+      stub_alma_barcode(barcode: "32101085357133")
+      expect(FactoryBot.build(:absolute_identifier, batch: FactoryBot.create(:marc_batch), barcode: "32101085357133")).not_to be_valid
+    end
   end
 
   describe "#full_identifier" do
