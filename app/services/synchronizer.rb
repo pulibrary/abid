@@ -30,6 +30,9 @@ class Synchronizer
             field.subfields.each do |subfield|
               if subfield.code == "h"
                 subfield.value = absolute_identifier.full_identifier
+              elsif subfield.code == "i"
+                # Delete subfield i
+                field.subfields.delete(subfield)
               end
             end
             if field["h"].blank?
