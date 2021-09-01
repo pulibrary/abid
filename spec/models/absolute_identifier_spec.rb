@@ -106,6 +106,7 @@ RSpec.describe AbsoluteIdentifier, type: :model do
 
         expect(holding_update).to have_been_made
         expect(holding_update.with(body: including(identifier.full_identifier))).to have_been_made
+        expect(holding_update.with(body: including("something"))).not_to have_been_made
       end
       it "adds an 852h if one doesn't exist already" do
         stub_alma_barcode(barcode: "32101097107245")
