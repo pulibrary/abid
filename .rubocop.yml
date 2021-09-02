@@ -32,6 +32,7 @@ Metrics/MethodLength:
     - 'app/values/container_profile.rb'
     - 'spec/support/*'
     - 'app/services/synchronizer.rb'
+    - 'app/services/synchronizer/marc_synchronizer.rb'
 
 Metrics/ModuleLength:
   Exclude:

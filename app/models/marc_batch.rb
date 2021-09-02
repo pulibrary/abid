@@ -17,6 +17,10 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
+# MarcBatch powers the MARC Batch form input. It's different from batches in
+# that users have all the barcodes already in Alma and ready to scan, unlike the
+# normal Batch where barcodes need to be generated based on a reel of barcodes
+# existing.
 class MarcBatch < ApplicationRecord
   has_many :absolute_identifiers, dependent: :destroy, as: :batch
   belongs_to :user

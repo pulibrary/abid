@@ -2,9 +2,6 @@
 class ContainerProfile
   attr_reader :name, :uri, :source
   def self.sizes
-    # TODO: Uncomment firestone ones when MARC record support is implemented in
-    # production. These are disabled now so the old database can use these
-    # prefixes.
     sizes = {
       "firestone" => {
         "Object" => "C",
