@@ -52,7 +52,8 @@ class MarcBatch < ApplicationRecord
     {
       barcode: record.barcode,
       holding_id: record.holding_id,
-      abid: record.full_identifier
+      abid: record.full_identifier,
+      previous_call_number: record.previous_call_number
     }
   end
 

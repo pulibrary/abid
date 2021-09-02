@@ -7,6 +7,7 @@
 #  id                  :bigint           not null, primary key
 #  barcode             :string
 #  batch_type          :string           default("Batch")
+#  holding_cache       :jsonb
 #  original_box_number :integer
 #  pool_identifier     :string
 #  prefix              :string
@@ -59,6 +60,7 @@ class AbsoluteIdentifier < ApplicationRecord
   def alma_item
     @alma_item ||=
       begin
+        return Alma::BibItem.new(holding_cache) if holding_cache.present?
         item = Alma::BibItem.find_by_barcode(barcode)
         if item.item.dig("errorList", "error", 0, "errorCode").blank?
           item
@@ -66,8 +68,14 @@ class AbsoluteIdentifier < ApplicationRecord
       end
   end
 
+  def previous_call_number
+    return if holding_cache.blank?
+    alma_item.holding_data["permanent_call_number"]
+  end
+
   def cache_holding_id
     return if holding_id.present? || !batch.is_a?(MarcBatch) || alma_item.blank?
+    self.holding_cache = alma_item.item
     self.holding_id = alma_item["holding_data"]["holding_id"]
   end
 

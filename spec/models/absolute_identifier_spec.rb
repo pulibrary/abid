@@ -107,6 +107,7 @@ RSpec.describe AbsoluteIdentifier, type: :model do
         identifier.synchronize
 
         expect(identifier.holding_id).to eq "22738127790006421"
+        expect(identifier.holding_cache).to be_present
 
         expect(holding_update).to have_been_made
         expect(holding_update.with(body: including(identifier.full_identifier))).to have_been_made

@@ -14,6 +14,7 @@
             <th>Location</th>
             <th>Container Profile</th>
             <th>Container</th>
+            <th>Previous Call Number</th>
             <th>Synchronization</th>
           </tr>
         </thead>
@@ -25,6 +26,7 @@
               <td><%= batch.try(:location)&.title %></td>
               <td><%= batch.try(:container_profile)&.name %></td>
               <td><%= abid.original_box_number %></td>
+              <td><%= abid.previous_call_number %></td>
               <td><%= abid.sync_status %></td>
             </tr>
           <% end %>
