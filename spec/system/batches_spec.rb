@@ -87,4 +87,83 @@ RSpec.describe "Batch management" do
     expect(page).not_to have_content "Start box can't be blank"
     expect(page.evaluate_script("document.activeElement.id")).to eq "batch_call_number"
   end
+
+  describe "MARC Batches" do
+    it "does not submit the form if you hit enter on the barcode", js: true do
+      visit "/marc_batches/new"
+      click_link "Delete"
+      click_link "add absolute identifier"
+      fill_in "Barcode", with: "32101097107245"
+      page.find(".marc_batch_absolute_identifiers_barcode input").send_keys :return
+
+      expect(page).not_to have_content "Prefix can't be blank"
+      expect(page.evaluate_script("document.activeElement.id")).to end_with "_barcode"
+    end
+
+    it "generates a CSV report of a batch's absolute ids" do
+      stub_alma_barcode(barcode: "32101091123743")
+      FactoryBot.create(:marc_batch, user: user, absolute_identifiers: [AbsoluteIdentifier.create(barcode: "32101091123743", prefix: "N", pool_identifier: "firestone")])
+      visit "/"
+      click_link "Export as CSV"
+      expect(page).to have_content "barcode,holding_id,abid,previous_call_number"
+    end
+    it "synchronizes" do
+      stub_alma_barcode(barcode: "32101091123743")
+      stub_alma_holding(mms_id: "9932213323506421", holding_id: "22738127790006421")
+      stub_holding_update(mms_id: "9932213323506421", holding_id: "22738127790006421")
+      FactoryBot.create(:unsynchronized_marc_batch, user: user)
+
+      visit "/"
+
+      within("#unsynchronized-batches .batch") do
+        click_link "Synchronize"
+      end
+
+      expect(page).to have_content "Synchronized MARC Batch"
+    end
+    it "can create multiple absolute identifiers", js: true do
+      stub_alma_barcode(barcode: "32101091123743")
+      stub_alma_barcode(barcode: "32101097107245")
+      visit "/marc_batches/new"
+      fill_in "Barcode", with: "32101091123743"
+      page.find(".marc_batch_absolute_identifiers_barcode input").send_keys :return
+
+      within("#new_marc_batch > div:nth-child(3)") do
+        fill_in "Barcode", with: "32101097107245"
+        page.find(".marc_batch_absolute_identifiers_barcode input").send_keys :return
+      end
+
+      within("#new_marc_batch > div:nth-child(4)") do
+        click_link "Delete"
+      end
+
+      click_button "Create Marc batch"
+
+      expect(page).to have_content "Prefix can't be blank"
+      select "Ordinary (N)", from: "Prefix"
+
+      click_button "Create Marc batch"
+
+      expect(page).to have_content "Created MARC Batch"
+
+      batch = MarcBatch.last
+      expect(batch.absolute_identifiers.map(&:prefix)).to contain_exactly("N", "N")
+
+      visit root_path
+
+      expect(page).to have_content batch.absolute_identifiers.first.full_identifier
+      identifier = batch.absolute_identifiers.first
+
+      visit root_path
+      within("#unsynchronized-batches") do
+        expect(page).to have_link "Delete"
+        accept_confirm do
+          click_link "Delete"
+        end
+      end
+
+      expect(page).to have_content "Deleted Batch"
+      expect(page).not_to have_content identifier.full_identifier
+    end
+  end
 end

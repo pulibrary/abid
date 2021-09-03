@@ -30,7 +30,9 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   Exclude:
     - 'app/values/container_profile.rb'
-    - 'spec/support/stub_aspace.rb'
+    - 'spec/support/*'
+    - 'app/services/synchronizer.rb'
+    - 'app/services/synchronizer/marc_synchronizer.rb'
 
 Metrics/ModuleLength:
   Exclude:
@@ -41,7 +43,7 @@ RSpec/DescribeClass:
     - 'spec/system/**/*'
 
 RSpec/ExampleLength:
-  Max: 20
+  Enabled: false
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes

@@ -9,5 +9,14 @@ FactoryBot.define do
     pool_identifier { "firestone" }
     barcode { "0000000000000" }
     batch
+
+    factory :marc_absolute_identifier do
+      prefix { "N" }
+      sync_status { "unsynchronized" }
+      pool_identifier { "firestone" }
+      barcode { "32101091123743" }
+      holding_id { "22738127790006421" }
+      batch
+    end
   end
 end

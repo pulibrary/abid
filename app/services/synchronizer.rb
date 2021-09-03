@@ -1,5 +1,12 @@
 # frozen_string_literal: true
 class Synchronizer
+  def self.for(absolute_identifier:)
+    if absolute_identifier.batch.is_a?(MarcBatch)
+      MarcSynchronizer.new(absolute_identifier: absolute_identifier)
+    else
+      new(absolute_identifier: absolute_identifier)
+    end
+  end
   attr_reader :absolute_identifier
   def initialize(absolute_identifier:)
     @absolute_identifier = absolute_identifier
@@ -18,6 +25,8 @@ class Synchronizer
     absolute_identifier.sync_status = "synchronized"
     absolute_identifier.save
   end
+
+  private
 
   def top_container
     @top_container ||= aspace_client.get_top_container(ref: absolute_identifier.top_container_uri)

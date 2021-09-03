@@ -17,6 +17,7 @@ import $ from 'jquery';
 import 'datatables.net-bs4';
 import BatchForm from "batch_form"
 import TurbolinksAdapter from 'vue-turbolinks';
+require("@nathanvda/cocoon");
 
 Rails.start()
 Turbolinks.start()
@@ -32,6 +33,7 @@ var loadPage = () => {
       el: elements[i]
     })
   }
+  new BatchForm()
 }
 document.addEventListener("DOMContentLoaded", () => {
   $('.datatable').DataTable({
@@ -39,6 +41,5 @@ document.addEventListener("DOMContentLoaded", () => {
     "paging": false,
     "info": false
   })
-  new BatchForm()
 })
 document.addEventListener("turbolinks:load", loadPage)

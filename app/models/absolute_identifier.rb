@@ -6,6 +6,8 @@
 #
 #  id                  :bigint           not null, primary key
 #  barcode             :string
+#  batch_type          :string           default("Batch")
+#  holding_cache       :jsonb
 #  original_box_number :integer
 #  pool_identifier     :string
 #  prefix              :string
@@ -15,22 +17,23 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  batch_id            :bigint
+#  holding_id          :string
 #
 # Indexes
 #
 #  absolute_identifiers_uniqueness         (prefix,suffix,pool_identifier) UNIQUE
 #  index_absolute_identifiers_on_batch_id  (batch_id)
 #
-# Foreign Keys
-#
-#  fk_rails_...  (batch_id => batches.id)
-#
 class AbsoluteIdentifier < ApplicationRecord
-  validates :sync_status, :pool_identifier, :original_box_number, :prefix, :top_container_uri, :barcode, presence: true
-  belongs_to :batch
+  validates :sync_status, :pool_identifier, :prefix, :barcode, presence: true
+  belongs_to :batch, polymorphic: true
   attribute :sync_status, :string, default: "unsynchronized"
   before_save :set_suffix
+  before_save :cache_holding_id
   scope :synchronized, -> { where(sync_status: "synchronized") }
+  validate :barcode_in_alma
+  validate :barcode_in_special_collections
+  validate :holding_id_unique
 
   def full_identifier
     return if suffix.blank?
@@ -43,7 +46,7 @@ class AbsoluteIdentifier < ApplicationRecord
   end
 
   def synchronize
-    Synchronizer.new(absolute_identifier: self).sync!
+    Synchronizer.for(absolute_identifier: self).sync!
   end
 
   def generate_abid
@@ -52,6 +55,28 @@ class AbsoluteIdentifier < ApplicationRecord
     else
       true
     end
+  end
+
+  def alma_item
+    @alma_item ||=
+      begin
+        return Alma::BibItem.new(holding_cache) if holding_cache.present?
+        item = Alma::BibItem.find_by_barcode(barcode)
+        if item.item.dig("errorList", "error", 0, "errorCode").blank?
+          item
+        end
+      end
+  end
+
+  def previous_call_number
+    return if holding_cache.blank?
+    alma_item.holding_data["permanent_call_number"]
+  end
+
+  def cache_holding_id
+    return if holding_id.present? || !batch.is_a?(MarcBatch) || alma_item.blank?
+    self.holding_cache = alma_item.item
+    self.holding_id = alma_item["holding_data"]["holding_id"]
   end
 
   private
@@ -69,16 +94,36 @@ class AbsoluteIdentifier < ApplicationRecord
   def legacy_identifiers
     {
       "firestone" => {
-        "S" => 247,
+        "S" => 250,
         "Z" => 34,
-        "Q" => 1019,
+        "Q" => 1027,
         "P" => 161,
-        "N" => 2621,
+        "N" => 2632,
         "L" => 29,
-        "F" => 185,
+        "F" => 186,
         "E" => 114,
         "B" => 1568
       }
     }
+  end
+
+  def barcode_in_alma
+    return unless batch.is_a?(MarcBatch)
+    return if alma_item.present?
+    errors.add(:barcode, "is not present in Alma")
+  end
+
+  def barcode_in_special_collections
+    return unless batch.is_a?(MarcBatch)
+    return if alma_item&.library == "rare"
+    errors.add(:barcode, "is for an item not in the 'rare' library.")
+  end
+
+  def holding_id_unique
+    return unless batch.is_a?(MarcBatch)
+    cache_holding_id
+    existing_abids = self.class.where(holding_id: holding_id).where.not(prefix: prefix)
+    return if existing_abids.blank?
+    errors.add(:barcode, "an AbID with this holding ID but a different prefix (#{existing_abids.first.prefix}) exists.")
   end
 end

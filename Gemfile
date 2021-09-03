@@ -5,11 +5,14 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "2.6.6"
 
+gem "alma"
 gem "archivesspace-client"
 gem "bootsnap", ">= 1.4.4", require: false
+gem "cocoon"
 gem "devise"
 gem "honeybadger", "~> 4.0"
 gem "jbuilder", "~> 2.7"
+gem "marc"
 gem "omniauth-cas"
 gem "pg"
 gem "puma", "~> 5.0"

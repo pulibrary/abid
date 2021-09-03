@@ -2,7 +2,7 @@
       <%= f.error_notification message: f.object.errors[:base].to_sentence %>
       <div class="row mb-3">
         <div class="col">
-          <%= f.input :first_barcode %>
+          <%= f.input :first_barcode, input_html: { class: 'barcode' } %>
         </div>
         <div class="col">
           <%= f.input :call_number %>
