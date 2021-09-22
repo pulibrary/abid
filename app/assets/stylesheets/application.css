@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+
+ .deployment-version {
+   color: gray;
+   float: right;
+ }
