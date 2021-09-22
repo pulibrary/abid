@@ -82,7 +82,7 @@ class AbsoluteIdentifier < ApplicationRecord
   private
 
   def highest_identifier
-    self.class.where(prefix: prefix, pool_identifier: pool_identifier).order(suffix: :desc).pick(:suffix) || last_legacy_identifier
+    self.class.where(prefix: prefix, pool_identifier: pool_identifier).where.not(suffix: nil).order(suffix: :desc).pick(:suffix) || last_legacy_identifier
   end
 
   # The old database ended identifiers for each pool at certain numbers - ensure
