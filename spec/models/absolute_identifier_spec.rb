@@ -65,6 +65,13 @@ RSpec.describe AbsoluteIdentifier, type: :model do
         expect(firestone1.full_identifier).to be_blank
       end
     end
+    context "generate_abid==true AFTER generate_abid==false" do
+      it "does not raise an error" do
+        FactoryBot.create(:batch, first_barcode: "32101113344913").absolute_identifiers.first
+        FactoryBot.create(:batch, generate_abid: false).absolute_identifiers.first
+        expect { FactoryBot.create(:batch, first_barcode: "32101113344921").absolute_identifiers.first }.not_to raise_error
+      end
+    end
   end
 
   describe "#synchronize" do

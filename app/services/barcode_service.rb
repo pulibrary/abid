@@ -1,4 +1,9 @@
 # frozen_string_literal: true
+
+##
+# Given a barcode, be able to get the next one in the sequence. This is coded
+# against the barcodes used specifically at Princeton. Uses Luhn algorithm (*not*
+# codabar algorithm).
 class BarcodeService
   def self.valid?(barcode)
     new(barcode).valid?
