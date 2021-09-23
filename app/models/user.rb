@@ -50,6 +50,9 @@ class User < ApplicationRecord
     else
       false
     end
+  rescue => e
+    Rails.logger.error e
+    false
   end
 
   def synchronized_batches
