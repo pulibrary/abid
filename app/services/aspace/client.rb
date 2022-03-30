@@ -42,7 +42,7 @@ module Aspace
 
     def find_top_containers(repository_uri:, ead_id:, indicators:)
       query_params = []
-      query_params << ["q", "collection_identifier_u_stext:#{ead_id} indicator_u_icusort:[#{indicators.first} TO #{indicators.last}]"]
+      query_params << ["q", "collection_identifier_u_stext:#{ead_id} indicator_u_icusort:[#{indicators.first} TO #{indicators.last}] type_enum_s:box"]
 
       query_params << ["type[]", "top_container"]
       query_params << ["fields[]", "uri"]
@@ -58,7 +58,7 @@ module Aspace
 
     def find_barcodes(barcodes:)
       query_params = []
-      query_params << ["q", "barcode_u_icusort:(#{barcodes.join(' OR ')})"]
+      query_params << ["q", "barcode_u_icusort:(#{barcodes.join(' OR ')}) type_enum_s:box"]
 
       query_params << ["type[]", "top_container"]
       query_params << ["fields[]", "uri"]
