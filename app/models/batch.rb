@@ -137,7 +137,10 @@ class Batch < ApplicationRecord
   def top_containers_exist_in_aspace
     return unless ready_for_aspace_checks?
     if top_containers.length < (start_box..end_box).size
-      errors.add(:base, "Unable to find matching top containers for all boxes in #{start_box} - #{end_box}")
+      errors.add(
+        :base,
+        "Unable to find matching top containers for all boxes in #{start_box} - #{end_box}. Found #{top_containers.length} top containers: #{top_containers.map(&:indicator).join(', ')}"
+      )
     end
   end
 
