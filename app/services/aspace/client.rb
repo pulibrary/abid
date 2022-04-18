@@ -48,6 +48,7 @@ module Aspace
       query_params << ["fields[]", "uri"]
       query_params << ["fields[]", "indicator_u_icusort"]
       query_params << ["page", "1"]
+      query_params << ["page_size", "1000"]
 
       query = URI.encode_www_form(query_params)
       response = get("#{repository_uri}/search?#{query}")
