@@ -3,9 +3,9 @@ version: 2.1
 executors:
   abid-executor:
     docker:
-      - image: circleci/ruby:2.6.6-node-browsers
+      - image: cimg/ruby:2.7.6-browsers
         environment:
-          BUNDLER_VERSION: 2.2.6
+          BUNDLER_VERSION: 2.3.11
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
           BUNDLE_PATH: vendor/bundle
