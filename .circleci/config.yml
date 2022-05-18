@@ -1,5 +1,7 @@
 ---
 version: 2.1
+orbs:
+  browser-tools: circleci/browser-tools@1.1
 executors:
   abid-executor:
     docker:
@@ -53,6 +55,7 @@ commands:
 
 jobs:
   build:
+
     executor: abid-executor
     steps:
       - attach_workspace:
@@ -83,8 +86,11 @@ jobs:
   test:
     executor: abid-executor
     steps:
+      - browser-tools/install-browser-tools
       - attach_workspace:
           at: '~/abid'
+      - run: |
+          google-chrome --version
       - setup-bundler
 
       # ensure we have psql which we need for db:schema:load
