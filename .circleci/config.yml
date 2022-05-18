@@ -2,6 +2,7 @@
 version: 2.1
 orbs:
   browser-tools: circleci/browser-tools@1.1
+  node: circleci/node@5.0.2
 executors:
   abid-executor:
     docker:
@@ -69,9 +70,11 @@ jobs:
             - abid-yarn-v1-{{ checksum "yarn.lock" }}
             - abid-yarn-v1-
 
-      - run:
-          name: Yarn Install
-          command: yarn install --cache-folder ~/.cache/yarn
+      - node/install:
+          node-version: '16.15'
+          install-yarn: true
+          yarn-version: '1.22.10'
+      - run: node --version
 
       # Store yarn / webpacker cache
       - save_cache:
