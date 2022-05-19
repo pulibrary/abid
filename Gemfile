@@ -23,7 +23,6 @@ gem "rails", "~> 7.0.3"
 gem "rake"
 gem "sass-rails", ">= 6"
 gem "simple_form"
-gem "turbolinks", "~> 5"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do

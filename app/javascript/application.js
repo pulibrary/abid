@@ -1,9 +1,9 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import Turbolinks from "turbolinks"
 // import Rails from "@rails/ujs"
 // import * as ActiveStorage from "@rails/activestorage"
 // import "channels"
 
+import * as Turbo from "@hotwired/turbo"
 import TurbolinksAdapter from 'vue-turbolinks';
 import Vue from "vue"
 import system from "lux-design-system";
@@ -19,7 +19,6 @@ import BatchForm from "batch_form"
 // require("@nathanvda/cocoon");
 
 // Rails.start()
-Turbolinks.start()
 // ActiveStorage.start()
 
 window.DataTable = DataTable();
@@ -43,4 +42,4 @@ document.addEventListener("DOMContentLoaded", () => {
     "info": false
   })
 })
-document.addEventListener("turbolinks:load", loadPage)
+document.addEventListener("turbo:load", loadPage)
