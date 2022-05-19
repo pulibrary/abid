@@ -11,6 +11,7 @@ gem "bootsnap", ">= 1.4.4", require: false
 gem "cocoon"
 gem "devise"
 gem "honeybadger", "~> 4.0"
+gem "importmap-rails"
 gem "jbuilder", "~> 2.7"
 gem "marc"
 gem "omniauth-cas"
@@ -22,7 +23,6 @@ gem "sass-rails", ">= 6"
 gem "simple_form"
 gem "turbolinks", "~> 5"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
-gem "webpacker", "~> 5.0"
 
 group :development, :test do
   gem "bixby"
