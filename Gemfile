@@ -8,6 +8,7 @@ ruby "2.7.6"
 gem "alma"
 gem "archivesspace-client"
 gem "bootsnap", ">= 1.4.4", require: false
+gem "bootstrap"
 gem "cocoon"
 gem "dartsass-rails"
 gem "devise"
