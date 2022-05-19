@@ -1,1 +1,33 @@
 // Sassy
+// @import "~bootstrap/scss/bootstrap";
+
+
+html, body {
+  height: 100%;
+}
+#main {
+  min-height: calc(100% - 273px - 53px);
+}
+
+#batch-create {
+  border: 1px solid var(--bs-gray);
+  input.boolean {
+    background-color: white !important;
+  }
+  input.boolean:checked {
+    background-color: var(--bs-blue) !important;
+  }
+  label.boolean {
+    color: black !important;
+  }
+}
+
+#welcome {
+  height: calc(100vh - 273px - 53px);
+  h2 {
+    text-align: center;
+  }
+  #welcome-login {
+    text-align: center;
+  }
+}

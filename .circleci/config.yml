@@ -101,6 +101,10 @@ jobs:
             bin/rails db:create
             bin/rails db:structure:load
 
+      - run:
+          name: compile css files
+          command: bundle exec rails dartsass:build
+
       # Run rspec
       - run:
           name: Run rspec
