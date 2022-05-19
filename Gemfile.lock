@@ -125,6 +125,8 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
+    dartsass-rails (0.3.0)
+      railties (>= 6.0.0)
     devise (4.8.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -429,6 +431,7 @@ DEPENDENCIES
   capistrano-rails (~> 1.4)
   capybara (>= 3.26)
   cocoon
+  dartsass-rails
   devise
   dotenv-rails
   ed25519

@@ -42,3 +42,6 @@ coverage
 .DS_Store
 
 .env
+
+/app/assets/builds/*
+!/app/assets/builds/.keep
