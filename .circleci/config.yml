@@ -75,6 +75,9 @@ jobs:
           install-yarn: true
           yarn-version: '1.22.10'
       - run: node --version
+      - run:
+          name: Yarn Install
+          command: yarn install --cache-folder ~/.cache/yarn
 
       # Store yarn / webpacker cache
       - save_cache:
