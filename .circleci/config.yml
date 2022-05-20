@@ -41,8 +41,8 @@ commands:
       # Restore bundle cache
       - restore_cache:
           keys:
-            - abid-bundle-v3-{{ checksum "Gemfile.lock" }}
-            - abid-bundle-v3-
+            - abid-bundle-v4-{{ checksum "Gemfile.lock" }}
+            - abid-bundle-v4-
 
       - run:
           name: Bundle Install
@@ -50,7 +50,7 @@ commands:
 
       # Store bundle cache
       - save_cache:
-          key: abid-bundle-v3-{{ checksum "Gemfile.lock" }}
+          key: abid-bundle-v4-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 
@@ -67,8 +67,8 @@ jobs:
       # Only necessary if app uses webpacker or yarn in some other way
       - restore_cache:
           keys:
-            - abid-yarn-v1-{{ checksum "yarn.lock" }}
-            - abid-yarn-v1-
+            - abid-yarn-v2-{{ checksum "yarn.lock" }}
+            - abid-yarn-v2-
 
       - node/install:
           node-version: '16.15'
@@ -78,7 +78,7 @@ jobs:
 
       # Store yarn / webpacker cache
       - save_cache:
-          key: abid-yarn-v1-{{ checksum "yarn.lock" }}
+          key: abid-yarn-v2-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
 
