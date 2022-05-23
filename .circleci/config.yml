@@ -1,11 +1,14 @@
 ---
 version: 2.1
+orbs:
+  browser-tools: circleci/browser-tools@1.1
+  node: circleci/node@5.0.2
 executors:
   abid-executor:
     docker:
-      - image: circleci/ruby:2.6.6-node-browsers
+      - image: cimg/ruby:2.7.5-browsers
         environment:
-          BUNDLER_VERSION: 2.2.6
+          BUNDLER_VERSION: 2.3.11
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
           BUNDLE_PATH: vendor/bundle
@@ -38,8 +41,8 @@ commands:
       # Restore bundle cache
       - restore_cache:
           keys:
-            - abid-bundle-v3-{{ checksum "Gemfile.lock" }}
-            - abid-bundle-v3-
+            - abid-bundle-v4-{{ checksum "Gemfile.lock" }}
+            - abid-bundle-v4-
 
       - run:
           name: Bundle Install
@@ -47,12 +50,13 @@ commands:
 
       # Store bundle cache
       - save_cache:
-          key: abid-bundle-v3-{{ checksum "Gemfile.lock" }}
+          key: abid-bundle-v4-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 
 jobs:
   build:
+
     executor: abid-executor
     steps:
       - attach_workspace:
@@ -63,16 +67,21 @@ jobs:
       # Only necessary if app uses webpacker or yarn in some other way
       - restore_cache:
           keys:
-            - abid-yarn-v1-{{ checksum "yarn.lock" }}
-            - abid-yarn-v1-
+            - abid-yarn-v2-{{ checksum "yarn.lock" }}
+            - abid-yarn-v2-
 
+      - node/install:
+          node-version: '16.15'
+          install-yarn: true
+          yarn-version: '1.22.10'
+      - run: node --version
       - run:
           name: Yarn Install
           command: yarn install --cache-folder ~/.cache/yarn
 
       # Store yarn / webpacker cache
       - save_cache:
-          key: abid-yarn-v1-{{ checksum "yarn.lock" }}
+          key: abid-yarn-v2-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
 
@@ -83,8 +92,11 @@ jobs:
   test:
     executor: abid-executor
     steps:
+      - browser-tools/install-browser-tools
       - attach_workspace:
           at: '~/abid'
+      - run: |
+          google-chrome --version
       - setup-bundler
 
       # ensure we have psql which we need for db:schema:load
