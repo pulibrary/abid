@@ -21,7 +21,7 @@ RSpec.describe "Batch management" do
     fill_in "Call number", with: "ABID001"
     fill_in "Start box", with: 31
     fill_in "End box", with: 31
-    select "Firestone Library, Vault, Manuscripts [mss]", from: "Location"
+    select "Firestone Library, Vault, Manuscripts Archival [scamss]", from: "Location"
     select "Standard manuscript", from: "Container profile"
     click_button "Create Batch"
 
@@ -65,7 +65,7 @@ RSpec.describe "Batch management" do
     fill_in "Call number", with: "ABID001"
     fill_in "Start box", with: 40
     fill_in "End box", with: 41
-    select "Firestone Library, Vault, Manuscripts [mss]", from: "Location"
+    select "Firestone Library, Vault, Manuscripts Archival [scamss]", from: "Location"
     select "Standard manuscript", from: "Container profile"
     click_button "Create Batch"
 

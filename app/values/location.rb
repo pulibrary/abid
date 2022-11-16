@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class Location
-  FIRESTONE_CODES = ["mss", "hsvm", "rcpxm"].freeze
-  MUDD_CODES = ["mudd", "prnc", "rcpph", "oo", "sc", "sls"].freeze
+  FIRESTONE_CODES = ["scamss", "scahsvm", "scarcpxm"].freeze
+  MUDD_CODES = ["scamudd", "prnc", "rcpph", "sc", "sls"].freeze
 
   def self.configured_codes
     FIRESTONE_CODES + MUDD_CODES
@@ -15,6 +15,9 @@ class Location
     @source = location_hash
   end
 
+  # The pool identifier is the library where the
+  # box resides.  This will not change when
+  # location codes change.
   def pool_identifier
     if FIRESTONE_CODES.include?(code)
       "firestone"

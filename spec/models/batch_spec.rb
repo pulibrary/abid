@@ -46,7 +46,7 @@ RSpec.describe Batch, type: :model do
 
     # Ensure it uses cached data if possible.
     expect(batch.location_data).to be_present
-    expect(batch.location.code).to eq "mss"
+    expect(batch.location.code).to eq "scamss"
   end
 
   it "caches container_profile_data" do
@@ -131,7 +131,7 @@ RSpec.describe Batch, type: :model do
     expect(csv["abid"]).to eq "B-001569"
     expect(csv["user"]).not_to be_nil
     expect(csv["barcode"]).to eq "32101113344905"
-    expect(csv["location"]).to eq "Firestone Library, Vault, Manuscripts [mss]"
+    expect(csv["location"]).to eq "Firestone Library, Vault, Manuscripts Archival [scamss]"
     expect(csv["container_profile"]).to eq "Standard manuscript"
     expect(csv["call_number"]).to eq "ABID001"
     expect(csv["box_number"]).to eq "31"

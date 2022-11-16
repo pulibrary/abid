@@ -3,7 +3,7 @@ require "rails_helper"
 
 RSpec.describe Location do
   describe "#pool_identifier" do
-    ["mss", "hsvm", "rcpxm"].each do |code|
+    ["scamss", "scahsvm", "scarcpxm"].each do |code|
       context "when given a #{code} classification" do
         it "returns firestone" do
           location = described_class.new("classification" => code)
@@ -11,7 +11,7 @@ RSpec.describe Location do
         end
       end
     end
-    ["mudd", "prnc", "rcpph", "oo", "sc", "sls"].each do |code|
+    ["scamudd", "prnc", "rcpph", "sc", "sls"].each do |code|
       context "when given a #{code} classification" do
         it "returns mudd" do
           location = described_class.new("classification" => code)

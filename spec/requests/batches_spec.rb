@@ -62,7 +62,7 @@ RSpec.describe BatchesController do
       expect(response.body).to have_select "Container profile", with_options: ["Elephant size box"]
       # Ensure locations are filtered to just the configured ones.
       expect(response.body).not_to have_select "Location", with_options: ["Annex, Annex B [anxb]"]
-      expect(response.body).to have_select "Location", with_options: ["Firestone Library, Vault, Manuscripts [mss]"]
+      expect(response.body).to have_select "Location", with_options: ["Firestone Library, Vault, Manuscripts Archival [scamss]"]
       expect(response.body).to have_checked_field "Generate Absolute Identifier"
     end
 
