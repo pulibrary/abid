@@ -11,7 +11,7 @@ RSpec.describe Location do
         end
       end
     end
-    ["scamudd", "prnc", "rcpph", "sc", "sls"].each do |code|
+    ["scamudd", "prnc", "scarcpph", "sc", "sls"].each do |code|
       context "when given a #{code} classification" do
         it "returns mudd" do
           location = described_class.new("classification" => code)

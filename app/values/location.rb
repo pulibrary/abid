@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class Location
   FIRESTONE_CODES = ["scamss", "scahsvm", "scarcpxm"].freeze
-  MUDD_CODES = ["scamudd", "prnc", "rcpph", "sc", "sls"].freeze
+  MUDD_CODES = ["scamudd", "prnc", "scarcpph", "sc", "sls"].freeze
 
   def self.configured_codes
     FIRESTONE_CODES + MUDD_CODES

@@ -12,7 +12,7 @@ RSpec.describe Aspace::Client do
       locations = client.locations
       expect(locations.map(&:code)).to contain_exactly(
         "scamss", "scahsvm", "scarcpxm",
-        "scamudd", "prnc", "rcpph", "sc", "sls"
+        "scamudd", "prnc", "scarcpph", "sc", "sls"
       )
       expect(locations[0].title).to eq "Firestone Library, High Security Vault, Manuscripts Archival [scahsvm]"
     end
