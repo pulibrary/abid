@@ -33,6 +33,7 @@ class ContainerProfile
         "Standard manuscript" => "S",
         "Standard half-manuscript" => "S",
         "Standard other" => "S",
+        "Quarto" => "S",
         "Mudd OS open" => "O",
         "Mudd OS folder" => "C",
         "Mudd OS height, depth-extra" => "XHD"

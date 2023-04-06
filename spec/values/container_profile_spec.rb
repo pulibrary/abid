@@ -9,6 +9,7 @@ RSpec.describe ContainerProfile do
     it "switches between S and B for shared box sizes in mudd/firestone" do
       expect(described_class.new("name" => "Standard manuscript").abid_prefix(pool_identifier: "firestone")).to eq "B"
       expect(described_class.new("name" => "Standard manuscript").abid_prefix(pool_identifier: "mudd")).to eq "S"
+      expect(described_class.new("name" => "Quarto").abid_prefix(pool_identifier: "mudd")).to eq "S"
     end
     it "returns unknown for unknown pool identifiers or names" do
       expect(described_class.new("name" => "Standard manuscript").abid_prefix(pool_identifier: "dunno")).to eq "UNKNOWN"
