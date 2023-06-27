@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.7.5"
+ruby "3.1.3"
 
 gem "alma"
 gem "archivesspace-client"
@@ -23,6 +23,8 @@ gem "simple_form"
 gem "turbolinks", "~> 5"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 gem "webpacker", "~> 5.0"
+gem "net-smtp"
+gem "sshkit"
 
 group :development, :test do
   gem "bixby"
