@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.7.5"
+ruby "3.1.0"
 
 gem "alma"
 gem "archivesspace-client"
@@ -13,8 +13,12 @@ gem "devise"
 gem "honeybadger", "~> 4.0"
 gem "jbuilder", "~> 2.7"
 gem "marc"
+gem "net-imap", require: false
+gem "net-pop", require: false
+gem "net-smtp", require: false
 gem "omniauth-cas"
 gem "pg"
+gem 'psych', '< 4'
 gem "puma", "~> 5.6"
 gem "rails", "~> 7.0.0"
 gem "rake"
@@ -51,7 +55,7 @@ group :development do
 end
 
 group :test do
-  gem "capybara", ">= 3.26"
+  gem "capybara", "~> 3.37"
   gem "selenium-webdriver"
   gem "simplecov", require: false
   gem "webdrivers"
