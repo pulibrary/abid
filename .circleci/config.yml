@@ -111,7 +111,7 @@ jobs:
           name: Database setup
           command: |
             bin/rails db:create
-            bin/rails db:structure:load
+            bin/rails db:schema:load
 
       # Run rspec
       - run:
