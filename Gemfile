@@ -42,6 +42,7 @@ group :development do
   gem "capistrano", "~> 3.10", require: false
   gem "capistrano-passenger", require: false
   gem "capistrano-rails", "~> 1.4", require: false
+  gem "capistrano-yarn", require: false
   gem "ed25519"
   gem "listen", "~> 3.3"
   gem "rack-mini-profiler", "~> 2.0"

@@ -110,6 +110,8 @@ GEM
     capistrano-rails (1.6.1)
       capistrano (~> 3.1)
       capistrano-bundler (>= 1.1, < 3)
+    capistrano-yarn (2.0.2)
+      capistrano (~> 3.0)
     capybara (3.35.3)
       addressable
       mini_mime (>= 0.1.3)
@@ -432,6 +434,7 @@ DEPENDENCIES
   capistrano (~> 3.10)
   capistrano-passenger
   capistrano-rails (~> 1.4)
+  capistrano-yarn
   capybara (>= 3.26)
   cocoon
   devise
