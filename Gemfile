@@ -18,7 +18,7 @@ gem "net-pop", require: false
 gem "net-smtp", require: false
 gem "omniauth-cas"
 gem "pg"
-gem 'psych', '< 4'
+gem "psych", "< 4"
 gem "puma", "~> 5.6"
 gem "rails", "~> 7.0.0"
 gem "rake"

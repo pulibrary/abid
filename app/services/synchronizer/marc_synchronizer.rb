@@ -30,24 +30,22 @@ class Synchronizer
     end
 
     def update_holding_marc
+      # There will always be an 852.
       @modified_holding_marc ||=
-        begin
-          # There will always be an 852.
-          holding_marc.each_by_tag("852") do |field|
-            # Means "local"
-            field.indicator1 = "8"
-            field.subfields.each do |subfield|
-              if subfield.code == "h"
-                subfield.value = absolute_identifier.full_identifier
-              elsif subfield.code == "i"
-                # Delete subfield i - unneeded.
-                field.subfields.delete(subfield)
-              end
+        holding_marc.each_by_tag("852") do |field|
+          # Means "local"
+          field.indicator1 = "8"
+          field.subfields.each do |subfield|
+            if subfield.code == "h"
+              subfield.value = absolute_identifier.full_identifier
+            elsif subfield.code == "i"
+              # Delete subfield i - unneeded.
+              field.subfields.delete(subfield)
             end
-            # Add subfield h if one doesn't exist.
-            if field["h"].blank?
-              field.append(MARC::Subfield.new("h", absolute_identifier.full_identifier))
-            end
+          end
+          # Add subfield h if one doesn't exist.
+          if field["h"].blank?
+            field.append(MARC::Subfield.new("h", absolute_identifier.full_identifier))
           end
         end
     end

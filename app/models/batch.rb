@@ -44,12 +44,10 @@ class Batch < ApplicationRecord
 
   def location
     @location ||=
-      begin
-        if location_data
-          Location.new(location_data)
-        else
-          aspace_client.get_location(ref: location_uri)
-        end
+      if location_data
+        Location.new(location_data)
+      else
+        aspace_client.get_location(ref: location_uri)
       end
   end
 
@@ -63,12 +61,10 @@ class Batch < ApplicationRecord
 
   def container_profile
     @container_profile =
-      begin
-        if container_profile_data
-          ContainerProfile.new(container_profile_data)
-        else
-          aspace_client.get_container_profile(ref: container_profile_uri)
-        end
+      if container_profile_data
+        ContainerProfile.new(container_profile_data)
+      else
+        aspace_client.get_container_profile(ref: container_profile_uri)
       end
   end
 
