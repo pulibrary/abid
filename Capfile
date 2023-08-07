@@ -6,6 +6,7 @@ require "capistrano/setup"
 # Include default deployment tasks
 require "capistrano/deploy"
 require "capistrano/rails"
+require "capistrano/yarn"
 
 # Load the SCM plugin appropriate to your project:
 #

@@ -16,7 +16,7 @@ gem "marc"
 gem "omniauth-cas"
 gem "pg"
 gem "puma", "~> 5.0"
-gem "rails", "~> 6.1.3", ">= 6.1.3.2"
+gem "rails", "~> 7.0.0"
 gem "rake"
 gem "sass-rails", ">= 6"
 gem "simple_form"
@@ -42,6 +42,7 @@ group :development do
   gem "capistrano", "~> 3.10", require: false
   gem "capistrano-passenger", require: false
   gem "capistrano-rails", "~> 1.4", require: false
+  gem "capistrano-yarn", require: false
   gem "ed25519"
   gem "listen", "~> 3.3"
   gem "rack-mini-profiler", "~> 2.0"
