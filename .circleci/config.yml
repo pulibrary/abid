@@ -67,8 +67,7 @@ jobs:
       # Only necessary if app uses webpacker or yarn in some other way
       - restore_cache:
           keys:
-            - abid-yarn-v2-{{ checksum "yarn.lock" }}
-            - abid-yarn-v2-
+            - abid-yarn-v3-{{ checksum "yarn.lock" }}
 
       - node/install:
           node-version: '16.15'
@@ -81,7 +80,7 @@ jobs:
 
       # Store yarn / webpacker cache
       - save_cache:
-          key: abid-yarn-v2-{{ checksum "yarn.lock" }}
+          key: abid-yarn-v3-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
 
