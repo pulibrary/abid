@@ -98,6 +98,14 @@ jobs:
       - run: |
           google-chrome --version
       - setup-bundler
+      - node/install:
+          node-version: '16.15'
+          install-yarn: true
+          yarn-version: '1.22.10'
+      - run: node --version
+      - run:
+          name: Yarn Install
+          command: yarn install --cache-folder ~/.cache/yarn
 
       # ensure we have psql which we need for db:schema:load
       - run: sudo apt update -y
