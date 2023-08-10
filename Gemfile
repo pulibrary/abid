@@ -15,6 +15,7 @@ gem "ed25519"
 gem "honeybadger", "~> 4.0"
 gem "jbuilder", "~> 2.7"
 gem "marc"
+gem 'net-ssh', '7.0.0.beta1'
 gem "omniauth-cas"
 gem "pg"
 gem "puma", "~> 5.0"
@@ -40,12 +41,10 @@ end
 group :development do
   # Annotate schema on to models automatically.
   gem "annotate"
-  gem "bcrypt_pbkdf"
   gem "capistrano", "~> 3.10", require: false
   gem "capistrano-passenger", require: false
   gem "capistrano-rails", "~> 1.4", require: false
   gem "capistrano-yarn", require: false
-  gem "ed25519"
   gem "listen", "~> 3.3"
   gem "rack-mini-profiler", "~> 2.0"
   gem "spring"
