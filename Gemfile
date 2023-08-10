@@ -7,9 +7,11 @@ ruby "3.1.3"
 
 gem "alma"
 gem "archivesspace-client"
+gem "bcrypt_pbkdf"
 gem "bootsnap", ">= 1.4.4", require: false
 gem "cocoon"
 gem "devise"
+gem "ed25519"
 gem "honeybadger", "~> 4.0"
 gem "jbuilder", "~> 2.7"
 gem "marc"
