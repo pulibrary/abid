@@ -15,7 +15,7 @@ executors:
           PGHOST: 127.0.0.1
           PGUSER: abid
           RAILS_ENV: test
-      - image: postgres:10
+      - image: postgres:15
         environment:
           POSTGRES_USER: abid
           POSTGRES_DB: abid_test

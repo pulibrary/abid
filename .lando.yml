@@ -1,5 +1,5 @@
 name: abid
 services:
   abid_database:
-    type: postgres:10
+    type: postgres:15
     portforward: true
