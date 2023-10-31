@@ -1,7 +1,7 @@
 ---
 version: 2.1
 orbs:
-  browser-tools: circleci/browser-tools@1.4.3
+  browser-tools: circleci/browser-tools@1.4.6
   node: circleci/node@5.0.2
 executors:
   abid-executor:
@@ -92,7 +92,8 @@ jobs:
   test:
     executor: abid-executor
     steps:
-      - browser-tools/install-browser-tools
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
       - attach_workspace:
           at: '~/abid'
       - run: |
