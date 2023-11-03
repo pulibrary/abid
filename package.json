@@ -7,20 +7,19 @@
     "@rails/actioncable": "^7.0.0",
     "@rails/activestorage": "^7.0.0",
     "@rails/ujs": "^7.0.0",
-    "@rails/webpacker": "5.3.0",
     "bootstrap": "^5.0.1",
     "datatables.net-bs4": "^1.10.25",
     "jquery": "^3.6.0",
     "lux-design-system": "^2.0.4",
     "popper.js": "^1.16.1",
+    "sass": "^1.62.1",
     "turbolinks": "^5.2.0",
-    "vue": "^2.6.12",
-    "vue-turbolinks": "^2.2.2",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^3.3.12"
+    "vue": "^2.7.0",
+    "vue-turbolinks": "^2.2.2"
   },
   "version": "0.1.0",
   "devDependencies": {
-    "webpack-dev-server": "^3.11.2"
+    "vite": "^4.2.0",
+    "vite-plugin-ruby": "^3.2.0"
   }
 }
