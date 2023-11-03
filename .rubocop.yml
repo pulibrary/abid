@@ -3,7 +3,7 @@ inherit_gem:
   bixby: bixby_default.yml
 
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.1
   NewCops: disable
   Exclude:
     - 'bin/*'
@@ -44,6 +44,9 @@ RSpec/DescribeClass:
 
 RSpec/ExampleLength:
   Enabled: false
+
+Style/HashSyntax:
+  EnforcedShorthandSyntax: never
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes

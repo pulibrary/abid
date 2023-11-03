@@ -6,7 +6,7 @@ orbs:
 executors:
   abid-executor:
     docker:
-      - image: cimg/ruby:2.7.5-browsers
+      - image: cimg/ruby:3.1.3-browsers
         environment:
           BUNDLER_VERSION: 2.3.11
           BUNDLE_JOBS: 3
@@ -67,8 +67,7 @@ jobs:
       # Only necessary if app uses webpacker or yarn in some other way
       - restore_cache:
           keys:
-            - abid-yarn-v2-{{ checksum "yarn.lock" }}
-            - abid-yarn-v2-
+            - abid-yarn-v3-{{ checksum "yarn.lock" }}
 
       - node/install:
           node-version: '16.15'
@@ -81,7 +80,7 @@ jobs:
 
       # Store yarn / webpacker cache
       - save_cache:
-          key: abid-yarn-v2-{{ checksum "yarn.lock" }}
+          key: abid-yarn-v3-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
 
@@ -99,6 +98,14 @@ jobs:
       - run: |
           google-chrome --version
       - setup-bundler
+      - node/install:
+          node-version: '16.15'
+          install-yarn: true
+          yarn-version: '1.22.10'
+      - run: node --version
+      - run:
+          name: Yarn Install
+          command: yarn install --cache-folder ~/.cache/yarn
 
       # ensure we have psql which we need for db:schema:load
       - run: sudo apt update -y
