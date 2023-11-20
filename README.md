@@ -60,4 +60,6 @@ To stop database services: `rake servers:stop` or `lando stop`
 
 #### Start development server
 - `bundle exec rails s`
+- Ensure you're on VPN or the part of the login process where you connect to
+    aspace will not work
 - Access application at http://localhost:3000/
