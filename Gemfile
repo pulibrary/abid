@@ -21,13 +21,13 @@ gem "omniauth-cas"
 gem "pg"
 gem "psych", "< 4"
 gem "puma", "~> 5.6"
-gem "rails", "~> 7.0"
+gem "rails", "~> 7.1.2"
 gem "rake"
 gem "sass-rails", ">= 6"
 gem "simple_form"
 gem "turbolinks", "~> 5"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
-gem "webpacker", "~> 5.0"
+gem "vite_rails"
 
 group :development, :test do
   gem "bixby"
