@@ -108,6 +108,7 @@ jobs:
           command: yarn install --cache-folder ~/.cache/yarn
 
       # ensure we have psql which we need for db:schema:load
+      - run: wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
       - run: sudo apt update -y
       - run: sudo apt-get install -y postgresql-client || true
 
