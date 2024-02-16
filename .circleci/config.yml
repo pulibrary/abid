@@ -41,8 +41,8 @@ commands:
       # Restore bundle cache
       - restore_cache:
           keys:
-            - abid-bundle-v4-{{ checksum "Gemfile.lock" }}
-            - abid-bundle-v4-
+            - abid-bundle-v5-{{ checksum "Gemfile.lock" }}
+            - abid-bundle-v5-
 
       - run:
           name: Bundle Install
@@ -50,7 +50,7 @@ commands:
 
       # Store bundle cache
       - save_cache:
-          key: abid-bundle-v4-{{ checksum "Gemfile.lock" }}
+          key: abid-bundle-v5-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 

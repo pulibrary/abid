@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class MarcBatchesController < ApplicationController
   before_action :build_sizes, only: [:new, :create]
+  before_action :require_authorization
 
   def show
     @batch = MarcBatch.find(params[:id])

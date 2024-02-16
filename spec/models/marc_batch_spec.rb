@@ -61,6 +61,35 @@ RSpec.describe MarcBatch, type: :model do
     ]
     expect { marc_batch.save! }.to raise_error(ActiveRecord::RecordInvalid)
   end
+  it "bypasses size validation if you set ignore_size_validation" do
+    marc_batch = FactoryBot.build(:marc_batch)
+    stub_alma_barcode(barcode: "32101091149995")
+    marc_batch.absolute_identifiers_attributes = [
+      {
+        barcode: "32101091149995",
+        prefix: "F",
+        pool_identifier: "firestone"
+      }
+    ]
+    marc_batch.save!
+    marc_batch = FactoryBot.build(:marc_batch)
+    stub_alma_barcode(barcode: "32101091149987")
+
+    marc_batch.absolute_identifiers_attributes = [
+      {
+        barcode: "32101091149987",
+        prefix: "N",
+        pool_identifier: "firestone"
+      }
+    ]
+    marc_batch.ignore_size_validation = true
+    expect { marc_batch.save! }.not_to raise_error
+    # Ensure synchronization deletes the old AbID
+    stub_alma_holding(mms_id: "9996869153506421", holding_id: "22589791520006421")
+    stub_holding_update(mms_id: "9996869153506421", holding_id: "22589791520006421")
+    marc_batch.synchronize
+    expect(AbsoluteIdentifier.all.length).to eq 1
+  end
   it "errors if an abid already exists with the given holding ID but a different size" do
     stub_alma_barcode(barcode: "32101091149987")
     stub_alma_barcode(barcode: "32101091149995")
