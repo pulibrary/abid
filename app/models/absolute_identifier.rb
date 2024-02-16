@@ -129,7 +129,7 @@ class AbsoluteIdentifier < ApplicationRecord
 
   def holding_id_unique
     return unless batch.is_a?(MarcBatch)
-    return if batch.ignore_size_validation == true
+    return if batch.ignore_size_validation
     existing_abids = different_size_holding_abids
     return if existing_abids.blank?
     errors.add(:barcode, "an AbID with this holding ID but a different prefix (#{existing_abids.first.prefix}) exists.")
