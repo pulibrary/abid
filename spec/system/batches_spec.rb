@@ -139,6 +139,9 @@ RSpec.describe "Batch management" do
 
       click_button "Create Marc batch"
 
+      # Ensure these options exist.
+      choose("Replace Existing AbIDs")
+      choose("Protect Existing AbIDs")
       expect(page).to have_content "Prefix can't be blank"
       select "Ordinary (N)", from: "Prefix"
 

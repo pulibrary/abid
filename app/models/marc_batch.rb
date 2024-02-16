@@ -9,10 +9,11 @@
 #
 # Table name: marc_batches
 #
-#  id         :bigint           not null, primary key
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :bigint           not null
+#  id                     :bigint           not null, primary key
+#  ignore_size_validation :boolean          default(FALSE)
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  user_id                :bigint           not null
 #
 # Indexes
 #

@@ -7,5 +7,6 @@
     <div class="links">
       <%= link_to_add_association 'add absolute identifier', f, :absolute_identifiers %>
     </div>
+    <%= f.input :ignore_size_validation, as: :radio_buttons, collection: [[false, "Protect Existing AbIDs"], [true, "Replace Existing AbIDs"]], label_method: :second, value_method: :first, wrapper: :horizontal_collection_inline, label: false %>
     <%= f.button :submit, class: 'btn-primary' %>
   <% end %>

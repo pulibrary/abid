@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2022_05_19_150752) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_16_174259) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,11 +53,12 @@ ActiveRecord::Schema[7.1].define(version: 2022_05_19_150752) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.boolean "ignore_size_validation", default: false
     t.index ["user_id"], name: "index_marc_batches_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.datetime "remember_created_at"
+    t.datetime "remember_created_at", precision: nil
     t.string "provider", default: "cas", null: false
     t.string "uid", null: false
     t.datetime "created_at", null: false

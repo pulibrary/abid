@@ -79,6 +79,14 @@ class AbsoluteIdentifier < ApplicationRecord
     self.holding_id = alma_item["holding_data"]["holding_id"]
   end
 
+  # Get all AbIDs which are for this AbID's holding, but with a different
+  # prefix.
+  def different_size_holding_abids
+    return [] unless batch.is_a?(MarcBatch)
+    cache_holding_id
+    self.class.where(holding_id: holding_id).where.not(prefix: prefix)
+  end
+
   private
 
   def highest_identifier
@@ -121,8 +129,8 @@ class AbsoluteIdentifier < ApplicationRecord
 
   def holding_id_unique
     return unless batch.is_a?(MarcBatch)
-    cache_holding_id
-    existing_abids = self.class.where(holding_id: holding_id).where.not(prefix: prefix)
+    return if batch.ignore_size_validation == true
+    existing_abids = different_size_holding_abids
     return if existing_abids.blank?
     errors.add(:barcode, "an AbID with this holding ID but a different prefix (#{existing_abids.first.prefix}) exists.")
   end

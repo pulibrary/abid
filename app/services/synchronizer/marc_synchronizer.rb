@@ -14,12 +14,20 @@ class Synchronizer
       update_holding_marc
       url = "#{bibs_base_path}/#{mms_id}/holdings/#{holding_id}"
       data = "<holding><record>#{holding_marc.to_xml}</record></holding>"
+      delete_conflicting_abids
       HTTParty.put(url, headers: headers, body: data)
       absolute_identifier.sync_status = "synchronized"
       absolute_identifier.save
     end
 
     private
+
+    # If we're ignoring size validation then there might be two AbIDs with the
+    # same holding, since one changed. Delete the other one.
+    def delete_conflicting_abids
+      return unless absolute_identifier.batch.try(:ignore_size_validation)
+      absolute_identifier.different_size_holding_abids.each(&:destroy)
+    end
 
     def holding
       @holding ||= Alma::BibHolding.find(mms_id: mms_id, holding_id: holding_id)
