@@ -10,7 +10,7 @@ gem "archivesspace-client"
 gem "bootsnap", ">= 1.4.4", require: false
 gem "cocoon"
 gem "devise"
-gem "honeybadger", "~> 4.0"
+gem "honeybadger"
 gem "jbuilder", "~> 2.7"
 gem "marc"
 gem "net-imap", require: false
