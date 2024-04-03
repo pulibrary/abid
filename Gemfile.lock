@@ -93,7 +93,7 @@ GEM
       nokogiri (~> 1.10)
     ast (2.4.2)
     backport (1.2.0)
-    base64 (0.2.0)
+    base64 (0.1.1)
     bcrypt (3.1.19)
     bcrypt_pbkdf (1.1.0)
     benchmark (0.2.1)
@@ -455,6 +455,7 @@ DEPENDENCIES
   alma
   annotate
   archivesspace-client
+  base64 (= 0.1.1)
   bcrypt_pbkdf
   bixby
   bootsnap (>= 1.4.4)

@@ -7,6 +7,7 @@ ruby "3.1.3"
 
 gem "alma"
 gem "archivesspace-client"
+gem "base64", "0.1.1" # To make the application bundle correctly
 gem "bootsnap", ">= 1.4.4", require: false
 gem "cocoon"
 gem "devise"
