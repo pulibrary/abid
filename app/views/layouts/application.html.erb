@@ -14,21 +14,21 @@
 
   <body>
     <div class="lux">
-      <library-header app-name="Absolute Identifier Management" abbr-name="LTR" app-url="<%= root_path %>" theme="dark">
+      <lux-library-header app-name="Absolute Identifier Management" abbr-name="LTR" app-url="<%= root_path %>" theme="dark">
       <% if current_user.blank? %>
-        <menu-bar type="main-menu" :menu-items="[
+        <lux-menu-bar type="main-menu" :menu-items="[
                         {name: 'Create Marc Batch', component: 'MarcBatches', href: '/marc_batches/new'},
                         {name: 'Login', component: 'Login', href: '/users/auth/cas'}
                         ]"
-                  ></menu-bar>
+                  ></lux-menu-bar>
       <% else %>
-        <menu-bar type="main-menu" :menu-items="[
+        <lux-menu-bar type="main-menu" :menu-items="[
                         {name: 'Create Marc Batch', component: 'MarcBatches', href: '/marc_batches/new'},
                         {name: 'Logout', component: 'Logout', href: '/sign_out'}
                         ]"
-                  ></menu-bar>
+                  ></lux-menu-bar>
       <% end %>
-      </library-header>
+      </lux-library-header>
     </div>
     <div id="main" class="container">
       <div class="row">
@@ -39,7 +39,7 @@
       </div>
     </div>
     <div class="lux">
-      <library-footer></library-footer>
+      <lux-library-footer></lux-library-footer>
     </div>
     <div class="deployment-version copyright" >
       Version <span title="<%= GIT_SHA %>"><%= BRANCH %> last updated <%= LAST_DEPLOYED %>.</span>
