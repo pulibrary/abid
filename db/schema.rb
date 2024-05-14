@@ -58,7 +58,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_174259) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.datetime "remember_created_at", precision: nil
+    t.datetime "remember_created_at"
     t.string "provider", default: "cas", null: false
     t.string "uid", null: false
     t.datetime "created_at", null: false
