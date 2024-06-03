@@ -35,4 +35,4 @@ document.addEventListener("DOMContentLoaded", () => {
     "info": false
   })
 })
-document.addEventListener("turbolinks:load", loadPage, { once: true })
+document.addEventListener("turbolinks:load", loadPage, { once: false })
