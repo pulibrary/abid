@@ -25,6 +25,8 @@ class MarcBatchesController < ApplicationController
     else
       render :new
     end
+  rescue
+    render :new
   end
 
   def destroy

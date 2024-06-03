@@ -36,6 +36,9 @@ module AlmaStubbing
           }.to_json,
           headers: { "Content-Type" => "application/json" }
         )
+    elsif status == 504
+      stub_request(:get, "https://api-na.hosted.exlibrisgroup.com/almaws/v1/items?item_barcode=#{barcode}")
+        .to_raise(Net::OpenTimeout.new)
     else
       stub_request(:get, "https://api-na.hosted.exlibrisgroup.com/almaws/v1/items?item_barcode=#{barcode}")
         .to_return(
