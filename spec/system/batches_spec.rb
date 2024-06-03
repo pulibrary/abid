@@ -34,20 +34,25 @@ RSpec.describe "Batch management" do
       end
 
       click_button "Create Marc batch"
-      expect(page).to have_content("32101097107245")
 
-     # Ensure these options exist.
+      stub_alma_barcode(barcode: "32101091123743")
+      stub_alma_barcode(barcode: "32101097107245")
+
+      binding.pry
+      click_button "Create Marc batch"
+
+      # # Ensure these options exist.
       # choose("Replace Existing AbIDs")
       # choose("Protect Existing AbIDs")
       # expect(page).to have_content "Prefix can't be blank"
       # select "Ordinary (N)", from: "Prefix"
       #
       # click_button "Create Marc batch"
-      #
-      # expect(page).to have_content "Created MARC Batch"
-      #
-      # batch = MarcBatch.last
-      # expect(batch.absolute_identifiers.map(&:prefix)).to contain_exactly("N", "N")
+
+      expect(page).to have_content "Created MARC Batch"
+
+      batch = MarcBatch.last
+      expect(batch.absolute_identifiers.map(&:prefix)).to contain_exactly("N", "N")
     end
   end
 

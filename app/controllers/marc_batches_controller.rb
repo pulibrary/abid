@@ -25,8 +25,7 @@ class MarcBatchesController < ApplicationController
     else
       render :new
     end
-  rescue
-    render :new
+  rescue Net::OpenTimeout
   end
 
   def destroy
