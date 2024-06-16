@@ -62,3 +62,5 @@ group :test do
   gem "simplecov", require: false
   gem "webmock"
 end
+
+gem "dockerfile-rails", ">= 1.6", group: :development
