@@ -23,5 +23,9 @@
     "@vitejs/plugin-vue": "^5.0.4",
     "vite": "^5.2.8",
     "vite-plugin-ruby": "^5.0.0"
+  },
+  "packageManager": "yarn@1.22.10",
+  "scripts": {
+    "build": "vite build --outDir public"
   }
 }
