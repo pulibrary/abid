@@ -38,6 +38,10 @@ Metrics/ModuleLength:
   Exclude:
     - 'spec/support/stub_aspace.rb'
 
+Rails/UnknownEnv:
+  Exclude:
+    - 'config/initializers/honeybadger_downtime_hook.rb'
+
 RSpec/DescribeClass:
   Exclude:
     - 'spec/system/**/*'
