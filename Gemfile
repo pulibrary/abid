@@ -63,3 +63,5 @@ group :test do
   gem "timecop"
   gem "webmock"
 end
+
+gem "dockerfile-rails", ">= 1.6", group: :development
