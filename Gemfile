@@ -11,6 +11,7 @@ gem "base64", "0.1.1" # To make the application bundle correctly
 gem "bootsnap", ">= 1.4.4", require: false
 gem "cocoon"
 gem "devise"
+gem "health-monitor-rails"
 gem "honeybadger", "~> 5.0"
 gem "jbuilder", "~> 2.7"
 gem "marc"
