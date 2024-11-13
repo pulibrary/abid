@@ -28,13 +28,15 @@ set :linked_dirs, fetch(:linked_dirs, []).push("log", "vendor/bundle")
 
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
+#   # You can/ should apply this command to a subset of hosts
+# cap --hosts=abid-staging2.lib.princeton.edu staging application:remove_from_nginx
 desc "Marks the server(s) to be removed from the loadbalancer"
   task :remove_from_nginx do
     count = 0
     on roles(:app) do
       count += 1
     end
-    if count > 1
+    if count > (roles(:app).length / 2)
       raise "You must run this command on individual servers utilizing the --hosts= switch"
     end
     on roles(:app) do
@@ -43,9 +45,8 @@ desc "Marks the server(s) to be removed from the loadbalancer"
       end
     end
   end
-
-  # You can/ should apply this command to a single host
-  # cap --hosts=pdc-describe-staging1.princeton.edu staging application:serve_from_nginx
+  # You can/ should apply this command to a subset of hosts
+  # cap --hosts=abid-staging2.lib.princeton.edu staging application:serve_from_nginx
   desc "Marks the server(s) to be removed from the loadbalancer"
   task :serve_from_nginx do
     on roles(:app) do
