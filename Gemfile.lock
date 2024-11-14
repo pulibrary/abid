@@ -167,7 +167,7 @@ GEM
       activesupport (>= 6.1)
     hashdiff (1.0.1)
     hashie (5.0.0)
-    health-monitor-rails (12.3.0)
+    health-monitor-rails (12.4.0)
       railties (>= 6.1)
     honeybadger (5.10.0)
     httparty (0.21.0)
@@ -472,7 +472,7 @@ DEPENDENCIES
   dotenv-rails
   ed25519
   factory_bot_rails
-  health-monitor-rails
+  health-monitor-rails (= 12.4.0)
   honeybadger (~> 5.0)
   jbuilder (~> 2.7)
   listen (~> 3.3)
