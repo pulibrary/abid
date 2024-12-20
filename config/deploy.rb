@@ -29,7 +29,7 @@ set :linked_dirs, fetch(:linked_dirs, []).push("log", "vendor/bundle")
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
 #   # You can/ should apply this command to a subset of hosts
-# cap --hosts=abid-staging2.lib.princeton.edu staging application:remove_from_nginx
+# cap --hosts=abid-staging2.lib.princeton.edu staging remove_from_nginx
 desc "Marks the server(s) to be removed from the loadbalancer"
 task :remove_from_nginx do
   count = 0
@@ -45,9 +45,10 @@ task :remove_from_nginx do
     end
   end
 end
+
 # You can/ should apply this command to a subset of hosts
-# cap --hosts=abid-staging2.lib.princeton.edu staging application:serve_from_nginx
-desc "Marks the server(s) to be removed from the loadbalancer"
+# cap --hosts=abid-staging2.lib.princeton.edu staging serve_from_nginx
+desc "Marks the server(s) to be placed back on the loadbalancer"
 task :serve_from_nginx do
   on roles(:app) do
     within release_path do
