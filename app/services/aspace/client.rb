@@ -37,7 +37,9 @@ module Aspace
     end
 
     def user_info(ref:)
-      get(ref).parsed
+      result = get(ref)
+      return result.parsed if result.status_code == 200
+      raise ArchivesSpace::ConnectionError, "Error getting user info for #{ref}, status: #{result.status_code}, body: #{result.body}"
     end
 
     def find_top_containers(repository_uri:, ead_id:, indicators:)
