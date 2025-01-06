@@ -58,5 +58,20 @@ RSpec.describe User, type: :model do
         expect(user).to be_authorized
       end
     end
+    context "when there's a problem with the API access" do
+      it "raises" do
+        stub_user(uid: "user", uri: "/users/1")
+        stub_request(:get, "https://aspace.test.org/staff/api/users/1").to_return(
+          status: 403,
+          headers: {
+            "Content-Type" => "text/html"
+          },
+          body: "<html>\r\n<head><title>403 Forbidden</title></head>\r\n<body>\r\n<center><h1>403 Forbidden</h1></center>\r\n<hr><center>nginx/1.27.1</center>\r\n</body>\r\n</html>\r\n"
+        )
+        user = described_class.from_cas(access_token)
+
+        expect { user.authorized? }.to raise_error(ArchivesSpace::ConnectionError)
+      end
+    end
   end
 end
