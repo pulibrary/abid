@@ -3,8 +3,6 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.2.6"
-
 gem "alma"
 gem "archivesspace-client"
 gem "base64", "0.1.1" # To make the application bundle correctly
@@ -49,6 +47,7 @@ group :development do
   gem "capistrano-passenger", require: false
   gem "capistrano-rails", "~> 1.4", require: false
   gem "capistrano-yarn", require: false
+  gem "dockerfile-rails", ">= 1.7"
   gem "ed25519"
   gem "listen", "~> 3.3"
   gem "rack-mini-profiler", "~> 2.0"
