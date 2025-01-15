@@ -21,7 +21,6 @@ gem "net-smtp", require: false
 gem "net-ssh", "7.0.0.beta1"
 gem "omniauth-cas"
 gem "pg"
-gem "psych", "< 4"
 gem "puma", "~> 5.6"
 gem "rails", "~> 7.1.2"
 gem "rake"
