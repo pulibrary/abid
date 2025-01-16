@@ -148,6 +148,8 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.5.0)
     docile (1.4.0)
+    dockerfile-rails (1.7.2)
+      rails (>= 3.0.0)
     dotenv (2.8.1)
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
@@ -224,6 +226,8 @@ GEM
       net-protocol
     net-ssh (7.0.0.beta1)
     nio4r (2.7.3)
+    nokogiri (1.16.5-aarch64-linux)
+      racc (~> 1.4)
     nokogiri (1.16.5-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.16.5-x86_64-darwin)
@@ -251,7 +255,6 @@ GEM
       pry (>= 0.13, < 0.15)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
-    psych (3.3.4)
     public_suffix (5.0.3)
     puma (5.6.8)
       nio4r (~> 2.0)
@@ -398,6 +401,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    sqlite3 (1.6.8-aarch64-linux)
     sqlite3 (1.6.8-arm64-darwin)
     sqlite3 (1.6.8-x86_64-darwin)
     sqlite3 (1.6.8-x86_64-linux)
@@ -448,6 +452,7 @@ GEM
     zeitwerk (2.6.13)
 
 PLATFORMS
+  aarch64-linux
   arm64-darwin-21
   arm64-darwin-22
   arm64-darwin-23
@@ -470,6 +475,7 @@ DEPENDENCIES
   capybara (~> 3.37)
   cocoon
   devise
+  dockerfile-rails (>= 1.7)
   dotenv-rails
   ed25519
   factory_bot_rails
@@ -486,7 +492,6 @@ DEPENDENCIES
   pg
   pry-byebug
   pry-rails
-  psych (< 4)
   puma (~> 5.6)
   rack-mini-profiler (~> 2.0)
   rails (~> 7.1.2)
@@ -505,9 +510,6 @@ DEPENDENCIES
   vite_rails
   web-console (>= 4.1.0)
   webmock
-
-RUBY VERSION
-   ruby 3.2.6p234
 
 BUNDLED WITH
    2.3.26
