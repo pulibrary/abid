@@ -39,7 +39,7 @@ job "abid-staging" {
         change_mode = "restart"
         data = <<EOF
         {{- with nomadVar "nomad/jobs/abid-staging" -}}
-        ABID_SECRET_KEY_BASE = '{{ .ABID_SECRET_KEY_BASE }}'
+        SECRET_KEY_BASE = '{{ .ABID_SECRET_KEY_BASE }}'
         APP_DB = {{ .APP_DB }}
         APP_DB_USERNAME = {{ .APP_DB_USERNAME }}
         APP_DB_PASSWORD = {{ .APP_DB_PASSWORD }}
