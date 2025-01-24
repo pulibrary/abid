@@ -63,3 +63,17 @@ To stop database services: `rake servers:stop` or `lando stop`
 - Ensure you're on VPN or the part of the login process where you connect to
     aspace will not work
 - Access application at http://localhost:3000/
+
+### Deployment
+
+This application is hosted on our nomad cluster. Deploy using `bin/deploy`, e.g.:
+
+```
+BRANCH=[my_branch] ./bin/deploy staging
+```
+
+The container must be built via github actions before deploy can succeed. It will keep trying if the container isn't ready yet.
+
+#### Testing Production Install
+
+You can test the docker container by running `docker compose up` and going to `http://localhost:3000`
