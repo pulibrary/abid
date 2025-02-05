@@ -105,7 +105,7 @@ module Aspace
     end
 
     def save_top_container(top_container:)
-      output = post(top_container.uri, top_container.source.to_json)
+      output = post(top_container.uri, top_container.source)
       raise unless output.status.code == "200"
     end
   end
