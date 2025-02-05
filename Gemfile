@@ -8,6 +8,7 @@ gem "archivesspace-client"
 gem "base64", "0.2.0" # To make the application bundle correctly
 gem "bootsnap", ">= 1.4.4", require: false
 gem "cocoon"
+gem "csv", "~> 3.3.2"
 gem "devise"
 gem "health-monitor-rails", "12.5.0"
 gem "honeybadger", "~> 5.0"

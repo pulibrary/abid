@@ -138,7 +138,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
-    csv (0.1.0)
+    csv (3.3.2)
     date (3.4.1)
     devise (4.9.4)
       bcrypt (~> 3.0)
@@ -494,6 +494,7 @@ DEPENDENCIES
   capistrano-yarn
   capybara (~> 3.37)
   cocoon
+  csv (~> 3.3.2)
   devise
   dockerfile-rails (>= 1.7)
   dotenv-rails
