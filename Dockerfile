@@ -2,6 +2,7 @@
 # check=error=true
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
+# renovate: datasource=ruby-version depName=ruby
 ARG RUBY_VERSION=3.2.6
 FROM ruby:$RUBY_VERSION-slim AS base
 
@@ -36,7 +37,9 @@ RUN apt-get update -qq && \
 FROM prebuild AS node
 
 # Install JavaScript dependencies
+# renovate: datasource=node-version depName=node
 ARG NODE_VERSION=22.10.0
+# renovate: datasource=npm depName=yarn versioning=npm
 ARG YARN_VERSION=1.22.22
 ENV PATH=/usr/local/node/bin:$PATH
 RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz -C /tmp/ && \
