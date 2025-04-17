@@ -6,7 +6,7 @@ orbs:
 executors:
   abid-executor:
     docker:
-      - image: cimg/ruby:3.4.2-browsers
+      - image: cimg/ruby:3.4.3-browsers
         environment:
           BUNDLER_VERSION: 2.3.11
           BUNDLE_JOBS: 3
