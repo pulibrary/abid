@@ -5,7 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem "alma"
 gem "archivesspace-client"
-gem "base64", "0.2.0" # To make the application bundle correctly
+gem "base64", "0.3.0" # To make the application bundle correctly
 gem "bootsnap", ">= 1.4.4", require: false
 gem "cocoon"
 gem "csv", "~> 3.3.2"
