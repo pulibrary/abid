@@ -159,7 +159,7 @@ GEM
     hashie (5.0.0)
     health-monitor-rails (12.9.0)
       railties (>= 6.1)
-    honeybadger (5.29.1)
+    honeybadger (6.0.2)
       logger
       ostruct
     httparty (0.22.0)
@@ -233,7 +233,7 @@ GEM
       nokogiri (~> 1.12)
       omniauth (~> 2.1)
     orm_adapter (0.5.0)
-    ostruct (0.6.2)
+    ostruct (0.6.3)
     parallel (1.27.0)
     parser (3.3.8.0)
       ast (~> 2.4.1)
@@ -482,7 +482,7 @@ DEPENDENCIES
   ed25519
   factory_bot_rails
   health-monitor-rails (~> 12.9)
-  honeybadger (~> 5.0)
+  honeybadger (~> 6.0)
   jbuilder (~> 2.7)
   listen (~> 3.3)
   marc
