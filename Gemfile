@@ -44,10 +44,6 @@ group :development do
   # Annotate schema on to models automatically.
   gem "annotate"
   gem "bcrypt_pbkdf"
-  gem "capistrano", "~> 3.10", require: false
-  gem "capistrano-passenger", require: false
-  gem "capistrano-rails", "~> 1.4", require: false
-  gem "capistrano-yarn", require: false
   gem "dockerfile-rails", ">= 1.7"
   gem "ed25519"
   gem "listen", "~> 3.3"
