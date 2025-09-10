@@ -1,7 +1,7 @@
 ---
 version: 2.1
 orbs:
-  browser-tools: circleci/browser-tools@2.2.1
+  browser-tools: circleci/browser-tools@2.3.1
   node: circleci/node@7.1.1
 executors:
   abid-executor:
@@ -70,7 +70,7 @@ jobs:
             - abid-yarn-v3-{{ checksum "yarn.lock" }}
 
       - node/install:
-          node-version: '22.18.0'
+          node-version: '22.19.0'
           install-yarn: true
           yarn-version: '1.22.22'
       - run: node --version
@@ -99,7 +99,7 @@ jobs:
           google-chrome --version
       - setup-bundler
       - node/install:
-          node-version: '22.18.0'
+          node-version: '22.19.0'
           install-yarn: true
           yarn-version: '1.22.22'
       - run: node --version
