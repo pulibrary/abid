@@ -15,6 +15,7 @@
     "npm",
     "custom.regex"
   ],
+  "minimumReleaseAge": "14 days",
   "packageRules": [
     {
       "matchDatasources": [
