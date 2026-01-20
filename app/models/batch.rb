@@ -1,32 +1,28 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: batches
 #
-#  id                     :bigint           not null, primary key
-#  call_number            :string
-#  container_profile_data :jsonb
-#  container_profile_uri  :string
+#  id                     :integer          not null, primary key
+#  start_box              :integer
 #  end_box                :integer
 #  first_barcode          :string
-#  generate_abid          :boolean          default(TRUE)
-#  location_data          :jsonb
+#  call_number            :string
 #  location_uri           :string
-#  resource_uri           :string
-#  start_box              :integer
+#  container_profile_uri  :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  user_id                :bigint
+#  resource_uri           :string
+#  user_id                :integer
+#  location_data          :jsonb
+#  container_profile_data :jsonb
+#  generate_abid          :boolean          default(TRUE)
 #
 # Indexes
 #
 #  index_batches_on_user_id  (user_id)
 #
-# Foreign Keys
-#
-#  fk_rails_...  (user_id => users.id)
-#
+
 class Batch < ApplicationRecord
   validates :first_barcode, :call_number, :container_profile_uri, :location_uri, :start_box, :end_box, presence: true
   validates :end_box, numericality: { allow_nil: true, greater_than_or_equal_to: ->(batch) { batch.start_box.to_i } }

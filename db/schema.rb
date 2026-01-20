@@ -10,60 +10,60 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_02_16_174259) do
+ActiveRecord::Schema[8.1].define(version: 2024_02_16_174259) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "absolute_identifiers", force: :cascade do |t|
-    t.integer "original_box_number"
-    t.string "top_container_uri"
-    t.string "prefix"
-    t.integer "suffix"
-    t.string "sync_status"
-    t.string "pool_identifier"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "barcode"
     t.bigint "batch_id"
     t.string "batch_type", default: "Batch"
-    t.string "holding_id"
+    t.datetime "created_at", null: false
     t.jsonb "holding_cache"
+    t.string "holding_id"
+    t.integer "original_box_number"
+    t.string "pool_identifier"
+    t.string "prefix"
+    t.integer "suffix"
+    t.string "sync_status"
+    t.string "top_container_uri"
+    t.datetime "updated_at", null: false
     t.index ["batch_id"], name: "index_absolute_identifiers_on_batch_id"
     t.index ["prefix", "suffix", "pool_identifier"], name: "absolute_identifiers_uniqueness", unique: true
   end
 
   create_table "batches", force: :cascade do |t|
-    t.integer "start_box"
-    t.integer "end_box"
-    t.string "first_barcode"
     t.string "call_number"
-    t.string "location_uri"
+    t.jsonb "container_profile_data"
     t.string "container_profile_uri"
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "resource_uri"
-    t.bigint "user_id"
-    t.jsonb "location_data"
-    t.jsonb "container_profile_data"
+    t.integer "end_box"
+    t.string "first_barcode"
     t.boolean "generate_abid", default: true
+    t.jsonb "location_data"
+    t.string "location_uri"
+    t.string "resource_uri"
+    t.integer "start_box"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["user_id"], name: "index_batches_on_user_id"
   end
 
   create_table "marc_batches", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.boolean "ignore_size_validation", default: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
-    t.boolean "ignore_size_validation", default: false
     t.index ["user_id"], name: "index_marc_batches_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.datetime "remember_created_at", precision: nil
-    t.string "provider", default: "cas", null: false
-    t.string "uid", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "aspace_uri"
+    t.datetime "created_at", null: false
+    t.string "provider", default: "cas", null: false
+    t.datetime "remember_created_at", precision: nil
+    t.string "uid", null: false
+    t.datetime "updated_at", null: false
     t.index ["provider"], name: "index_users_on_provider"
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
     t.index ["uid"], name: "index_users_on_uid", unique: true

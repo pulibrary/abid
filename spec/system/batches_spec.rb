@@ -142,6 +142,8 @@ RSpec.describe "Batch management" do
       # Ensure these options exist.
       choose("Replace Existing AbIDs")
       choose("Protect Existing AbIDs")
+      # Ensure we pick replace existing AbIDs
+      choose("Replace Existing AbIDs")
       expect(page).to have_content "Prefix can't be blank"
       select "Ordinary (N)", from: "Prefix"
 
@@ -151,6 +153,8 @@ RSpec.describe "Batch management" do
 
       batch = MarcBatch.last
       expect(batch.absolute_identifiers.map(&:prefix)).to contain_exactly("N", "N")
+      # Make sure picking replace existing AbIDs worked.
+      expect(batch.ignore_size_validation).to eq true
 
       visit root_path
 
