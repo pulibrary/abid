@@ -17,7 +17,7 @@ gem "marc"
 gem "net-imap", require: false
 gem "net-pop", require: false
 gem "net-smtp", require: false
-gem "net-ssh", "7.3.0"
+gem "net-ssh", "7.3.2"
 gem "omniauth-cas"
 gem "pg"
 gem "puma", "~> 7.0"
