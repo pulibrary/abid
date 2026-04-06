@@ -12,6 +12,11 @@ export default defineConfig({
       'vue': 'vue/dist/vue.esm-bundler',
     },
   },
+  css: {
+    lightningcss: {
+      errorRecovery: true
+    }
+  },
   build: {
     sourcemap: true
   }
