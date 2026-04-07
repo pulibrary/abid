@@ -25,6 +25,12 @@
       "matchPackageNames": [
         "/postgres/"
       ]
+    },
+    {
+      "matchManagers": [
+        "bundler"
+      ],
+      "rangeStrategy": "update-lockfile"
     }
   ],
   "customManagers": [
