@@ -502,7 +502,7 @@ DEPENDENCIES
   ed25519
   factory_bot_rails
   health-monitor-rails (~> 12.9)
-  honeybadger (~> 6.0)
+  honeybadger (= 6.3.1)
   jbuilder (~> 2.7)
   listen (~> 3.3)
   marc
@@ -516,7 +516,7 @@ DEPENDENCIES
   pry-rails
   puma (~> 7.0)
   rack-mini-profiler (~> 4.0)
-  rails (~> 8.1.0)
+  rails (= 8.1.2)
   rake
   rspec-rails
   sass-rails (>= 6)
