@@ -72,6 +72,5 @@
       "depNameTemplate": "ruby"
     }
   ],
-  "prHourlyLimit": 3,
-  "rangeStrategy": "pin"
+  "prHourlyLimit": 3
 }
