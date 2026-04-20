@@ -76,7 +76,7 @@ jobs:
       - run: node --version
       - run:
           name: Yarn Install
-          command: yarn install --cache-folder ~/.cache/yarn
+          command: yarn install --cache-folder ~/.cache/yarn --ignore-scripts
 
       # Store yarn / webpacker cache
       - save_cache:
@@ -105,7 +105,7 @@ jobs:
       - run: node --version
       - run:
           name: Yarn Install
-          command: yarn install --cache-folder ~/.cache/yarn
+          command: yarn install --cache-folder ~/.cache/yarn --ignore-scripts
 
       # ensure we have psql which we need for db:schema:load
       - run: wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
