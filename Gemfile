@@ -11,7 +11,7 @@ gem "cocoon"
 gem "csv", "~> 3.3.2"
 gem "devise"
 gem "health-monitor-rails", "~> 12.9"
-gem "honeybadger", "6.5.3"
+gem "honeybadger", "6.5.5"
 gem "jbuilder", "~> 2.7"
 gem "marc"
 gem "net-imap", require: false
