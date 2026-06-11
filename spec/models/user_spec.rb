@@ -70,7 +70,7 @@ RSpec.describe User, type: :model do
         )
         user = described_class.from_cas(access_token)
 
-        expect { user.authorized? }.to raise_error(ArchivesSpace::ConnectionError)
+        expect { user.authorized? }.to raise_error(ArchivesSpace::AuthenticationError)
       end
     end
   end

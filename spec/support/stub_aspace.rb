@@ -3,7 +3,7 @@
 module AspaceStubbing
   def stub_user(uid:, uri:)
     stub_aspace_login
-    stub_request(:get, "https://aspace.test.org/staff/api/users?page=1").to_return(
+    stub_request(:get, "https://aspace.test.org/staff/api/users?page=1&page_size=50").to_return(
       status: 200,
       headers: {
         "Content-Type" => "application/json"
@@ -30,7 +30,7 @@ module AspaceStubbing
         ]
       }.to_json
     )
-    stub_request(:get, "https://aspace.test.org/staff/api/users?page=2").to_return(
+    stub_request(:get, "https://aspace.test.org/staff/api/users?page=2&page_size=50").to_return(
       status: 200,
       headers: {
         "Content-Type" => "application/json"
@@ -136,7 +136,7 @@ module AspaceStubbing
   end
 
   def stub_repositories
-    uri = "/repositories?page=1"
+    uri = "/repositories?page=1&page_size=50"
     path = Rails.root.join("spec", "fixtures", "aspace", "repositories_1.json")
     cache_path(uri: uri, path: path)
     stub_aspace_request(uri: uri, path: path)

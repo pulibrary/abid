@@ -84,12 +84,11 @@ GEM
     annotate (2.6.5)
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
-    archivesspace-client (0.4.2)
+    archivesspace-client (0.6.0)
       dry-cli (~> 0.7)
       httparty (~> 0.14)
       jbuilder (~> 2.12)
       json (~> 2.0)
-      nokogiri (~> 1.10)
     ast (2.4.3)
     backport (1.2.0)
     base64 (0.3.0)
@@ -487,7 +486,7 @@ PLATFORMS
 DEPENDENCIES
   alma
   annotate
-  archivesspace-client
+  archivesspace-client (= 0.6.0)
   base64 (= 0.3.0)
   bcrypt_pbkdf
   bixby
