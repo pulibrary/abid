@@ -15,6 +15,7 @@
     "npm",
     "custom.regex"
   ],
+  "rangeStrategy": "pin",
   "minimumReleaseAge": "14 days",
   "packageRules": [
     {

@@ -75,7 +75,7 @@ class AbsoluteIdentifier < ApplicationRecord
 
   def cache_holding_id
     return if holding_id.present? || !batch.is_a?(MarcBatch) || alma_item.blank?
-    self.holding_cache = alma_item.item
+    self.holding_cache = alma_item.item.to_h
     self.holding_id = alma_item["holding_data"]["holding_id"]
   end
 
