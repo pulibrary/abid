@@ -162,7 +162,7 @@ GEM
     hashie (5.0.0)
     health-monitor-rails (12.9.0)
       railties (>= 6.1)
-    honeybadger (6.6.1)
+    honeybadger (6.6.2)
       logger
       ostruct
     httparty (0.24.0)
@@ -500,7 +500,7 @@ DEPENDENCIES
   ed25519
   factory_bot_rails
   health-monitor-rails (~> 12.9)
-  honeybadger (= 6.6.1)
+  honeybadger (= 6.6.2)
   jbuilder (~> 2.7)
   listen (~> 3.3)
   marc
