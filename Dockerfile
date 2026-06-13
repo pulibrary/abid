@@ -80,7 +80,7 @@ FROM base
 
 # Install packages needed for deployment
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y nginx ruby-foreman && \
+    apt-get install --no-install-recommends -y nginx && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # configure nginx
