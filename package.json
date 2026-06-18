@@ -8,7 +8,7 @@
     "bootstrap": "5.3.8",
     "cocoon-js-vanilla": "1.5.1",
     "datatables.net-bs4": "2.3.8",
-    "jquery": "3.7.1",
+    "jquery": "4.0.0",
     "lux-design-system": "7.7.1",
     "popper.js": "1.16.1",
     "postcss": "8.5.15",
