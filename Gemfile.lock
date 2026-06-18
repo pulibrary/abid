@@ -119,7 +119,7 @@ GEM
       xpath (~> 3.2)
     cocoon (1.2.15)
     coderay (1.1.3)
-    concurrent-ruby (1.3.6)
+    concurrent-ruby (1.3.7)
     connection_pool (3.0.2)
     crack (0.4.6)
       bigdecimal
