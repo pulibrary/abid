@@ -11,6 +11,9 @@ job "abid-staging" {
     count = 2
     network {
       port "http" { to = 3000 }
+      dns {
+        servers = ["172.17.0.1", "128.112.129.209", "8.8.8.8", "8.8.4.4"]
+      }
     }
     service {
       port = "http"
