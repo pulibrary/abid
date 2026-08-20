@@ -23,7 +23,7 @@ job "abid-production" {
       }
     }
     task "webserver" {
-      driver = "podman"
+      driver = "docker"
       config {
         image = "ghcr.io/pulibrary/abid:${ var.branch_or_sha }"
         ports = ["http"]
