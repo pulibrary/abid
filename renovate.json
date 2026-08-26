@@ -15,6 +15,9 @@
     "npm",
     "custom.regex"
   ],
+  "lockFileMaintenance": {
+    "enabled": true
+  },
   "rangeStrategy": "pin",
   "minimumReleaseAge": "14 days",
   "packageRules": [
