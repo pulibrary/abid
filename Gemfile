@@ -20,7 +20,7 @@ gem "net-smtp", require: false
 gem "net-ssh", "7.3.3"
 gem "omniauth-cas"
 gem "pg"
-gem "puma", "~> 7.0"
+gem "puma", "~> 8.0"
 gem "rails", "8.1.3.1"
 gem "rake"
 gem "sass-rails", ">= 6"
