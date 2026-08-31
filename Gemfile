@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-source "https://gem.coop"
+source "https://rubygems.org", cooldown: 14
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem "alma"
@@ -26,7 +26,7 @@ gem "rake"
 gem "sass-rails", ">= 6"
 gem "simple_form"
 gem "turbolinks", "~> 5"
-gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
+gem "tzinfo-data", platforms: %i[windows jruby]
 gem "vite_rails"
 
 group :development, :test do
