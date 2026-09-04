@@ -9,11 +9,11 @@
     "cocoon-js-vanilla": "1.5.1",
     "datatables.net-bs4": "2.3.8",
     "jquery": "3.7.1",
-    "lux-design-system": "7.8.0",
+    "lux-design-system": "7.10.0",
     "popper.js": "1.16.1",
     "postcss": "8.5.26",
     "postcss-import": "16.2.0",
-    "sass": "1.102.0",
+    "sass": "1.103.1",
     "turbolinks": "5.2.0",
     "vue": "3.5.41",
     "vue-turbolinks": "2.2.2"
@@ -21,7 +21,7 @@
   "version": "0.1.0",
   "devDependencies": {
     "@vitejs/plugin-vue": "6.0.8",
-    "vite": "8.2.1",
+    "vite": "8.2.2",
     "vite-plugin-ruby": "5.2.2"
   },
   "packageManager": "yarn@1.22.22",
