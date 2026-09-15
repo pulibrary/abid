@@ -622,10 +622,10 @@ lodash@^4.17.20:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.18.1.tgz#ff2b66c1f6326d59513de2407bf881439812771c"
   integrity sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==
 
-lux-design-system@7.11.4:
-  version "7.11.4"
-  resolved "https://registry.yarnpkg.com/lux-design-system/-/lux-design-system-7.11.4.tgz#6801b122730aaad59ea628ef9036194013a58d3f"
-  integrity sha512-8Ue1H2Oex1xZx0GBipI841TjdcyJJ2McRM4sFYpHmHftD3qAwvxl3PNP1VGSByyp19kcRZd5JnS7Y/y324681g==
+lux-design-system@7.12.0:
+  version "7.12.0"
+  resolved "https://registry.yarnpkg.com/lux-design-system/-/lux-design-system-7.12.0.tgz#ca2fa3105cf416d9206b39eada29a254f27964db"
+  integrity sha512-yzb5lqtyLkbvRl5vXMUaLvU3cgjt2Wq98iDQD0VdY1ErXmWj62O2X7qrpI141TPK7aC3ZdIpwOJAxZ+swCUfvQ==
   dependencies:
     core-js "^3.8.3"
     register-service-worker "^1.7.2"
