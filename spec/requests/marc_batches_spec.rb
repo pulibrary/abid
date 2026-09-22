@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require "rails_helper"
+require "hanami_helper"
 
-RSpec.describe MarcBatchesController do
+RSpec.describe "MarcBatchesController", type: :request do
   describe "#destroy" do
     let(:access_token) { OmniAuth::AuthHash.new(provider: "cas", uid: "user") }
     before do

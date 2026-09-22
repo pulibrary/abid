@@ -5,42 +5,47 @@ inherit_gem:
 AllCops:
   TargetRubyVersion: 3.1
   NewCops: disable
+  SuggestExtensions: false
   Exclude:
     - 'bin/*'
-    - 'config/environments/**/*'
-    - 'db/**/*'
     - 'node_modules/**/*'
     - 'vendor/**/*'
+    - 'config/db/**/*'
+
+# This is no longer a Rails application. bixby enables rubocop-rails, whose
+# cops actively push code back toward ActiveSupport (Rails/Delegate,
+# Rails/Present, Rails/TimeZone), which this port must not depend on.
+Rails:
+  Enabled: false
 
 Layout/LineLength:
   Exclude:
-    - 'config/initializers/simple_form_bootstrap.rb'
+    - 'lib/form_builder.rb'
 
 Metrics/BlockLength:
   Exclude:
-    - 'lib/tasks/auto_annotate_models.rake'
-    - 'config/environments/development.rb'
-    - 'config/initializers/simple_form_bootstrap.rb'
     - 'spec/**/*'
+    - 'config/**/*'
 
 Metrics/ClassLength:
   Exclude:
-    - 'app/models/batch.rb'
+    - 'lib/batch.rb'
+    - 'lib/marc_batch.rb'
+    - 'lib/application_record.rb'
+    - 'lib/form_builder.rb'
 
 Metrics/MethodLength:
   Exclude:
-    - 'app/values/container_profile.rb'
+    - 'lib/container_profile.rb'
+    - 'lib/form_builder.rb'
+    - 'lib/synchronizer.rb'
+    - 'lib/synchronizer/marc_synchronizer.rb'
     - 'spec/support/*'
-    - 'app/services/synchronizer.rb'
-    - 'app/services/synchronizer/marc_synchronizer.rb'
 
 Metrics/ModuleLength:
   Exclude:
     - 'spec/support/stub_aspace.rb'
-
-Rails/UnknownEnv:
-  Exclude:
-    - 'config/initializers/honeybadger_downtime_hook.rb'
+    - 'lib/form_builder.rb'
 
 RSpec/DescribeClass:
   Exclude:
@@ -60,3 +65,13 @@ Style/GuardClause:
 
 Style/IfUnlessModifier:
   Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'config/database_url.rb'
+
+# The form builder mirrors SimpleForm's option surface (label, as, type,
+# input_class, extra, value); they are keyword arguments, not positional.
+Metrics/ParameterLists:
+  Exclude:
+    - 'lib/form_builder.rb'

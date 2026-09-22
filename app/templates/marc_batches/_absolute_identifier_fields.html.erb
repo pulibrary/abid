@@ -1,0 +1,16 @@
+<div class="absolute-identifier-fields nested-fields">
+  <div class="row mb-3">
+    <div class="col-1">
+    </div>
+    <div class="col-10">
+      <%= raw f.input(:barcode, label: "Barcode", input_class: "barcode") %>
+    </div>
+    <div class="col-1 h-100 align-self-center">
+      <%# `link_to_remove_association "Delete", f`. Every row here is for an
+          unsaved record, which cocoon marks "dynamic" so the node is detached
+          rather than hidden behind a _destroy flag. %>
+      <a class="remove_fields dynamic" href="#">Delete</a>
+    </div>
+    <%= raw f.hidden(:pool_identifier, value: "firestone") %>
+  </div>
+</div>

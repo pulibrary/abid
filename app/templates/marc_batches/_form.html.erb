@@ -1,0 +1,33 @@
+<%
+  # `simple_form_for @batch`.
+  f = Abid::FormBuilder.new(object: batch, name_base: "marc_batch", id_base: "marc_batch")
+
+  # `link_to_add_association 'add absolute identifier', f, :absolute_identifiers`.
+  # cocoon-js-vanilla reads the row markup out of
+  # data-association-insertion-template and swaps the child index in: it
+  # rewrites "[new_absolute_identifier]" in names and
+  # "_new_absolute_identifier_" in ids with a freshly generated index. The
+  # insertion node defaults to the link's parent (div.links) and the insertion
+  # method to "before", so new rows land immediately above the links div.
+  insertion_template = render(
+    "marc_batches/absolute_identifier_fields",
+    f: f.fields_for(:absolute_identifiers, index: "new_absolute_identifier", object: AbsoluteIdentifier.new)
+  )
+%>
+<form class="simple_form new_marc_batch" id="new_marc_batch" novalidate="novalidate" action="/marc_batches" accept-charset="UTF-8" method="post">
+  <%= raw f.error_notification %>
+  <%= raw f.select(:prefix, label: "Prefix", collection: sizes, label_method: :first, value_method: :last) %>
+  <% absolute_identifiers.each_with_index do |absolute_identifier, index| %>
+    <%= render "marc_batches/absolute_identifier_fields", f: f.fields_for(:absolute_identifiers, index: index, object: absolute_identifier) %>
+  <% end %>
+  <div class="links">
+    <a class="add_fields" data-association="absolute_identifier" data-associations="absolute_identifiers" data-association-insertion-template="<%= raw Abid::FormBuilder.escape(insertion_template) %>" href="#">add absolute identifier</a>
+  </div>
+  <%= raw f.radio_buttons(:ignore_size_validation, collection: [[false, "Protect Existing AbIDs"], [true, "Replace Existing AbIDs"]]) %>
+  <%= raw f.submit("Create Marc batch") %>
+  <%# See app/templates/batches/_form.html.erb: the token goes last so that the
+      form's element children keep the same positions in every environment. %>
+  <% if context.csrf_token %>
+    <%= raw Abid::FormBuilder.hidden_field_tag("_csrf_token", context.csrf_token) %>
+  <% end %>
+</form>

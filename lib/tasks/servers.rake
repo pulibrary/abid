@@ -1,19 +1,23 @@
 # frozen_string_literal: true
+
+# Ported from the Rails app's lib/tasks/servers.rake. Same three commands and
+# the same lando workflow the README documents; `hanami db prepare` replaces
+# `db:create` + `db:migrate`.
 namespace :servers do
-  task initialize: :environment do
-    Rake::Task["db:create"].invoke
-    Rake::Task["db:migrate"].invoke
+  desc "Create and migrate the development and test databases"
+  task :initialize do
+    sh "bundle exec hanami db prepare"
+    sh "HANAMI_ENV=test bundle exec hanami db prepare"
   end
 
   desc "Starts development dependencies"
-  task start: :environment do
-    system("lando start")
-    system("rake servers:initialize")
-    system("rake servers:initialize RAILS_ENV=test")
+  task :start do
+    sh "lando start"
+    Rake::Task["servers:initialize"].invoke
   end
 
   desc "Stop development dependencies"
-  task stop: :environment do
-    system "lando stop"
+  task :stop do
+    sh "lando stop"
   end
 end

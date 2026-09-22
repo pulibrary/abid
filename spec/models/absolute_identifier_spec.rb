@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require "rails_helper"
+require "hanami_helper"
 
 RSpec.describe AbsoluteIdentifier, type: :model do
   it "has a valid factory" do

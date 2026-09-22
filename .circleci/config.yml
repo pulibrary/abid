@@ -14,7 +14,8 @@ executors:
           BUNDLE_PATH: vendor/bundle
           PGHOST: 127.0.0.1
           PGUSER: abid
-          RAILS_ENV: test
+          HANAMI_ENV: test
+          DATABASE_URL: postgres://abid@127.0.0.1:5432/abid_test
       - image: postgres:15
         environment:
           POSTGRES_USER: abid
@@ -119,8 +120,7 @@ jobs:
       - run:
           name: Database setup
           command: |
-            bin/rails db:create
-            bin/rails db:schema:load
+            bundle exec hanami db prepare
 
       # Run rspec
       - run:
@@ -153,7 +153,7 @@ jobs:
       - run:
           name: Inspect coverage report
           command: |
-            RAILS_ENV=test ruby ./scripts/report_coverage.rb
+            HANAMI_ENV=test ruby ./scripts/report_coverage.rb
       - store_artifacts:
           path: ~/abid/coverage
           destination: coverage

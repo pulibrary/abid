@@ -1,0 +1,15 @@
+<div class="row">
+  <div id="batch-create" class="bg-light col m-3 p-3">
+    <%= render "batches/form", batch: batch, container_profiles: container_profiles, locations: locations %>
+  </div>
+</div>
+
+<h2>Unsynchronized</h2>
+<div id="unsynchronized-batches" class="bg-light col m-3 p-3">
+  <a class="btn btn-primary" rel="nofollow" data-method="post" href="/batches/synchronize_all">Synchronize All</a>
+  <%= render "batches/batch_table", batches: unsynchronized_batches %>
+</div>
+<h2>Synchronized</h2>
+<div id="synchronized-batches" class="bg-light col m-3 p-3">
+  <%= render "batches/batch_table", batches: synchronized_batches %>
+</div>

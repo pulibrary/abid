@@ -1,0 +1,43 @@
+<%
+  # `simple_form_for @batch`. The form is only ever rendered for a new record.
+  f = Abid::FormBuilder.new(object: batch, name_base: "batch", id_base: "batch")
+%>
+<form class="simple_form new_batch" id="new_batch" novalidate="novalidate" action="/batches" accept-charset="UTF-8" method="post">
+  <%= raw f.error_notification %>
+  <div class="row mb-3">
+    <div class="col">
+      <%= raw f.input(:first_barcode, label: "First barcode", input_class: "barcode") %>
+    </div>
+    <div class="col">
+      <%= raw f.input(:call_number, label: "Call number") %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <%= raw f.input(:start_box, label: "Start box", as: "numeric integer", type: "number", extra: {"step" => "1"}) %>
+    </div>
+    <div class="col">
+      <%= raw f.input(:end_box, label: "End box", as: "numeric integer", type: "number", extra: {"step" => "1"}) %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <%= raw f.select(:container_profile_uri, label: "Container profile", collection: container_profiles, label_method: :name, value_method: :uri) %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <%= raw f.select(:location_uri, label: "Location", collection: locations, label_method: :title, value_method: :uri) %>
+    </div>
+  </div>
+  <%= raw f.boolean(:generate_abid, label: "Generate Absolute Identifier") %>
+  <%= raw f.submit("Create Batch") %>
+  <%# Rails emitted the authenticity token as the form's first child, but only
+      when forgery protection was on - it is off in the test environment, which
+      is the DOM the system specs address with `> div:nth-child(n)`. Hanami
+      likewise skips the check in test, so the token is emitted last to keep
+      one DOM shape in every environment. %>
+  <% if context.csrf_token %>
+    <%= raw Abid::FormBuilder.hidden_field_tag("_csrf_token", context.csrf_token) %>
+  <% end %>
+</form>

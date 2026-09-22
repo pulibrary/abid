@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require "rails_helper"
+require "hanami_helper"
 
 RSpec.describe Location do
   describe "#pool_identifier" do

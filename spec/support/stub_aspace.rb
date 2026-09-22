@@ -123,39 +123,39 @@ module AspaceStubbing
 
   def stub_locations
     uri = "/locations?page=1&page_size=100"
-    path = Rails.root.join("spec", "fixtures", "aspace", "locations_1.json")
+    path = Abid::APP_ROOT.join("spec", "fixtures", "aspace", "locations_1.json")
     cache_path(uri: uri, path: path)
     stub_aspace_request(uri: uri, path: path)
   end
 
   def stub_container_profiles
     uri = "/container_profiles?page=1&page_size=100"
-    path = Rails.root.join("spec", "fixtures", "aspace", "container_profiles_1.json")
+    path = Abid::APP_ROOT.join("spec", "fixtures", "aspace", "container_profiles_1.json")
     cache_path(uri: uri, path: path)
     stub_aspace_request(uri: uri, path: path)
   end
 
   def stub_repositories
     uri = "/repositories?page=1&page_size=50"
-    path = Rails.root.join("spec", "fixtures", "aspace", "repositories_1.json")
+    path = Abid::APP_ROOT.join("spec", "fixtures", "aspace", "repositories_1.json")
     cache_path(uri: uri, path: path)
     stub_aspace_request(uri: uri, path: path)
   end
 
   def stub_location(ref:)
-    path = Rails.root.join("spec", "fixtures", "aspace", "locations", "#{ref.split('/').last}.json")
+    path = Abid::APP_ROOT.join("spec", "fixtures", "aspace", "locations", "#{ref.split('/').last}.json")
     cache_path(uri: ref, path: path)
     stub_aspace_request(uri: ref, path: path)
   end
 
   def stub_container_profile(ref:)
-    path = Rails.root.join("spec", "fixtures", "aspace", "container_profiles", "#{ref.split('/').last}.json")
+    path = Abid::APP_ROOT.join("spec", "fixtures", "aspace", "container_profiles", "#{ref.split('/').last}.json")
     cache_path(uri: ref, path: path)
     stub_aspace_request(uri: ref, path: path)
   end
 
   def stub_top_container(ref:)
-    path = Rails.root.join("spec", "fixtures", "aspace", "top_containers", "#{ref.split('/').last}.json")
+    path = Abid::APP_ROOT.join("spec", "fixtures", "aspace", "top_containers", "#{ref.split('/').last}.json")
     cache_path(uri: ref, path: path)
     stub_aspace_request(uri: ref, path: path)
   end
@@ -169,7 +169,7 @@ module AspaceStubbing
     uri = "/repositories/#{repository_id}/search"
     uri += "?fields[]=uri&fields[]=indicator_u_icusort&page=1&page_size=1000"
     uri += "&q=collection_identifier_u_stext:#{ead_id}%20indicator_u_icusort:%5B#{indicators.first}%20TO%20#{indicators.last}%5D%20type_enum_s:box&type%5B%5D=top_container"
-    path = Rails.root.join("spec", "fixtures", "aspace", ead_id, "top_containers_#{indicators.first}_#{indicators.last}.json")
+    path = Abid::APP_ROOT.join("spec", "fixtures", "aspace", ead_id, "top_containers_#{indicators.first}_#{indicators.last}.json")
     cache_path(uri: uri, path: path)
     stub_aspace_request(uri: uri, path: path)
   end
@@ -177,7 +177,7 @@ module AspaceStubbing
   def stub_barcode_search(barcodes:)
     uri = "/search?fields%5B%5D=barcode_u_icusort&fields%5B%5D=indicator_u_icusort&fields%5B%5D=uri&page=1"
     uri += "&q=barcode_u_icusort:(#{barcodes.join(' OR ')})%20type_enum_s:box&type%5B%5D=top_container"
-    path = Rails.root.join("spec", "fixtures", "aspace", "top_containers_barcodes_#{barcodes.join('_')}.json")
+    path = Abid::APP_ROOT.join("spec", "fixtures", "aspace", "top_containers_barcodes_#{barcodes.join('_')}.json")
     cache_path(uri: uri, path: path)
     stub_aspace_request(uri: uri, path: path)
   end
@@ -192,7 +192,7 @@ module AspaceStubbing
     repository_uris = Aspace::Client.new.repositories.map { |x| x["uri"] }
     repository_uris.each do |repository_uri|
       uri = "#{repository_uri}/find_by_id/resources?identifier[]=[\"#{ead_id}\"]"
-      path = Rails.root.join("spec", "fixtures", "aspace", ead_id, "repository_#{repository_uri.split('/').last}_find_by.json")
+      path = Abid::APP_ROOT.join("spec", "fixtures", "aspace", ead_id, "repository_#{repository_uri.split('/').last}_find_by.json")
       cache_path(uri: uri, path: path)
       stub_aspace_request(uri: uri, path: path)
     end

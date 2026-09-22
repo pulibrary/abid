@@ -9,12 +9,14 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - SECRET_KEY_BASE=1111111
+      # rack-session requires >= 64 bytes; Rails' cookie store derived a key
+      # from shorter secrets, so the old value (1111111) now fails at boot.
+      - SECRET_KEY_BASE=0000000000111111111122222222223333333333444444444455555555556666
       - APP_DB_HOST=postgres-db
       - APP_DB_USERNAME=root
       - APP_DB_PASSWORD=password
       - APP_DB=abid
-      - RAILS_ENV=staging
+      - HANAMI_ENV=staging
     env_file: .env
     depends_on:
       postgres-db:

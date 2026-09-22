@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+
+require "json"
 desc "Installs ASpace access key into .env via lastpass."
 task setup_keys: :environment do
   content = JSON.parse(`lpass show Shared-ITIMS-Passwords/pulfa/aspace.princeton.edu -j`).first

@@ -50,12 +50,11 @@ job "abid-production" {
         APPLICATION_HOST = 'abid.princeton.edu'
         APPLICATION_HOST_PROTOCOL = 'https'
         APPLICATION_PORT = '443'
-        RAILS_ENV = 'production'
+        HANAMI_ENV = 'production'
         HONEYBADGER_API_KEY = {{ .HONEYBADGER_API_KEY }}
         ASPACE_USER = {{ .ASPACE_USER }}
         ASPACE_PASSWORD = {{ .ASPACE_PASSWORD }}
         ALMA_API_KEY = {{ .ALMA_API_KEY }}
-        RAILS_MASTER_KEY = {{ .RAILS_MASTER_KEY }}
         {{- end -}}
         EOF
       }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Absolute Identifiers</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= raw context.csrf_meta_tags %>
+
+    <%= raw context.vite_client_tag %>
+    <%= raw context.vite_javascript_tag("application") %>
+
+  </head>
+
+  <body>
+    <div class="lux">
+      <lux-library-header app-name="Absolute Identifier Management" abbr-name="LTR" app-url="/" theme="dark">
+      <% if context.current_user.nil? %>
+        <lux-menu-bar type="main-menu" :menu-items="[
+                        {name: 'Create Marc Batch', component: 'MarcBatches', href: '/marc_batches/new'},
+                        {name: 'Login', component: 'Login', href: '/users/auth/cas'}
+                        ]"
+                  ></lux-menu-bar>
+      <% else %>
+        <lux-menu-bar type="main-menu" :menu-items="[
+                        {name: 'Create Marc Batch', component: 'MarcBatches', href: '/marc_batches/new'},
+                        {name: 'Logout', component: 'Logout', href: '/sign_out'}
+                        ]"
+                  ></lux-menu-bar>
+      <% end %>
+      </lux-library-header>
+    </div>
+    <div id="main" class="container">
+      <div class="row">
+        <div class="column">
+          <%= render "shared/flash_message" %>
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+    <div class="lux">
+      <lux-library-footer></lux-library-footer>
+    </div>
+    <div class="deployment-version copyright" >
+      Version <span title="<%= context.git_sha %>"><%= context.branch %> last updated <%= context.last_deployed %>.</span>
+    </div>
+  </body>
+</html>

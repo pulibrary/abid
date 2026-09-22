@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require "rails_helper"
+require "hanami_helper"
 
 RSpec.describe "Batch management" do
   let(:user) { User.from_cas(access_token) }

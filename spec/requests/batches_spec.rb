@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require "rails_helper"
+require "hanami_helper"
 
-RSpec.describe BatchesController do
+RSpec.describe "BatchesController", type: :request do
   before do
     stub_aspace_login
   end
@@ -35,7 +35,7 @@ RSpec.describe BatchesController do
 
         delete "/batches/#{batch.id}"
 
-        expect { Batch.find(batch.id) }.to raise_error ActiveRecord::RecordNotFound
+        expect { Batch.find(batch.id) }.to raise_error ApplicationRecord::RecordNotFound
         expect(AbsoluteIdentifier.all.size).to eq 0
       end
     end

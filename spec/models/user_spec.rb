@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require "hanami_helper"
 
 RSpec.describe User, type: :model do
   let(:access_token) { OmniAuth::AuthHash.new(provider: "cas", uid: "user") }

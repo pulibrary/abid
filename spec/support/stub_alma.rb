@@ -5,7 +5,7 @@ module AlmaStubbing
     stub_request(:get, "https://api-na.hosted.exlibrisgroup.com/almaws/v1/bibs/#{mms_id}/holdings/#{holding_id}")
       .to_return(
         status: 200,
-        body: File.read(Rails.root.join("spec", "fixtures", "alma", "holdings", "#{holding_id}.json")),
+        body: File.read(Abid::APP_ROOT.join("spec", "fixtures", "alma", "holdings", "#{holding_id}.json")),
         headers: { "Content-Type" => "application/json" }
       )
   end
@@ -40,7 +40,7 @@ module AlmaStubbing
       stub_request(:get, "https://api-na.hosted.exlibrisgroup.com/almaws/v1/items?item_barcode=#{barcode}")
         .to_return(
           status: 200,
-          body: File.read(Rails.root.join("spec", "fixtures", "alma", "items", "#{barcode}.json")),
+          body: File.read(Abid::APP_ROOT.join("spec", "fixtures", "alma", "items", "#{barcode}.json")),
           headers: { "Content-Type" => "application/json" }
         )
     end

@@ -1,0 +1,16 @@
+<div class="flash-message mt-3">
+  <div class="container">
+      <%# NOTE: :success is deliberately absent, matching the Rails partial.
+          Devise set flash[:success] on login, but this list never included it,
+          so that message was never rendered. The omniauth callbacks spec
+          asserts the flash VALUE, not its appearance on the page. %>
+      <% [[:notice, 'alert-success'], [:error, 'alert-danger'], [:alert, 'alert-info']].each do |type, flash_dom_class| %>
+        <% if context.flash && context.flash[type] %>
+          <div class="alert <%= flash_dom_class %> ui-corner-all <%= type.to_s %> alert-dismissible fade show" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <%= context.flash[type] %>
+          </div>
+        <% end %>
+      <% end %>
+  </div>
+</div>

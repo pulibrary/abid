@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require "hanami_helper"
 
 RSpec.describe "Health Check" do
   describe "GET /health" do
@@ -12,9 +12,7 @@ RSpec.describe "Health Check" do
 
   context "with a bad database configuration" do
     before do
-      allow_any_instance_of(ActiveRecord::ConnectionAdapters::PostgreSQLAdapter).to receive(:execute) do |instance|
-        raise StandardError if database.blank? || instance.pool.db_config.name == database.to_s
-      end
+      allow(Hanami.app["db.gateway"].connection).to receive(:run).and_raise(StandardError)
     end
 
     it "errors" do

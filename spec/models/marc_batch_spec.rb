@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require "rails_helper"
+require "hanami_helper"
 
 RSpec.describe MarcBatch, type: :model do
   it "has a valid factory" do
@@ -59,7 +59,7 @@ RSpec.describe MarcBatch, type: :model do
         pool_identifier: "firestone"
       }
     ]
-    expect { marc_batch.save! }.to raise_error(ActiveRecord::RecordInvalid)
+    expect { marc_batch.save! }.to raise_error(ApplicationRecord::RecordInvalid)
   end
   it "bypasses size validation if you set ignore_size_validation" do
     marc_batch = FactoryBot.build(:marc_batch)
@@ -104,6 +104,6 @@ RSpec.describe MarcBatch, type: :model do
       }
     ]
 
-    expect { marc_batch.save! }.to raise_error(ActiveRecord::RecordInvalid)
+    expect { marc_batch.save! }.to raise_error(ApplicationRecord::RecordInvalid)
   end
 end
