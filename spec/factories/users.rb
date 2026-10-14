@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :user do
     sequence(:uid) { "uid#{srand}" }
-    provider { "cas" }
+    provider { "openid_connect" }
   end
 end

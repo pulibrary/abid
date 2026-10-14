@@ -1,4 +1,5 @@
 defaults: &defaults
+  entra_client_id: "38311838-6197-4e58-92b6-12e98aaff76d"
   archivespace_url: <%= ENV["ASPACE_URL"] || "https://aspace.princeton.edu/staff/api" %>
   archivespace_user: <%= ENV["ASPACE_USER"] %>
   archivespace_password: <%= ENV["ASPACE_PASSWORD"] %>
@@ -15,8 +16,10 @@ test:
 
 production:
   <<: *defaults
+  entra_redirect_uri: "https://abid.princeton.edu/users/auth/openid_connect/callback"
   archivespace_url: <%= ENV["ASPACE_URL"] || "https://aspace.princeton.edu/staff/api" %>
 
 staging:
   <<: *defaults
+  entra_redirect_uri: "https://abid-staging.princeton.edu/users/auth/openid_connect/callback"
   archivespace_url: <%= ENV["ASPACE_URL"] || "https://aspace-staging.princeton.edu/staff/api" %>

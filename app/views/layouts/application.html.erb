@@ -18,7 +18,7 @@
       <% if current_user.blank? %>
         <lux-menu-bar type="main-menu" :menu-items="[
                         {name: 'Create Marc Batch', component: 'MarcBatches', href: '/marc_batches/new'},
-                        {name: 'Login', component: 'Login', href: '/users/auth/cas'}
+                        {name: 'Login', component: 'Login', href: '/sign_in'}
                         ]"
                   ></lux-menu-bar>
       <% else %>

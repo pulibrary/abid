@@ -6,11 +6,11 @@ RSpec.describe "Root page", type: :request do
     it "displays a big button to log in" do
       get "/"
 
-      expect(response.body).to have_link "LOGIN with NetID"
+      expect(response.body).to have_button "LOGIN with NetID"
     end
   end
   context "when logged in with permission" do
-    let(:user) { User.from_cas(access_token) }
+    let(:user) { User.from_omniauth(access_token) }
     let(:access_token) { OmniAuth::AuthHash.new(provider: "cas", uid: "user") }
     it "redirects" do
       stub_admin_user(uid: "user", uri: "/users/1")
@@ -21,7 +21,7 @@ RSpec.describe "Root page", type: :request do
     end
   end
   context "when logged in without permission" do
-    let(:user) { User.from_cas(access_token) }
+    let(:user) { User.from_omniauth(access_token) }
     let(:access_token) { OmniAuth::AuthHash.new(provider: "cas", uid: "user") }
     it "displays a message" do
       stub_unauthorized_user(uid: "user", uri: "/users/1")
