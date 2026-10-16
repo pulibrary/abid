@@ -5,11 +5,11 @@ require "rails_helper"
 RSpec.describe User, type: :model do
   let(:access_token) { OmniAuth::AuthHash.new(provider: "cas", uid: "user") }
 
-  describe ".from_cas" do
+  describe ".from_omniauth" do
     context "and there's a user with that netid in aspace" do
       it "pulls the URI into the user and creates it" do
         stub_unauthorized_user(uid: "user", uri: "/users/1")
-        user = described_class.from_cas(access_token)
+        user = described_class.from_omniauth(access_token)
         expect(user.aspace_uri).to eq "/users/1"
       end
     end
@@ -19,9 +19,24 @@ RSpec.describe User, type: :model do
       end
       it "returns a user object and updates it with the missing URI" do
         stub_unauthorized_user(uid: "user", uri: "/users/1")
-        user = described_class.from_cas(access_token)
+        user = described_class.from_omniauth(access_token)
         expect(user).to be_a described_class
         expect(user.aspace_uri).to eq "/users/1"
+      end
+    end
+    context "when given an Entra uid" do
+      let(:access_token) { OmniAuth::AuthHash.new(provider: "openid_connect", uid: "user@princeton.edu") }
+      it "strips the domain from the uid" do
+        stub_unauthorized_user(uid: "user", uri: "/users/1")
+        user = described_class.from_omniauth(access_token)
+        expect(user.uid).to eq "user"
+        expect(user.provider).to eq "openid_connect"
+      end
+      it "updates an old CAS user" do
+        old_user = FactoryBot.create(:user, uid: "user", provider: "cas", aspace_uri: "/users/1")
+        user = described_class.from_omniauth(access_token)
+        expect(user.id).to eq old_user.id
+        expect(user.reload.provider).to eq "openid_connect"
       end
     end
   end
@@ -35,7 +50,7 @@ RSpec.describe User, type: :model do
     context "when there's no permissions set in aspace" do
       it "returns false" do
         stub_unauthorized_user(uid: "user", uri: "/users/1")
-        user = described_class.from_cas(access_token)
+        user = described_class.from_omniauth(access_token)
 
         expect(user).not_to be_authorized
       end
@@ -43,7 +58,7 @@ RSpec.describe User, type: :model do
     context "when given an admin user" do
       it "returns true" do
         stub_admin_user(uid: "user", uri: "/users/1")
-        user = described_class.from_cas(access_token)
+        user = described_class.from_omniauth(access_token)
 
         expect(user).to be_authorized
       end
@@ -53,7 +68,7 @@ RSpec.describe User, type: :model do
         # Staff users aren't aspace admins, but have some permissions in some
         # repositories.
         stub_staff_user(uid: "user", uri: "/users/1")
-        user = described_class.from_cas(access_token)
+        user = described_class.from_omniauth(access_token)
 
         expect(user).to be_authorized
       end
@@ -68,7 +83,7 @@ RSpec.describe User, type: :model do
           },
           body: "<html>\r\n<head><title>403 Forbidden</title></head>\r\n<body>\r\n<center><h1>403 Forbidden</h1></center>\r\n<hr><center>nginx/1.27.1</center>\r\n</body>\r\n</html>\r\n"
         )
-        user = described_class.from_cas(access_token)
+        user = described_class.from_omniauth(access_token)
 
         expect { user.authorized? }.to raise_error(ArchivesSpace::AuthenticationError)
       end

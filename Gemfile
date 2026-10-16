@@ -18,7 +18,8 @@ gem "net-imap", require: false
 gem "net-pop", require: false
 gem "net-smtp", require: false
 gem "net-ssh", "7.3.3"
-gem "omniauth-cas"
+gem "omniauth_openid_connect"
+gem "omniauth-rails_csrf_protection"
 gem "pg"
 gem "puma", "~> 8.0"
 gem "rails", "8.1.3.1"

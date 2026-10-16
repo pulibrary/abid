@@ -5,7 +5,9 @@
   <% else %>
     <div class="col-4"></div>
     <div id="welcome-login" class="col-3">
-      <%= link_to "LOGIN with NetID", "/users/auth/cas", class: "btn btn-primary" %>
+      <%= form_tag(user_openid_connect_omniauth_authorize_path) do %>
+        <%= button_tag "LOGIN with NetID", type: "submit", class: "btn btn-primary" %>
+      <% end %>
     </div>
     <div class="col-4"></div>
   <% end %>

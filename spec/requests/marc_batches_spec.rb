@@ -7,7 +7,7 @@ RSpec.describe MarcBatchesController do
     before do
       stub_admin_user(uid: "user", uri: "/users/1")
       stub_alma_barcode(barcode: "32101091123743")
-      user = User.from_cas(access_token)
+      user = User.from_omniauth(access_token)
       sign_in user
     end
 

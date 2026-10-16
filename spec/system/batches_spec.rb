@@ -2,7 +2,7 @@
 require "rails_helper"
 
 RSpec.describe "Batch management" do
-  let(:user) { User.from_cas(access_token) }
+  let(:user) { User.from_omniauth(access_token) }
   let(:access_token) { OmniAuth::AuthHash.new(provider: "cas", uid: "user") }
 
   before do

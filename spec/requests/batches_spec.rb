@@ -10,7 +10,7 @@ RSpec.describe BatchesController do
     let(:access_token) { OmniAuth::AuthHash.new(provider: "cas", uid: "user") }
     before do
       stub_admin_user(uid: "user", uri: "/users/1")
-      user = User.from_cas(access_token)
+      user = User.from_omniauth(access_token)
       stub_resource(ead_id: "ABID001")
       stub_top_container_search(ead_id: "ABID001", repository_id: "4", indicators: 31..31)
       stub_location(ref: "/locations/23648")
@@ -44,7 +44,7 @@ RSpec.describe BatchesController do
   context "when logged in as an admin" do
     let(:access_token) { OmniAuth::AuthHash.new(provider: "cas", uid: "user") }
     let(:user) do
-      User.from_cas(access_token)
+      User.from_omniauth(access_token)
     end
     before do
       stub_admin_user(uid: "user", uri: "/users/1")
@@ -98,7 +98,7 @@ RSpec.describe BatchesController do
     let(:access_token) { OmniAuth::AuthHash.new(provider: "cas", uid: "user") }
     before do
       stub_unauthorized_user(uid: "user", uri: "/users/1")
-      user = User.from_cas(access_token)
+      user = User.from_omniauth(access_token)
       sign_in user
     end
     it "redirects to the root" do

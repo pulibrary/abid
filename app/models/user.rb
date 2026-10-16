@@ -24,15 +24,17 @@ class User < ApplicationRecord
   has_many :batches, -> { order(created_at: :desc) }, dependent: :destroy
   has_many :marc_batches, -> { order(created_at: :desc) }, dependent: :destroy
 
-  def self.from_cas(access_token)
-    user = User.find_by(provider: access_token.provider, uid: access_token.uid)
-    user_with_aspace_uri(user) || create_user_from_aspace(access_token)
+  def self.from_omniauth(access_token)
+    uid = access_token.uid.split("@princeton.edu").first
+    user = User.find_by(uid: uid)
+    user&.update(provider: access_token.provider)
+    user_with_aspace_uri(user) || create_user_from_aspace(uid, access_token.provider)
   end
 
-  def self.create_user_from_aspace(access_token)
-    aspace_user = Aspace::Client.new.find_aspace_user(access_token.uid)
+  def self.create_user_from_aspace(uid, provider)
+    aspace_user = Aspace::Client.new.find_aspace_user(uid)
     return if aspace_user.blank?
-    User.create(provider: access_token.provider, uid: access_token.uid, aspace_uri: aspace_user["uri"])
+    User.create(provider: provider, uid: uid, aspace_uri: aspace_user["uri"])
   end
 
   def self.user_with_aspace_uri(user)

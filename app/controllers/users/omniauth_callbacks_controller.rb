@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  def cas
+  def openid_connect
     # You need to implement the method below in your model (e.g. app/models/user.rb)
-    @user = User.from_cas(request.env["omniauth.auth"])
+    @user = User.from_omniauth(request.env["omniauth.auth"])
 
     if @user.nil?
       redirect_to root_path
@@ -14,5 +14,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
                                                    "Service")
       end
     end
+  end
+
+  def after_omniauth_failure_path_for(_scope)
+    new_user_session_path
   end
 end
