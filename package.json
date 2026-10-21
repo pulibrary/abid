@@ -21,7 +21,7 @@
   "version": "0.1.0",
   "devDependencies": {
     "@vitejs/plugin-vue": "6.0.8",
-    "vite": "8.2.2",
+    "vite": "8.2.4",
     "vite-plugin-ruby": "5.2.3"
   },
   "packageManager": "yarn@1.22.22",
