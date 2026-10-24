@@ -4,25 +4,25 @@ source "https://rubygems.org", cooldown: 14
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem "alma"
-gem "archivesspace-client", "0.6.0"
+gem "archivesspace-client", "0.7.0"
 gem "base64", "0.3.0" # To make the application bundle correctly
 gem "bootsnap", ">= 1.4.4", require: false
 gem "cocoon"
 gem "csv", "~> 3.3.2"
 gem "devise"
 gem "health-monitor-rails", "~> 12.9"
-gem "honeybadger", "6.9.1"
+gem "honeybadger", "6.9.3"
 gem "jbuilder", "~> 2.7"
 gem "marc"
 gem "net-imap", require: false
 gem "net-pop", require: false
 gem "net-smtp", require: false
-gem "net-ssh", "7.3.3"
+gem "net-ssh", "7.3.6"
 gem "omniauth_openid_connect"
 gem "omniauth-rails_csrf_protection"
 gem "pg"
 gem "puma", "~> 8.0"
-gem "rails", "8.1.3.1"
+gem "rails", "8.1.4"
 gem "rake"
 gem "sass-rails", ">= 6"
 gem "simple_form"
