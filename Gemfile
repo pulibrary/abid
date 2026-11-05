@@ -17,7 +17,7 @@ gem "marc"
 gem "net-imap", require: false
 gem "net-pop", require: false
 gem "net-smtp", require: false
-gem "net-ssh", "7.3.6"
+gem "net-ssh", "8.0.2"
 gem "omniauth_openid_connect"
 gem "omniauth-rails_csrf_protection"
 gem "pg"
