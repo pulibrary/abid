@@ -243,8 +243,9 @@ GEM
       timeout
     net-smtp (0.5.2)
       net-protocol
-    net-ssh (7.3.8)
+    net-ssh (8.0.4)
       logger
+      openssl (>= 3.2.0)
     nio4r (2.7.5)
     nokogiri (1.19.4-aarch64-linux-gnu)
       racc (~> 1.4)
@@ -277,6 +278,7 @@ GEM
       tzinfo
       validate_url
       webfinger (~> 2.0)
+    openssl (4.0.2)
     orm_adapter (0.5.0)
     ostruct (0.6.3)
     parallel (1.28.0)
@@ -558,7 +560,7 @@ DEPENDENCIES
   net-imap
   net-pop
   net-smtp
-  net-ssh (= 7.3.8)
+  net-ssh (= 8.0.4)
   omniauth-rails_csrf_protection
   omniauth_openid_connect
   pg
