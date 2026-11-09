@@ -11,13 +11,13 @@ gem "cocoon"
 gem "csv", "~> 3.3.2"
 gem "devise"
 gem "health-monitor-rails", "~> 12.9"
-gem "honeybadger", "6.9.3"
+gem "honeybadger", "6.10.0"
 gem "jbuilder", "~> 2.7"
 gem "marc"
 gem "net-imap", require: false
 gem "net-pop", require: false
 gem "net-smtp", require: false
-gem "net-ssh", "7.3.6"
+gem "net-ssh", "7.3.8"
 gem "omniauth_openid_connect"
 gem "omniauth-rails_csrf_protection"
 gem "pg"
