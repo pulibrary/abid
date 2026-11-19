@@ -16,10 +16,15 @@
     "custom.regex"
   ],
   "lockFileMaintenance": {
-    "enabled": true
+    "enabled": true,
+    "automerge": false,
+    "minimumReleaseAge": null,
+    "schedule": [
+      "* 20-23 * * 1"
+    ]
   },
   "rangeStrategy": "pin",
-  "minimumReleaseAge": "14 days",
+  "minimumReleaseAge": "4 days",
   "packageRules": [
     {
       "matchDatasources": [
@@ -35,6 +40,20 @@
         "bundler"
       ],
       "rangeStrategy": "update-lockfile"
+    },
+    {
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "automerge": true
+    },
+    {
+      "matchDatasources": [
+        "ruby-version",
+        "node-version"
+      ],
+      "minimumReleaseAge": "4 hours"
     }
   ],
   "customManagers": [
