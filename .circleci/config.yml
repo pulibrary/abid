@@ -91,7 +91,11 @@ jobs:
   test:
     executor: abid-executor
     steps:
-      - browser-tools/install_chrome
+      # Capybara w/ Chrome 158 had a bug:
+      # https://github.com/teamcapybara/capybara/issues/2865
+      - browser-tools/install_chrome:
+          chrome_version: 157.0.8103.78
+          replace_existing: true
       - browser-tools/install_chromedriver
       - attach_workspace:
           at: '~/abid'
