@@ -285,7 +285,10 @@ GEM
     pp (0.6.4)
       prettyprint
     prettyprint (0.2.1)
-    prism (1.9.0)
+    prism (2.1.0-aarch64-linux-gnu)
+    prism (2.1.0-arm64-darwin)
+    prism (2.1.0-x86_64-darwin)
+    prism (2.1.0-x86_64-linux-gnu)
     pry (0.16.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
