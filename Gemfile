@@ -31,6 +31,7 @@ gem "tzinfo-data", platforms: %i[windows jruby]
 gem "vite_rails"
 
 group :development, :test do
+  gem "benchmark"
   gem "bixby"
   gem "dotenv-rails"
   gem "factory_bot_rails"
