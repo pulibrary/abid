@@ -28,7 +28,7 @@ job "abid-production" {
     task "webserver" {
       driver = "docker"
       config {
-        image = "ghcr.io/pulibrary/abid:${ var.branch_or_sha }"
+        image = "ghcr.io/pulibrary/abid:sha-${ var.branch_or_sha }"
         ports = ["http"]
         force_pull = true
       }
