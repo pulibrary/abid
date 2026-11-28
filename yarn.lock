@@ -485,20 +485,17 @@ csstype@^3.2.3, csstype@^3.2.4:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.2.4.tgz#e3c565add00793c36f089cc14b70d04d784daa19"
   integrity sha512-PoKaoPzQapnEoqUSnHx1u6W6ku8CVEgKsnpmmzU3m1nwkidpPBQ8V/Zq2+bWNrsOKoKLwTGdbx6xF7BXP1zLVQ==
 
-datatables.net-bs4@2.3.8:
-  version "2.3.8"
-  resolved "https://registry.yarnpkg.com/datatables.net-bs4/-/datatables.net-bs4-2.3.8.tgz#da3660b5981ba062aa59dda1c81c524201111742"
-  integrity sha512-i65jbIw6DPG6KyUXRacCFzbawRYA2UjPg68tPkOns/r9YXQngSMQ/+izdmJk1xnPDRXh3cuTqV8cqOIy1NXH1A==
+datatables.net-bs4@3.1.6:
+  version "3.1.6"
+  resolved "https://registry.yarnpkg.com/datatables.net-bs4/-/datatables.net-bs4-3.1.6.tgz#e2ba51af30689510020fdb9cf32c1aafc6a877d6"
+  integrity sha512-wyNK4buFkCC/0lvbK3xNXGH5ZQZc8rPf2QWZ3g8fhnZ3TmlZr8zqUTfgydOvRRJLnglNJpSKhBhpsyl2IndUqQ==
   dependencies:
-    datatables.net "2.3.8"
-    jquery ">=1.7"
+    datatables.net "3.1.6"
 
-datatables.net@2.3.8:
-  version "2.3.8"
-  resolved "https://registry.yarnpkg.com/datatables.net/-/datatables.net-2.3.8.tgz#55a8dbe3bd2196951c498ab79bf44602a2bf3229"
-  integrity sha512-uhViowhlDlheAuo5a8TrkQqADsjrtGeOyvrigvr4t0+K3MyAWqClORXWAYIcN9VLX6iIX0C8O9gwJNd01hITRg==
-  dependencies:
-    jquery ">=1.7"
+datatables.net@3.1.6:
+  version "3.1.6"
+  resolved "https://registry.yarnpkg.com/datatables.net/-/datatables.net-3.1.6.tgz#6f2991dfebf03fc35b225d0c284af59c94bc5cfa"
+  integrity sha512-gHQ2TCiDmN7t5FajFAnCiT8AYxLOtmVaDZELedy79mStrRqxJM7yIU/suknM77b5FeqXrHEYDsitAz8jZGJ1Dw==
 
 date-fns-tz@^2.0.0:
   version "2.0.1"
@@ -582,11 +579,6 @@ jquery@3.8.0:
   version "3.8.0"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.8.0.tgz#3bf83324052cc9e7148718e9d6ea3cde1b2b9f5a"
   integrity sha512-AOYt0viqPysMUTq45O8gF9DuOnBT3Il/8WtM/TT8z/2QeGsZ70ImwSJtNFxznn2R71v8yIgaEunOGo82OY/f0g==
-
-jquery@>=1.7:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-4.1.0.tgz#b15839cd1ea0e555ee3dce856dd9568e1b81f504"
-  integrity sha512-tnN2N83S+xD3yhmdBP4nnJ1XOO0Fl586rG23FA5h/JAe8XN3W9a1zGwDMltBptn+UpcqEKicnO61+jQ0EiF2fw==
 
 lightningcss-android-arm64@1.33.0:
   version "1.33.0"
